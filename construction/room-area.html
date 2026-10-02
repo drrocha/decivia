@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Room Area &amp; Flooring Calculator | Decivia</title>
+<meta name="description" content="Calculate room floor area and the number of flooring boxes you need, with waste percentage included and an optional rough cost.">
+<link rel="canonical" href="https://decivia.online/construction/room-area.html">
+<meta property="og:title" content="Room Area & Flooring Calculator">
+<meta property="og:description" content="Floor area and waste-adjusted flooring box count for a room.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/construction/room-area.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Construction", "item": "https://decivia.online/construction/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Room Area Calculator", "item": "https://decivia.online/construction/room-area.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Room Area & Flooring Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/construction/room-area.html",
+  "description": "Calculates room floor area and the number of flooring boxes needed, with a waste percentage and optional rough cost.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I calculate room floor area?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Multiply the room's length by its width, both measured in feet, to get square feet. For irregular rooms, split the space into rectangles and add the areas together." }
+    },
+    {
+      "@type": "Question",
+      "name": "How much extra flooring should I buy for waste?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A common range is 10% for simple rectangular rooms and 15-20% for rooms with many cuts, angles, or a diagonal installation pattern. Always round up to the next full box." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the cost estimate here accurate?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Cost is based on a unit price you enter yourself, so it is only as accurate as that price, and is not a current market quote." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/construction/index.html">Construction</a></li>
+      <li>Room area</li>
+    </ol>
+  </nav>
+
+  <h1>Room Area &amp; Flooring Calculator</h1>
+  <p class="lede">Enter your room's length and width, plus the flooring's coverage per box, to get the area and the number of boxes to buy.</p>
+
+  <form class="calc-form" id="r-form" novalidate>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">
+          Imperial (ft, sq ft)
+        </button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">
+          Metric (m, m²)
+        </button>
+      </div>
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label for="r-length">Room length</label>
+        <div class="input-with-unit">
+          <input type="number" id="r-length" value="12" min="0.1" step="0.1">
+          <span class="unit-badge" id="r-length-badge">ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="r-width">Room width</label>
+        <div class="input-with-unit">
+          <input type="number" id="r-width" value="10" min="0.1" step="0.1">
+          <span class="unit-badge" id="r-width-badge">ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="r-coverage">Flooring coverage per box</label>
+        <div class="input-with-unit">
+          <input type="number" id="r-coverage" value="20" min="0.1" step="0.1">
+          <span class="unit-badge" id="r-coverage-badge">sq ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="r-waste">Waste</label>
+        <div class="input-with-unit">
+          <input type="number" id="r-waste" value="10" min="0" max="50" step="1">
+          <span class="unit-badge">%</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="r-price">Price per box (optional)</label>
+        <div class="input-with-unit">
+          <input type="number" id="r-price" min="0" step="0.01" placeholder="e.g. 38.00">
+          <span class="unit-badge">$</span>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn">Calculate</button>
+
+    <div class="result-panel" id="r-result" hidden aria-live="polite">
+      <p class="result-main" id="r-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label" id="r-lbl-area">Floor area</span><span class="value" id="r-out-area">—</span></div>
+        <div class="result-item"><span class="label">Boxes (raw)</span><span class="value" id="r-out-raw">—</span></div>
+        <div class="result-item"><span class="label">Boxes (waste-adjusted)</span><span class="value" id="r-out-adjusted">—</span></div>
+        <div class="result-item"><span class="label">Rough cost</span><span class="value" id="r-out-cost">—</span></div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so the interactive calculator can't run. See "How it works" below for the formula.
+    </div>
+  </noscript>
+
+  <div class="notice">
+    <strong>Estimate only.</strong> Any cost shown uses the price you enter and is not a current market quote.
+  </div>
+
+  <h2>How it works</h2>
+  <p>Floor area is length times width. The raw box count divides area by the flooring's coverage per box. The waste-adjusted count multiplies that by (1 + waste % ÷ 100), then rounds up, since partial boxes usually can't be purchased.</p>
+
+  <h3>Worked example</h3>
+  <p>A 12 ft × 10 ft room is 120 sq ft. At 20 sq ft of flooring per box with 10% waste: 120 ÷ 20 = 6 boxes, × 1.10 = 6.6, rounded up to 7 boxes.</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>The room is treated as a simple rectangle; split irregular rooms into rectangles and add the areas.</li>
+    <li>Box coverage is a typical figure — check your specific product's labeled coverage.</li>
+    <li>Any cost shown uses the price you enter; it is not a live market price.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>General construction measurement practices: <a href="https://codes.iccsafe.org/" rel="nofollow noopener" target="_blank">International Code Council (ICC)</a>.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/construction/drywall.html">Drywall calculator</a> — estimate sheets for the walls in this same room.</li>
+    <li><a href="/construction/deck-materials.html">Deck material calculator</a> — a similar area-to-materials calculation for outdoor decking.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>How do I calculate room floor area?</summary>
+      <p>Multiply length by width in feet. For irregular rooms, split the space into rectangles and add the areas.</p>
+    </details>
+    <details>
+      <summary>How much extra flooring should I buy for waste?</summary>
+      <p>Commonly 10% for simple rooms and 15-20% for complex cuts or diagonal patterns. Always round up to a whole box.</p>
+    </details>
+    <details>
+      <summary>Is the cost estimate here accurate?</summary>
+      <p>No — it is based on the price you enter and is not a current market quote.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc;
+  const form = document.getElementById("r-form");
+  const resultPanel = document.getElementById("r-result");
+
+  const fieldDefs = [
+    { id: "r-length", badgeId: "r-length-badge", impUnit: "ft", metUnit: "m", impToMet: calc.ftToM, metToImp: calc.mToFt, decimals: 1 },
+    { id: "r-width", badgeId: "r-width-badge", impUnit: "ft", metUnit: "m", impToMet: calc.ftToM, metToImp: calc.mToFt, decimals: 1 },
+    { id: "r-coverage", badgeId: "r-coverage-badge", impUnit: "sq ft", metUnit: "m²", impToMet: calc.sqFtToSqM, metToImp: calc.sqMToSqFt, decimals: 2 },
+  ];
+
+  let prevSystem = "imperial";
+  const unitManager = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, prevSystem, newSys);
+      prevSystem = newSys;
+      compute();
+    },
+  });
+  prevSystem = unitManager.getSystem();
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = prevSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (prevSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+  }
+
+  function compute() {
+    const isMetric = unitManager.getSystem() === "metric";
+    const l = util.readNumber(document.getElementById("r-length"), { label: "Room length", allowZero: false });
+    const w = util.readNumber(document.getElementById("r-width"), { label: "Room width", allowZero: false });
+    const coverage = util.readNumber(document.getElementById("r-coverage"), { label: "Coverage per box", allowZero: false });
+    const wastePct = util.readNumber(document.getElementById("r-waste"), { label: "Waste %", max: 50 });
+    const price = parseFloat(document.getElementById("r-price").value);
+
+    if (l === null || w === null || coverage === null || wastePct === null) {
+      resultPanel.hidden = true;
+      return;
+    }
+
+    const area = l * w;
+    const raw = area / coverage;
+    const adjusted = Math.ceil(calc.wasteAdjust(raw, wastePct));
+
+    resultPanel.hidden = false;
+    document.getElementById("r-result-main").textContent = `${adjusted} boxes needed (${isMetric ? util.formatNumber(area, 2) + " m²" : util.formatNumber(area, 1) + " sq ft"})`;
+    document.getElementById("r-lbl-area").textContent = isMetric ? "Floor area (m²)" : "Floor area (sq ft)";
+    document.getElementById("r-out-area").textContent = isMetric ? util.formatNumber(area, 2) + " m²" : util.formatNumber(area, 1) + " sq ft";
+    document.getElementById("r-out-raw").textContent = util.formatNumber(raw, 2) + " boxes";
+    document.getElementById("r-out-adjusted").textContent = adjusted + " boxes";
+    document.getElementById("r-out-cost").textContent = isFinite(price) && price > 0 ? "$" + util.formatNumber(adjusted * price, 2) : "—";
+  }
+
+  form.addEventListener("input", util.debounce(compute, 80));
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  compute();
+})();
+</script>
+</body>
+</html>

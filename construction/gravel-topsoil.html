@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gravel &amp; Topsoil Calculator — Bags, Cubic Yards &amp; Tons | Decivia</title>
+<meta name="description" content="Calculate gravel or topsoil volume from length, width, and depth, converted to bags, cubic yards, and approximate tons with a waste allowance.">
+<link rel="canonical" href="https://decivia.online/construction/gravel-topsoil.html">
+<meta property="og:title" content="Gravel & Topsoil Calculator">
+<meta property="og:description" content="Gravel or topsoil volume in bags, cubic yards, and approximate tons.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/construction/gravel-topsoil.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Construction", "item": "https://decivia.online/construction/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Gravel & Topsoil Calculator", "item": "https://decivia.online/construction/gravel-topsoil.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Gravel & Topsoil Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/construction/gravel-topsoil.html",
+  "description": "Calculates gravel or topsoil volume from length, width, and depth, converted to bags, cubic yards, and approximate tons.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I calculate how much gravel or topsoil I need?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Multiply length by width by depth (depth converted to feet) to get cubic feet, then convert to bags, cubic yards, or tons based on the material's typical coverage or density." }
+    },
+    {
+      "@type": "Question",
+      "name": "How many cubic feet are in a cubic yard?",
+      "acceptedAnswer": { "@type": "Answer", "text": "27 cubic feet make one cubic yard (3 ft × 3 ft × 3 ft), which is the usual unit for bulk delivery quotes." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the tons estimate exact?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. It uses a typical bulk density for gravel or topsoil, but actual density varies with material type, grain size, and moisture content. Confirm with your supplier for a delivery order." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/construction/index.html">Construction</a></li>
+      <li>Gravel &amp; topsoil</li>
+    </ol>
+  </nav>
+
+  <h1>Gravel &amp; Topsoil Calculator</h1>
+  <p class="lede">Enter the area's length, width, and depth to get the volume in bags, cubic yards, and approximate tons.</p>
+
+  <form class="calc-form" id="g-form" novalidate>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">
+          Imperial (ft, in, yd³, tons)
+        </button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">
+          Metric (m, cm, m³, tonnes)
+        </button>
+      </div>
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label for="g-length">Area length</label>
+        <div class="input-with-unit">
+          <input type="number" id="g-length" value="20" min="0.1" step="0.1">
+          <span class="unit-badge" id="g-length-badge">ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="g-width">Area width</label>
+        <div class="input-with-unit">
+          <input type="number" id="g-width" value="10" min="0.1" step="0.1">
+          <span class="unit-badge" id="g-width-badge">ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="g-depth">Depth</label>
+        <div class="input-with-unit">
+          <input type="number" id="g-depth" value="3" min="0.1" step="0.1">
+          <span class="unit-badge" id="g-depth-badge">in</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="g-material">Material</label>
+        <select id="g-material">
+          <option value="gravel" selected>Gravel</option>
+          <option value="topsoil">Topsoil</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="g-waste">Waste</label>
+        <div class="input-with-unit">
+          <input type="number" id="g-waste" value="10" min="0" max="50" step="1">
+          <span class="unit-badge">%</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="g-price" id="g-price-label">Price per bag (optional)</label>
+        <div class="input-with-unit">
+          <input type="number" id="g-price" min="0" step="0.01" placeholder="e.g. 4.50">
+          <span class="unit-badge">$</span>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn">Calculate</button>
+
+    <div class="result-panel" id="g-result" hidden aria-live="polite">
+      <p class="result-main" id="g-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label" id="g-lbl-vol1">Total Volume</span><span class="value" id="g-out-vol1">—</span></div>
+        <div class="result-item"><span class="label" id="g-lbl-vol2">Bulk Volume</span><span class="value" id="g-out-vol2">—</span></div>
+        <div class="result-item"><span class="label" id="g-lbl-bags">Bags (waste-adjusted)</span><span class="value" id="g-out-bags">—</span></div>
+        <div class="result-item"><span class="label" id="g-lbl-weight">Approx. weight</span><span class="value" id="g-out-weight">—</span></div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so the interactive calculator can't run. See "How it works" below for the formula.
+    </div>
+  </noscript>
+
+  <div class="notice">
+    <strong>Approximate weight.</strong> Tons use a typical bulk density for the selected material; actual density varies with moisture and grain size. Confirm with your supplier before ordering bulk delivery.
+  </div>
+
+  <h2>How it works</h2>
+  <p>Volume is length × width × depth, with depth converted from inches to feet. Bag count divides volume by a typical bag's coverage (0.5 cu ft for gravel, 0.75 cu ft for topsoil), then adds your waste percentage and rounds up. Cubic yards divide volume by 27. Approximate weight multiplies volume by a typical bulk density (about 105 lb/cu ft for gravel, 80 lb/cu ft for topsoil).</p>
+
+  <h3>Worked example</h3>
+  <p>A 20 ft × 10 ft area at 3 in deep is 50 cu ft (20 × 10 × 0.25). For gravel at 0.5 cu ft per bag with 10% waste: 50 ÷ 0.5 = 100 bags, × 1.10 = 110 bags, or about 1.85 cu yd and roughly 2.6 tons.</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>The area is treated as a simple rectangle at a uniform depth.</li>
+    <li>Bag coverage and bulk density are typical figures — check your specific product's label.</li>
+    <li>Bulk orders are usually priced and delivered by the cubic yard, not by bag.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>General construction measurement practices: <a href="https://codes.iccsafe.org/" rel="nofollow noopener" target="_blank">International Code Council (ICC)</a>.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/construction/deck-materials.html">Deck material calculator</a> — estimate decking for the area above this fill.</li>
+    <li><a href="/tanks/tank-volume.html">Tank volume calculator</a> — a similar volume calculation for liquid storage.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>How do I calculate how much gravel or topsoil I need?</summary>
+      <p>Multiply length × width × depth (in feet) for cubic feet, then convert to bags, cubic yards, or tons.</p>
+    </details>
+    <details>
+      <summary>How many cubic feet are in a cubic yard?</summary>
+      <p>27 cubic feet (3 ft × 3 ft × 3 ft) make one cubic yard, the usual unit for bulk delivery.</p>
+    </details>
+    <details>
+      <summary>Is the tons estimate exact?</summary>
+      <p>No — it uses a typical bulk density that varies with material and moisture. Confirm with your supplier before ordering.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc, data = CalcAtlas.data;
+  const form = document.getElementById("g-form");
+  const resultPanel = document.getElementById("g-result");
+
+  const fieldDefs = [
+    { id: "g-length", badgeId: "g-length-badge", impUnit: "ft", metUnit: "m", impToMet: calc.ftToM, metToImp: calc.mToFt, decimals: 1 },
+    { id: "g-width", badgeId: "g-width-badge", impUnit: "ft", metUnit: "m", impToMet: calc.ftToM, metToImp: calc.mToFt, decimals: 1 },
+    { id: "g-depth", badgeId: "g-depth-badge", impUnit: "in", metUnit: "cm", impToMet: calc.inToCm, metToImp: calc.cmToIn, decimals: 1 },
+  ];
+
+  let prevSystem = "imperial";
+  const unitManager = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, prevSystem, newSys);
+      prevSystem = newSys;
+      compute();
+    },
+  });
+  prevSystem = unitManager.getSystem();
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = prevSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (prevSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+  }
+
+  function compute() {
+    const isMetric = unitManager.getSystem() === "metric";
+    const l = util.readNumber(document.getElementById("g-length"), { label: "Area length", allowZero: false });
+    const w = util.readNumber(document.getElementById("g-width"), { label: "Area width", allowZero: false });
+    const depth = util.readNumber(document.getElementById("g-depth"), { label: "Depth", allowZero: false });
+    const wastePct = util.readNumber(document.getElementById("g-waste"), { label: "Waste %", max: 50 });
+    const price = parseFloat(document.getElementById("g-price").value);
+
+    if (l === null || w === null || depth === null || wastePct === null) {
+      resultPanel.hidden = true;
+      return;
+    }
+
+    const material = document.getElementById("g-material").value;
+    resultPanel.hidden = false;
+
+    if (isMetric) {
+      // Dimensions are in meters and cm
+      const cuM = l * w * (depth / 100);
+      const bagM3 = material === "gravel" ? 0.015 : 0.020; // 15L or 20L bags
+      const rawBags = cuM / bagM3;
+      const adjustedBags = Math.ceil(calc.wasteAdjust(rawBags, wastePct));
+      const densityKg = material === "gravel" ? 1680 : 1280; // kg per m3
+      const tonnes = (cuM * densityKg) / 1000;
+
+      let mainMsg = `${adjustedBags} bags (or ${util.formatNumber(cuM, 2)} m³ bulk)`;
+      if (isFinite(price) && price > 0) {
+        mainMsg += ` — ≈ $${util.formatNumber(adjustedBags * price, 2)}`;
+      }
+      document.getElementById("g-result-main").textContent = mainMsg;
+      document.getElementById("g-lbl-vol1").textContent = "Total Volume";
+      document.getElementById("g-out-vol1").textContent = util.formatNumber(cuM, 2) + " m³";
+      document.getElementById("g-lbl-vol2").textContent = "Bulk Volume";
+      document.getElementById("g-out-vol2").textContent = util.formatNumber(cuM * 1000, 0) + " liters";
+      document.getElementById("g-lbl-bags").textContent = "Bags (waste-adjusted)";
+      document.getElementById("g-out-bags").textContent = `${adjustedBags} bags (≈ ${material === "gravel" ? "15" : "20"} L each)`;
+      document.getElementById("g-lbl-weight").textContent = "Approx. weight";
+      document.getElementById("g-out-weight").textContent = `≈ ${util.formatNumber(tonnes, 2)} tonnes (${util.formatNumber(tonnes * 1000, 0)} kg)`;
+    } else {
+      // Dimensions are in feet and inches
+      const volumeCuFt = calc.volumeCuFt({ lengthFt: l, widthFt: w, depthFt: depth / 12 });
+      const bagCoverage = data.bagCoverage[material + "BagCuFt"];
+      const rawBags = volumeCuFt / bagCoverage;
+      const adjustedBags = Math.ceil(calc.wasteAdjust(rawBags, wastePct));
+      const cuYd = util.units.cuFtToCuYd(volumeCuFt);
+      const lbPerCuFt = data.materialDensityLbPerCuFt[material];
+      const tons = (volumeCuFt * lbPerCuFt) / 2000;
+
+      let mainMsg = `${adjustedBags} bags (or ${util.formatNumber(cuYd, 2)} cu yd bulk)`;
+      if (isFinite(price) && price > 0) {
+        mainMsg += ` — ≈ $${util.formatNumber(adjustedBags * price, 2)}`;
+      }
+      document.getElementById("g-result-main").textContent = mainMsg;
+      document.getElementById("g-lbl-vol1").textContent = "Total Volume";
+      document.getElementById("g-out-vol1").textContent = util.formatNumber(volumeCuFt, 1) + " cu ft";
+      document.getElementById("g-lbl-vol2").textContent = "Bulk Volume";
+      document.getElementById("g-out-vol2").textContent = util.formatNumber(cuYd, 2) + " cu yd";
+      document.getElementById("g-lbl-bags").textContent = "Bags (waste-adjusted)";
+      document.getElementById("g-out-bags").textContent = `${adjustedBags} bags (≈ ${material === "gravel" ? "0.5" : "0.75"} cu ft each)`;
+      document.getElementById("g-lbl-weight").textContent = "Approx. weight";
+      document.getElementById("g-out-weight").textContent = `≈ ${util.formatNumber(tons, 2)} tons (${util.formatNumber(tons * 2000, 0)} lb)`;
+    }
+  }
+
+  form.addEventListener("input", util.debounce(compute, 80));
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  document.getElementById("g-material").addEventListener("change", compute);
+  compute();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drywall Calculator — Sheet Count by Wall Area | Decivia</title>
+<meta name="description" content="Calculate drywall sheet count from wall area, door/window openings, and sheet size, with a waste allowance.">
+<link rel="canonical" href="https://decivia.online/construction/drywall.html">
+<meta property="og:title" content="Drywall Calculator">
+<meta property="og:description" content="Wall area minus openings, converted to a waste-adjusted drywall sheet count.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/construction/drywall.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Construction", "item": "https://decivia.online/construction/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Drywall Calculator", "item": "https://decivia.online/construction/drywall.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Drywall Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/construction/drywall.html",
+  "description": "Calculates wall area minus door/window openings and a waste-adjusted drywall sheet count for a chosen sheet size.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many sheets of drywall do I need?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Subtract large openings like doors and windows from the total wall area, divide by the sheet's coverage area, add a waste percentage, and round up to a whole sheet." }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I subtract every door and window opening?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Small openings are often ignored because installers still cut a sheet to size around them with little savings; larger openings are commonly subtracted. Many estimators skip subtracting altogether to build in extra waste allowance." }
+    },
+    {
+      "@type": "Question",
+      "name": "Which drywall sheet size should I choose?",
+      "acceptedAnswer": { "@type": "Answer", "text": "4x8 ft sheets are the most common and easiest to handle; longer 4x10 or 4x12 sheets reduce the number of horizontal seams on tall or long walls but are heavier and harder to maneuver alone." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/construction/index.html">Construction</a></li>
+      <li>Drywall</li>
+    </ol>
+  </nav>
+
+  <h1>Drywall Calculator</h1>
+  <p class="lede">Enter total wall length and height, subtract any large openings, and pick a sheet size to get a waste-adjusted sheet count.</p>
+
+  <form class="calc-form" id="w-form" novalidate>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">
+          Imperial (ft, sq ft)
+        </button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">
+          Metric (m, m²)
+        </button>
+      </div>
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label for="w-length">Wall length (total)</label>
+        <div class="input-with-unit">
+          <input type="number" id="w-length" value="40" min="0.1" step="0.1">
+          <span class="unit-badge" id="w-length-badge">ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="w-height">Wall height</label>
+        <div class="input-with-unit">
+          <input type="number" id="w-height" value="8" min="0.1" step="0.1">
+          <span class="unit-badge" id="w-height-badge">ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="w-openings">Door/window openings</label>
+        <div class="input-with-unit">
+          <input type="number" id="w-openings" value="40" min="0" step="1">
+          <span class="unit-badge" id="w-openings-badge">sq ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="w-sheet">Sheet size</label>
+        <select id="w-sheet">
+          <option value="sheet1" selected>4 ft × 8 ft (32 sq ft)</option>
+          <option value="sheet2">4 ft × 10 ft (40 sq ft)</option>
+          <option value="sheet3">4 ft × 12 ft (48 sq ft)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="w-waste">Waste</label>
+        <div class="input-with-unit">
+          <input type="number" id="w-waste" value="10" min="0" max="50" step="1">
+          <span class="unit-badge">%</span>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn">Calculate</button>
+
+    <div class="result-panel" id="w-result" hidden aria-live="polite">
+      <p class="result-main" id="w-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label" id="w-lbl-area">Net wall area</span><span class="value" id="w-out-area">—</span></div>
+        <div class="result-item"><span class="label">Sheets (raw)</span><span class="value" id="w-out-raw">—</span></div>
+        <div class="result-item"><span class="label">Sheets (waste-adjusted)</span><span class="value" id="w-out-adjusted">—</span></div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so the interactive calculator can't run. See "How it works" below for the formula.
+    </div>
+  </noscript>
+
+  <h2>How it works</h2>
+  <p>Gross wall area is total wall length times height. Subtracting door and window openings gives net area. Dividing by the chosen sheet's coverage gives the raw sheet count, and multiplying by (1 + waste % ÷ 100) then rounding up gives the sheets to buy.</p>
+
+  <h3>Worked example</h3>
+  <p>40 ft of wall at 8 ft high is 320 sq ft gross. Subtracting 40 sq ft of doors and windows leaves 280 sq ft. At 32 sq ft per 4×8 sheet with 10% waste: 280 ÷ 32 = 8.75 sheets, × 1.10 ≈ 9.6, rounded up to 10 sheets.</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>Walls are treated as a single total length and height; add multiple rooms' areas together before entering them here.</li>
+    <li>Subtracting openings is optional — many estimators skip it to build in extra waste allowance for cuts.</li>
+    <li>This does not account for ceiling drywall, corner bead, tape, or mud — estimate those separately.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>General construction measurement practices: <a href="https://codes.iccsafe.org/" rel="nofollow noopener" target="_blank">International Code Council (ICC)</a>.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/construction/room-area.html">Room area calculator</a> — flooring for the same room.</li>
+    <li><a href="/electrical/wire-sizing.html">Wire size calculator</a> — plan circuits before the walls are closed up.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>How many sheets of drywall do I need?</summary>
+      <p>Subtract large openings from total wall area, divide by sheet coverage, add waste percentage, and round up to a whole sheet.</p>
+    </details>
+    <details>
+      <summary>Should I subtract every door and window opening?</summary>
+      <p>Small openings are often ignored since a sheet still needs cutting around them; larger openings are commonly subtracted. Many estimators skip it entirely for extra waste margin.</p>
+    </details>
+    <details>
+      <summary>Which drywall sheet size should I choose?</summary>
+      <p>4x8 ft sheets are most common and easiest to handle; 4x10 or 4x12 reduce seams on tall or long walls but are heavier.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc;
+  const form = document.getElementById("w-form");
+  const resultPanel = document.getElementById("w-result");
+  const sheetSelect = document.getElementById("w-sheet");
+
+  const SHEET_COVERAGE = {
+    imperial: {
+      sheet1: { name: "4 ft × 8 ft (32 sq ft)", area: 32 },
+      sheet2: { name: "4 ft × 10 ft (40 sq ft)", area: 40 },
+      sheet3: { name: "4 ft × 12 ft (48 sq ft)", area: 48 },
+    },
+    metric: {
+      sheet1: { name: "1.2 m × 2.4 m (2.88 m²)", area: 2.88 },
+      sheet2: { name: "1.2 m × 2.7 m (3.24 m²)", area: 3.24 },
+      sheet3: { name: "1.2 m × 3.0 m (3.60 m²)", area: 3.60 },
+    },
+  };
+
+  const fieldDefs = [
+    { id: "w-length", badgeId: "w-length-badge", impUnit: "ft", metUnit: "m", impToMet: calc.ftToM, metToImp: calc.mToFt, decimals: 1 },
+    { id: "w-height", badgeId: "w-height-badge", impUnit: "ft", metUnit: "m", impToMet: calc.ftToM, metToImp: calc.mToFt, decimals: 1 },
+    { id: "w-openings", badgeId: "w-openings-badge", impUnit: "sq ft", metUnit: "m²", impToMet: calc.sqFtToSqM, metToImp: calc.sqMToSqFt, decimals: 1 },
+  ];
+
+  function updateSheetOptions(sys) {
+    const opts = SHEET_COVERAGE[sys];
+    const prevVal = sheetSelect.value || "sheet1";
+    sheetSelect.innerHTML = "";
+    Object.keys(opts).forEach((k) => {
+      const opt = document.createElement("option");
+      opt.value = k;
+      opt.textContent = opts[k].name;
+      if (k === prevVal) opt.selected = true;
+      sheetSelect.appendChild(opt);
+    });
+  }
+
+  let prevSystem = "imperial";
+  const unitManager = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, prevSystem, newSys);
+      updateSheetOptions(newSys);
+      prevSystem = newSys;
+      compute();
+    },
+  });
+  prevSystem = unitManager.getSystem();
+  updateSheetOptions(prevSystem);
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = prevSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (prevSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+  }
+
+  function compute() {
+    const isMetric = unitManager.getSystem() === "metric";
+    const l = util.readNumber(document.getElementById("w-length"), { label: "Wall length", allowZero: false });
+    const h = util.readNumber(document.getElementById("w-height"), { label: "Wall height", allowZero: false });
+    const openings = parseFloat(document.getElementById("w-openings").value) || 0;
+    const wastePct = util.readNumber(document.getElementById("w-waste"), { label: "Waste %", max: 50 });
+
+    if (l === null || h === null || wastePct === null) {
+      resultPanel.hidden = true;
+      return;
+    }
+
+    const netArea = Math.max(0, l * h - openings);
+    const sheetKey = sheetSelect.value || "sheet1";
+    const sheetData = SHEET_COVERAGE[isMetric ? "metric" : "imperial"][sheetKey];
+    const raw = netArea / sheetData.area;
+    const adjusted = Math.ceil(calc.wasteAdjust(raw, wastePct));
+    const areaUnitStr = isMetric ? "m²" : "sq ft";
+
+    resultPanel.hidden = false;
+    document.getElementById("w-result-main").textContent = `${adjusted} sheets needed (${util.formatNumber(netArea, 1)} ${areaUnitStr})`;
+    document.getElementById("w-lbl-area").textContent = `Net wall area (${areaUnitStr})`;
+    document.getElementById("w-out-area").textContent = `${util.formatNumber(netArea, 1)} ${areaUnitStr}`;
+    document.getElementById("w-out-raw").textContent = `${util.formatNumber(raw, 2)} sheets`;
+    document.getElementById("w-out-adjusted").textContent = `${adjusted} sheets`;
+  }
+
+  form.addEventListener("input", util.debounce(compute, 80));
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  sheetSelect.addEventListener("change", compute);
+  compute();
+})();
+</script>
+</body>
+</html>

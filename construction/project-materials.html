@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project Materials Calculator — Lumber, Drywall &amp; Fill | Decivia</title>
+<meta name="description" content="Combine decking/flooring boards, drywall sheets, and gravel or topsoil fill into one project estimate, with waste allowances and a combined cost total.">
+<link rel="canonical" href="https://decivia.online/construction/project-materials.html">
+<meta property="og:title" content="Project Materials Calculator">
+<meta property="og:description" content="Combined lumber, drywall, and fill material estimate for one project, with a running cost total.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/construction/project-materials.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Construction", "item": "https://decivia.online/construction/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Project Materials Calculator", "item": "https://decivia.online/construction/project-materials.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Project Materials Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/construction/project-materials.html",
+  "description": "Combines decking/flooring boards, drywall sheets, and gravel/topsoil fill into one waste-adjusted project material estimate with a running cost total.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does the project materials calculator combine?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It combines three estimates in one workflow: decking/flooring boards from area and board coverage, drywall sheets from wall area and sheet size, and gravel or topsoil fill from volume, so you can plan a multi-material project at once." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I have to fill in every section?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Leave a section's price field blank to exclude it from the combined cost total, and ignore sections your project doesn't need; each section's quantity still calculates independently." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why would I use this instead of the individual calculators?",
+      "acceptedAnswer": { "@type": "Answer", "text": "If a single project needs decking, drywall, and fill material together, this avoids re-entering a waste percentage and unit system three times and gives one combined cost total." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/construction/index.html">Construction</a></li>
+      <li>Project materials</li>
+    </ol>
+  </nav>
+
+  <h1>Project Materials Calculator</h1>
+  <p class="lede">Combine decking/flooring boards, drywall sheets, and gravel or topsoil fill into one project estimate, each with its own waste allowance and optional price, plus a combined cost total.</p>
+
+  <form class="calc-form" id="pm-form" novalidate>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">
+          Imperial (ft, in)
+        </button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">
+          Metric (m, cm)
+        </button>
+      </div>
+    </div>
+
+    <h2>1. Decking / flooring boards</h2>
+    <div class="input-grid">
+      <div class="field">
+        <label for="pb-length">Area length</label>
+        <div class="input-with-unit">
+          <input type="number" id="pb-length" value="16" min="0" step="0.1">
+          <span class="unit-badge" id="pb-length-badge">ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pb-width">Area width</label>
+        <div class="input-with-unit">
+          <input type="number" id="pb-width" value="12" min="0" step="0.1">
+          <span class="unit-badge" id="pb-width-badge">ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pb-coverage">Board coverage (each)</label>
+        <div class="input-with-unit">
+          <input type="number" id="pb-coverage" value="16" min="0.01" step="0.1">
+          <span class="unit-badge" id="pb-coverage-badge">sq ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pb-waste">Waste</label>
+        <div class="input-with-unit">
+          <input type="number" id="pb-waste" value="10" min="0" max="50" step="1">
+          <span class="unit-badge">%</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pb-price">Price per board (optional)</label>
+        <div class="input-with-unit">
+          <input type="number" id="pb-price" min="0" step="0.01" placeholder="e.g. 22.00">
+          <span class="unit-badge">$</span>
+        </div>
+      </div>
+    </div>
+    <div class="result-panel" id="pb-result" hidden aria-live="polite">
+      <p class="result-main" id="pb-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label" id="pb-lbl-area">Area</span><span class="value" id="pb-out-area">—</span></div>
+        <div class="result-item"><span class="label">Boards (raw)</span><span class="value" id="pb-out-raw">—</span></div>
+        <div class="result-item"><span class="label">Boards (needed)</span><span class="value" id="pb-out-boards">—</span></div>
+        <div class="result-item"><span class="label">Cost</span><span class="value" id="pb-out-cost">—</span></div>
+      </div>
+    </div>
+
+    <h2>2. Drywall</h2>
+    <div class="input-grid">
+      <div class="field">
+        <label for="pd-length">Wall length (total)</label>
+        <div class="input-with-unit">
+          <input type="number" id="pd-length" value="40" min="0" step="0.1">
+          <span class="unit-badge" id="pd-length-badge">ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pd-height">Wall height</label>
+        <div class="input-with-unit">
+          <input type="number" id="pd-height" value="8" min="0" step="0.1">
+          <span class="unit-badge" id="pd-height-badge">ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pd-openings">Door/window openings</label>
+        <div class="input-with-unit">
+          <input type="number" id="pd-openings" value="40" min="0" step="1">
+          <span class="unit-badge" id="pd-openings-badge">sq ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pd-sheet">Sheet size</label>
+        <select id="pd-sheet"></select>
+      </div>
+      <div class="field">
+        <label for="pd-waste">Waste</label>
+        <div class="input-with-unit">
+          <input type="number" id="pd-waste" value="10" min="0" max="50" step="1">
+          <span class="unit-badge">%</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pd-price">Price per sheet (optional)</label>
+        <div class="input-with-unit">
+          <input type="number" id="pd-price" min="0" step="0.01" placeholder="e.g. 14.00">
+          <span class="unit-badge">$</span>
+        </div>
+      </div>
+    </div>
+    <div class="result-panel" id="pd-result" hidden aria-live="polite">
+      <p class="result-main" id="pd-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label" id="pd-lbl-area">Net wall area</span><span class="value" id="pd-out-area">—</span></div>
+        <div class="result-item"><span class="label">Sheets (raw)</span><span class="value" id="pd-out-raw">—</span></div>
+        <div class="result-item"><span class="label">Sheets (needed)</span><span class="value" id="pd-out-sheets">—</span></div>
+        <div class="result-item"><span class="label">Cost</span><span class="value" id="pd-out-cost">—</span></div>
+      </div>
+    </div>
+
+    <h2>3. Gravel / topsoil fill</h2>
+    <div class="input-grid">
+      <div class="field">
+        <label for="pg-length">Area length</label>
+        <div class="input-with-unit">
+          <input type="number" id="pg-length" value="20" min="0" step="0.1">
+          <span class="unit-badge" id="pg-length-badge">ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pg-width">Area width</label>
+        <div class="input-with-unit">
+          <input type="number" id="pg-width" value="10" min="0" step="0.1">
+          <span class="unit-badge" id="pg-width-badge">ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pg-depth">Depth</label>
+        <div class="input-with-unit">
+          <input type="number" id="pg-depth" value="3" min="0" step="0.1">
+          <span class="unit-badge" id="pg-depth-badge">in</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pg-material">Material</label>
+        <select id="pg-material">
+          <option value="gravel" selected>Gravel</option>
+          <option value="topsoil">Topsoil</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="pg-waste">Waste</label>
+        <div class="input-with-unit">
+          <input type="number" id="pg-waste" value="10" min="0" max="50" step="1">
+          <span class="unit-badge">%</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pg-price">Price per bag (optional)</label>
+        <div class="input-with-unit">
+          <input type="number" id="pg-price" min="0" step="0.01" placeholder="e.g. 4.50">
+          <span class="unit-badge">$</span>
+        </div>
+      </div>
+    </div>
+    <div class="result-panel" id="pg-result" hidden aria-live="polite">
+      <p class="result-main" id="pg-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label" id="pg-lbl-vol">Volume</span><span class="value" id="pg-out-vol">—</span></div>
+        <div class="result-item"><span class="label">Bags (needed)</span><span class="value" id="pg-out-bags">—</span></div>
+        <div class="result-item"><span class="label">Approx. weight</span><span class="value" id="pg-out-weight">—</span></div>
+        <div class="result-item"><span class="label">Cost</span><span class="value" id="pg-out-cost">—</span></div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn">Calculate project totals</button>
+
+    <div class="result-panel" id="ps-result" hidden aria-live="polite">
+      <p class="result-main" id="ps-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label">Boards needed</span><span class="value" id="ps-out-boards">—</span></div>
+        <div class="result-item"><span class="label">Drywall sheets needed</span><span class="value" id="ps-out-sheets">—</span></div>
+        <div class="result-item"><span class="label">Fill bags needed</span><span class="value" id="ps-out-bags">—</span></div>
+        <div class="result-item"><span class="label">Total estimated cost</span><span class="value" id="ps-out-cost">—</span></div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so the interactive calculator can't run. See "How it works" below for the formulas.
+    </div>
+  </noscript>
+
+  <h2>How it works</h2>
+  <p>Each section uses the same math as its dedicated calculator: area (length × width) divided by material coverage, adjusted by (1 + waste % ÷ 100) and rounded up to a whole unit. Drywall subtracts door/window openings from gross wall area first. Gravel/topsoil fill converts length × width × depth into cubic feet (or cubic meters), then into bags and approximate weight using typical bag coverage and bulk density. Prices are optional per section — leave a price blank to exclude that section from the combined cost total.</p>
+
+  <h3>Worked example</h3>
+  <p>A 16 ft × 12 ft deck (16 sq ft/board, 10% waste) needs 14 boards. 40 ft of 8 ft wall with 40 sq ft of openings (32 sq ft/sheet, 10% waste) needs 10 sheets. A 20 ft × 10 ft bed of gravel at 3 in deep (0.5 cu ft/bag, 10% waste) needs 110 bags. Combined, that's 3 material lists and one project total.</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>Each section is independent — areas, openings, and depths are not shared between sections.</li>
+    <li>Board/sheet coverage, bag coverage, and bulk density are typical figures — check your specific product.</li>
+    <li>This does not include framing, fasteners, tape/mud, or delivery charges — estimate those separately.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>General construction measurement practices: <a href="https://codes.iccsafe.org/" rel="nofollow noopener" target="_blank">International Code Council (ICC)</a>.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/construction/deck-materials.html">Deck material calculator</a> — the standalone boards-only version.</li>
+    <li><a href="/construction/drywall.html">Drywall calculator</a> — the standalone sheets-only version.</li>
+    <li><a href="/construction/gravel-topsoil.html">Gravel &amp; topsoil calculator</a> — the standalone fill-only version.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>What does the project materials calculator combine?</summary>
+      <p>Decking/flooring boards, drywall sheets, and gravel/topsoil fill — three independent waste-adjusted estimates in one workflow, with a combined cost total.</p>
+    </details>
+    <details>
+      <summary>Do I have to fill in every section?</summary>
+      <p>No — leave a section's price blank to exclude it from the combined total, and ignore sections your project doesn't need.</p>
+    </details>
+    <details>
+      <summary>Why would I use this instead of the individual calculators?</summary>
+      <p>It saves re-entering a unit system and waste percentage three times, and gives one combined project cost.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc, data = CalcAtlas.data;
+  const form = document.getElementById("pm-form");
+  const sheetSelect = document.getElementById("pd-sheet");
+
+  const SHEET_COVERAGE = {
+    imperial: {
+      sheet1: { name: "4 ft × 8 ft (32 sq ft)", area: 32 },
+      sheet2: { name: "4 ft × 10 ft (40 sq ft)", area: 40 },
+      sheet3: { name: "4 ft × 12 ft (48 sq ft)", area: 48 },
+    },
+    metric: {
+      sheet1: { name: "1.2 m × 2.4 m (2.88 m²)", area: 2.88 },
+      sheet2: { name: "1.2 m × 2.7 m (3.24 m²)", area: 3.24 },
+      sheet3: { name: "1.2 m × 3.0 m (3.60 m²)", area: 3.60 },
+    },
+  };
+
+  function updateSheetOptions(sys) {
+    const opts = SHEET_COVERAGE[sys];
+    const prevVal = sheetSelect.value || "sheet1";
+    sheetSelect.innerHTML = "";
+    Object.keys(opts).forEach((k) => {
+      const opt = document.createElement("option");
+      opt.value = k;
+      opt.textContent = opts[k].name;
+      if (k === prevVal) opt.selected = true;
+      sheetSelect.appendChild(opt);
+    });
+  }
+
+  const fieldDefs = [
+    { id: "pb-length", badgeId: "pb-length-badge", impUnit: "ft", metUnit: "m", impToMet: calc.ftToM, metToImp: calc.mToFt, decimals: 1 },
+    { id: "pb-width", badgeId: "pb-width-badge", impUnit: "ft", metUnit: "m", impToMet: calc.ftToM, metToImp: calc.mToFt, decimals: 1 },
+    { id: "pb-coverage", badgeId: "pb-coverage-badge", impUnit: "sq ft", metUnit: "m²", impToMet: calc.sqFtToSqM, metToImp: calc.sqMToSqFt, decimals: 2 },
+    { id: "pd-length", badgeId: "pd-length-badge", impUnit: "ft", metUnit: "m", impToMet: calc.ftToM, metToImp: calc.mToFt, decimals: 1 },
+    { id: "pd-height", badgeId: "pd-height-badge", impUnit: "ft", metUnit: "m", impToMet: calc.ftToM, metToImp: calc.mToFt, decimals: 1 },
+    { id: "pd-openings", badgeId: "pd-openings-badge", impUnit: "sq ft", metUnit: "m²", impToMet: calc.sqFtToSqM, metToImp: calc.sqMToSqFt, decimals: 1 },
+    { id: "pg-length", badgeId: "pg-length-badge", impUnit: "ft", metUnit: "m", impToMet: calc.ftToM, metToImp: calc.mToFt, decimals: 1 },
+    { id: "pg-width", badgeId: "pg-width-badge", impUnit: "ft", metUnit: "m", impToMet: calc.ftToM, metToImp: calc.mToFt, decimals: 1 },
+    { id: "pg-depth", badgeId: "pg-depth-badge", impUnit: "in", metUnit: "cm", impToMet: calc.inToCm, metToImp: calc.cmToIn, decimals: 1 },
+  ];
+
+  let prevSystem = "imperial";
+  const unitManager = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, prevSystem, newSys);
+      updateSheetOptions(newSys);
+      prevSystem = newSys;
+      compute();
+    },
+  });
+  prevSystem = unitManager.getSystem();
+  updateSheetOptions(prevSystem);
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = prevSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (prevSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+  }
+
+  function computeBoards(isMetric) {
+    const l = util.readNumber(document.getElementById("pb-length"), { label: "Board area length", allowZero: false });
+    const w = util.readNumber(document.getElementById("pb-width"), { label: "Board area width", allowZero: false });
+    const coverage = util.readNumber(document.getElementById("pb-coverage"), { label: "Board coverage", allowZero: false });
+    const wastePct = util.readNumber(document.getElementById("pb-waste"), { label: "Board waste %", max: 50 });
+    const price = parseFloat(document.getElementById("pb-price").value);
+    const panel = document.getElementById("pb-result");
+
+    if (l === null || w === null || coverage === null || wastePct === null) {
+      panel.hidden = true;
+      return null;
+    }
+
+    const area = l * w;
+    const raw = area / coverage;
+    const adjusted = Math.ceil(calc.wasteAdjust(raw, wastePct));
+    const cost = isFinite(price) && price > 0 ? adjusted * price : null;
+    const areaUnitStr = isMetric ? "m²" : "sq ft";
+
+    panel.hidden = false;
+    document.getElementById("pb-result-main").textContent = `${adjusted} boards needed (${util.formatNumber(area, 1)} ${areaUnitStr})`;
+    document.getElementById("pb-lbl-area").textContent = `Area (${areaUnitStr})`;
+    document.getElementById("pb-out-area").textContent = `${util.formatNumber(area, 1)} ${areaUnitStr}`;
+    document.getElementById("pb-out-raw").textContent = `${util.formatNumber(raw, 2)} boards`;
+    document.getElementById("pb-out-boards").textContent = `${adjusted} boards`;
+    document.getElementById("pb-out-cost").textContent = cost !== null ? "$" + util.formatNumber(cost, 2) : "—";
+
+    return { qty: adjusted, cost };
+  }
+
+  function computeDrywall(isMetric) {
+    const l = util.readNumber(document.getElementById("pd-length"), { label: "Wall length", allowZero: false });
+    const h = util.readNumber(document.getElementById("pd-height"), { label: "Wall height", allowZero: false });
+    const openings = parseFloat(document.getElementById("pd-openings").value) || 0;
+    const wastePct = util.readNumber(document.getElementById("pd-waste"), { label: "Drywall waste %", max: 50 });
+    const price = parseFloat(document.getElementById("pd-price").value);
+    const panel = document.getElementById("pd-result");
+
+    if (l === null || h === null || wastePct === null) {
+      panel.hidden = true;
+      return null;
+    }
+
+    const netArea = Math.max(0, l * h - openings);
+    const sheetKey = sheetSelect.value || "sheet1";
+    const sheetData = SHEET_COVERAGE[isMetric ? "metric" : "imperial"][sheetKey];
+    const raw = netArea / sheetData.area;
+    const adjusted = Math.ceil(calc.wasteAdjust(raw, wastePct));
+    const cost = isFinite(price) && price > 0 ? adjusted * price : null;
+    const areaUnitStr = isMetric ? "m²" : "sq ft";
+
+    panel.hidden = false;
+    document.getElementById("pd-result-main").textContent = `${adjusted} sheets needed (${util.formatNumber(netArea, 1)} ${areaUnitStr})`;
+    document.getElementById("pd-lbl-area").textContent = `Net wall area (${areaUnitStr})`;
+    document.getElementById("pd-out-area").textContent = `${util.formatNumber(netArea, 1)} ${areaUnitStr}`;
+    document.getElementById("pd-out-raw").textContent = `${util.formatNumber(raw, 2)} sheets`;
+    document.getElementById("pd-out-sheets").textContent = `${adjusted} sheets`;
+    document.getElementById("pd-out-cost").textContent = cost !== null ? "$" + util.formatNumber(cost, 2) : "—";
+
+    return { qty: adjusted, cost };
+  }
+
+  function computeFill(isMetric) {
+    const l = util.readNumber(document.getElementById("pg-length"), { label: "Fill area length", allowZero: false });
+    const w = util.readNumber(document.getElementById("pg-width"), { label: "Fill area width", allowZero: false });
+    const depth = util.readNumber(document.getElementById("pg-depth"), { label: "Fill depth", allowZero: false });
+    const wastePct = util.readNumber(document.getElementById("pg-waste"), { label: "Fill waste %", max: 50 });
+    const price = parseFloat(document.getElementById("pg-price").value);
+    const material = document.getElementById("pg-material").value;
+    const panel = document.getElementById("pg-result");
+
+    if (l === null || w === null || depth === null || wastePct === null) {
+      panel.hidden = true;
+      return null;
+    }
+
+    panel.hidden = false;
+
+    if (isMetric) {
+      const cuM = l * w * (depth / 100);
+      const bagM3 = material === "gravel" ? 0.015 : 0.020;
+      const rawBags = cuM / bagM3;
+      const adjustedBags = Math.ceil(calc.wasteAdjust(rawBags, wastePct));
+      const densityKg = material === "gravel" ? 1680 : 1280;
+      const tonnes = (cuM * densityKg) / 1000;
+      const cost = isFinite(price) && price > 0 ? adjustedBags * price : null;
+
+      document.getElementById("pg-result-main").textContent = `${adjustedBags} bags (or ${util.formatNumber(cuM, 2)} m³ bulk)`;
+      document.getElementById("pg-lbl-vol").textContent = "Volume (m³)";
+      document.getElementById("pg-out-vol").textContent = util.formatNumber(cuM, 2) + " m³";
+      document.getElementById("pg-out-bags").textContent = `${adjustedBags} bags`;
+      document.getElementById("pg-out-weight").textContent = `≈ ${util.formatNumber(tonnes, 2)} tonnes`;
+      document.getElementById("pg-out-cost").textContent = cost !== null ? "$" + util.formatNumber(cost, 2) : "—";
+
+      return { qty: adjustedBags, cost };
+    }
+
+    const volumeCuFt = calc.volumeCuFt({ lengthFt: l, widthFt: w, depthFt: depth / 12 });
+    const bagCoverage = data.bagCoverage[material + "BagCuFt"];
+    const rawBags = volumeCuFt / bagCoverage;
+    const adjustedBags = Math.ceil(calc.wasteAdjust(rawBags, wastePct));
+    const cuYd = util.units.cuFtToCuYd(volumeCuFt);
+    const lbPerCuFt = data.materialDensityLbPerCuFt[material];
+    const tons = (volumeCuFt * lbPerCuFt) / 2000;
+    const cost = isFinite(price) && price > 0 ? adjustedBags * price : null;
+
+    document.getElementById("pg-result-main").textContent = `${adjustedBags} bags (or ${util.formatNumber(cuYd, 2)} cu yd bulk)`;
+    document.getElementById("pg-lbl-vol").textContent = "Volume (cu ft)";
+    document.getElementById("pg-out-vol").textContent = util.formatNumber(volumeCuFt, 1) + " cu ft";
+    document.getElementById("pg-out-bags").textContent = `${adjustedBags} bags`;
+    document.getElementById("pg-out-weight").textContent = `≈ ${util.formatNumber(tons, 2)} tons`;
+    document.getElementById("pg-out-cost").textContent = cost !== null ? "$" + util.formatNumber(cost, 2) : "—";
+
+    return { qty: adjustedBags, cost };
+  }
+
+  function compute() {
+    const isMetric = unitManager.getSystem() === "metric";
+    const boards = computeBoards(isMetric);
+    const drywall = computeDrywall(isMetric);
+    const fill = computeFill(isMetric);
+
+    const summaryPanel = document.getElementById("ps-result");
+    if (!boards && !drywall && !fill) {
+      summaryPanel.hidden = true;
+      return;
+    }
+
+    const costs = [boards, drywall, fill].filter((r) => r && r.cost !== null).map((r) => r.cost);
+    const totalCost = costs.length ? costs.reduce((a, b) => a + b, 0) : null;
+
+    summaryPanel.hidden = false;
+    document.getElementById("ps-result-main").textContent = totalCost !== null
+      ? `Project total: $${util.formatNumber(totalCost, 2)}`
+      : "Project totals calculated";
+    document.getElementById("ps-out-boards").textContent = boards ? `${boards.qty} boards` : "—";
+    document.getElementById("ps-out-sheets").textContent = drywall ? `${drywall.qty} sheets` : "—";
+    document.getElementById("ps-out-bags").textContent = fill ? `${fill.qty} bags` : "—";
+    document.getElementById("ps-out-cost").textContent = totalCost !== null ? "$" + util.formatNumber(totalCost, 2) : "—";
+  }
+
+  form.addEventListener("input", util.debounce(compute, 80));
+  sheetSelect.addEventListener("change", compute);
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  compute();
+})();
+</script>
+</body>
+</html>
+

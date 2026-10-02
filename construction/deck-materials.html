@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deck Material Calculator — Board Count &amp; Cost | Decivia</title>
+<meta name="description" content="Calculate deck board quantity from deck size and board coverage, with waste allowance and an optional rough material cost.">
+<link rel="canonical" href="https://decivia.online/construction/deck-materials.html">
+<meta property="og:title" content="Deck Material Calculator">
+<meta property="og:description" content="Deck board quantity, waste allowance, and a rough material cost.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/construction/deck-materials.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Construction", "item": "https://decivia.online/construction/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Deck Material Calculator", "item": "https://decivia.online/construction/deck-materials.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Deck Material Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/construction/deck-materials.html",
+  "description": "Calculates deck area, board quantity, waste-adjusted board count, and an optional rough material cost.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many deck boards do I need?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Divide the deck's area by the coverage of a single board (its length times its face width), then add a waste allowance and round up to a whole board." }
+    },
+    {
+      "@type": "Question",
+      "name": "How much waste should I allow for decking?",
+      "acceptedAnswer": { "@type": "Answer", "text": "10% is typical for a simple rectangular deck laid in one direction; diagonal patterns, picture-frame borders, or many cuts around posts can push that to 15-20%." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this include joists, footings, or railing?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. This calculator only estimates decking boards for the surface area. Framing, footings, and railings need to be estimated separately and often require local code review." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/construction/index.html">Construction</a></li>
+      <li>Deck materials</li>
+    </ol>
+  </nav>
+
+  <h1>Deck Material Calculator</h1>
+  <p class="lede">Enter your deck's length and width, plus board coverage, to get the number of deck boards and a rough material cost.</p>
+
+  <form class="calc-form" id="d-form" novalidate>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">
+          Imperial (ft, sq ft)
+        </button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">
+          Metric (m, m²)
+        </button>
+      </div>
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label for="d-length">Deck length</label>
+        <div class="input-with-unit">
+          <input type="number" id="d-length" value="16" min="0.1" step="0.1">
+          <span class="unit-badge" id="d-length-badge">ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="d-width">Deck width</label>
+        <div class="input-with-unit">
+          <input type="number" id="d-width" value="12" min="0.1" step="0.1">
+          <span class="unit-badge" id="d-width-badge">ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="d-coverage">Board coverage</label>
+        <div class="input-with-unit">
+          <input type="number" id="d-coverage" value="16" min="0.1" step="0.1">
+          <span class="unit-badge" id="d-coverage-badge">sq ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="d-waste">Waste</label>
+        <div class="input-with-unit">
+          <input type="number" id="d-waste" value="10" min="0" max="50" step="1">
+          <span class="unit-badge">%</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="d-price">Price per board (optional)</label>
+        <div class="input-with-unit">
+          <input type="number" id="d-price" min="0" step="0.01" placeholder="e.g. 22.00">
+          <span class="unit-badge">$</span>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn">Calculate</button>
+
+    <div class="result-panel" id="d-result" hidden aria-live="polite">
+      <p class="result-main" id="d-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label" id="d-lbl-area">Deck area</span><span class="value" id="d-out-area">—</span></div>
+        <div class="result-item"><span class="label">Boards (raw)</span><span class="value" id="d-out-raw">—</span></div>
+        <div class="result-item"><span class="label">Boards (waste-adjusted)</span><span class="value" id="d-out-adjusted">—</span></div>
+        <div class="result-item"><span class="label">Rough cost</span><span class="value" id="d-out-cost">—</span></div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so the interactive calculator can't run. See "How it works" below for the formula.
+    </div>
+  </noscript>
+
+  <div class="notice">
+    <strong>Decking only.</strong> This estimates surface boards, not framing, footings, or railing, which often require local building-code review.
+  </div>
+
+  <h2>Materials schedule</h2>
+  <div id="d-table"></div>
+
+  <h2>How it works</h2>
+  <p>Deck area is length times width. The raw board count divides area by a single board's coverage (its length times face width). The waste-adjusted count multiplies that by (1 + waste % ÷ 100) and rounds up to a whole board.</p>
+
+  <h3>Worked example</h3>
+  <p>A 16 ft × 12 ft deck is 192 sq ft. At 16 sq ft of coverage per board with 10% waste: 192 ÷ 16 = 12 boards, × 1.10 = 13.2, rounded up to 14 boards.</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>The deck surface is treated as a simple rectangle; add areas for L-shaped or multi-level decks.</li>
+    <li>Board coverage is a typical figure for a given board length and face width — check your specific product.</li>
+    <li>Framing, footings, fasteners, and railings are not included and should be estimated separately.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>General construction measurement practices: <a href="https://codes.iccsafe.org/" rel="nofollow noopener" target="_blank">International Code Council (ICC)</a>. Deck framing and railing heights are commonly governed by the IRC — check your local building department.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/construction/room-area.html">Room area calculator</a> — the same kind of area-to-materials math for interior flooring.</li>
+    <li><a href="/construction/gravel-topsoil.html">Gravel &amp; topsoil calculator</a> — estimate fill material under or around the deck.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>How many deck boards do I need?</summary>
+      <p>Divide the deck's area by one board's coverage, add a waste allowance, and round up to a whole board.</p>
+    </details>
+    <details>
+      <summary>How much waste should I allow for decking?</summary>
+      <p>10% is typical for a simple layout; diagonal patterns or borders can push that to 15-20%.</p>
+    </details>
+    <details>
+      <summary>Does this include joists, footings, or railing?</summary>
+      <p>No — only decking boards. Framing, footings, and railings need separate estimates and often local code review.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc;
+  const form = document.getElementById("d-form");
+  const resultPanel = document.getElementById("d-result");
+
+  const fieldDefs = [
+    { id: "d-length", badgeId: "d-length-badge", impUnit: "ft", metUnit: "m", impToMet: calc.ftToM, metToImp: calc.mToFt, decimals: 1 },
+    { id: "d-width", badgeId: "d-width-badge", impUnit: "ft", metUnit: "m", impToMet: calc.ftToM, metToImp: calc.mToFt, decimals: 1 },
+    { id: "d-coverage", badgeId: "d-coverage-badge", impUnit: "sq ft", metUnit: "m²", impToMet: calc.sqFtToSqM, metToImp: calc.sqMToSqFt, decimals: 2 },
+  ];
+
+  let prevSystem = "imperial";
+  const unitManager = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, prevSystem, newSys);
+      prevSystem = newSys;
+      compute();
+    },
+  });
+  prevSystem = unitManager.getSystem();
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = prevSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (prevSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+  }
+
+  function compute() {
+    const isMetric = unitManager.getSystem() === "metric";
+    const l = util.readNumber(document.getElementById("d-length"), { label: "Deck length", allowZero: false });
+    const w = util.readNumber(document.getElementById("d-width"), { label: "Deck width", allowZero: false });
+    const coverage = util.readNumber(document.getElementById("d-coverage"), { label: "Board coverage", allowZero: false });
+    const wastePct = util.readNumber(document.getElementById("d-waste"), { label: "Waste %", max: 50 });
+    const price = parseFloat(document.getElementById("d-price").value);
+
+    if (l === null || w === null || coverage === null || wastePct === null) {
+      resultPanel.hidden = true;
+      return;
+    }
+
+    const area = l * w;
+    const raw = area / coverage;
+    const adjusted = Math.ceil(calc.wasteAdjust(raw, wastePct));
+    const cost = isFinite(price) && price > 0 ? adjusted * price : null;
+    const areaUnitStr = isMetric ? "m²" : "sq ft";
+
+    resultPanel.hidden = false;
+    document.getElementById("d-result-main").textContent = `${adjusted} boards needed (${util.formatNumber(area, 1)} ${areaUnitStr})`;
+    document.getElementById("d-lbl-area").textContent = isMetric ? "Deck area (m²)" : "Deck area (sq ft)";
+    document.getElementById("d-out-area").textContent = util.formatNumber(area, 1) + " " + areaUnitStr;
+    document.getElementById("d-out-raw").textContent = util.formatNumber(raw, 2) + " boards";
+    document.getElementById("d-out-adjusted").textContent = adjusted + " boards";
+    document.getElementById("d-out-cost").textContent = cost !== null ? "$" + util.formatNumber(cost, 2) : "—";
+
+    util.renderTable(document.getElementById("d-table"), {
+      caption: `Deck materials schedule (${isMetric ? "Metric" : "Imperial"})`,
+      headers: ["Item", "Value"],
+      rows: [
+        ["Deck area", `${util.formatNumber(area, 1)} ${areaUnitStr}`],
+        ["Raw board count", `${util.formatNumber(raw, 2)} boards`],
+        ["Waste percentage", wastePct + "%"],
+        ["Waste-adjusted (rounded up)", `${adjusted} boards`],
+        ["Estimated material cost", cost !== null ? "$" + util.formatNumber(cost, 2) : "—"],
+      ],
+    });
+  }
+
+  form.addEventListener("input", util.debounce(compute, 80));
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  compute();
+})();
+</script>
+</body>
+</html>
