@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pipe Pressure Drop Calculator (Darcy-Weisbach) | Decivia</title>
+<meta name="description" content="Calculate pipe pressure drop and head loss using the Darcy-Weisbach equation from fluid, diameter, length, flow rate, roughness, and fittings.">
+<link rel="canonical" href="https://decivia.online/pipes/pressure-drop.html">
+<meta property="og:title" content="Pipe Pressure Drop Calculator (Darcy-Weisbach)">
+<meta property="og:description" content="Pressure drop, head loss, and friction factor for a pipe using the Darcy-Weisbach equation.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/pipes/pressure-drop.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Pipes", "item": "https://decivia.online/pipes/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Pipe Pressure Drop Calculator", "item": "https://decivia.online/pipes/pressure-drop.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Pipe Pressure Drop Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/pipes/pressure-drop.html",
+  "description": "Estimates pressure drop, head loss, and friction factor in a pipe from diameter, length, flow rate, roughness, and fittings using the Darcy-Weisbach equation.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What causes pressure drop in a pipe?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Pressure drop comes from friction between the fluid and the pipe wall, which depends on flow velocity, pipe diameter and length, fluid viscosity and density, and the roughness of the pipe material." }
+    },
+    {
+      "@type": "Question",
+      "name": "What equation does this calculator use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It uses the Darcy-Weisbach equation with the Swamee-Jain explicit approximation for the friction factor, which avoids iteratively solving the Colebrook equation." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the result exact for my system?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Results depend on the selected fluid properties, roughness value, and model assumptions, and do not include minor losses unless you add them in Advanced. Treat the output as an engineering estimate, not a certified design." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/pipes/index.html">Pipes</a></li>
+      <li>Pressure drop</li>
+    </ol>
+  </nav>
+
+  <h1>Pipe Pressure Drop Calculator</h1>
+  <p class="lede">Enter the fluid, pipe diameter, length, flow rate, and material to estimate pressure drop and head loss using the Darcy-Weisbach equation.</p>
+
+  <form class="calc-form" id="pipe-form" novalidate>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">
+          Imperial (in, ft, GPM, psi)
+        </button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">
+          Metric (mm, m, L/min, kPa)
+        </button>
+      </div>
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label for="p-fluid">Fluid</label>
+        <select id="p-fluid">
+          <option value="water20c" selected>Water (20°C)</option>
+          <option value="water60c">Water (60°C)</option>
+          <option value="glycol30">Glycol mix (30%)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="p-diameter">Pipe inside diameter</label>
+        <div class="input-with-unit">
+          <input type="number" id="p-diameter" value="1" min="0.1" step="0.05" inputmode="decimal">
+          <span class="unit-badge" id="p-diameter-badge">in</span>
+        </div>
+        <span class="error-msg" id="p-diameter-err" role="alert"></span>
+      </div>
+      <div class="field">
+        <label for="p-length">Pipe length</label>
+        <div class="input-with-unit">
+          <input type="number" id="p-length" value="100" min="0.1" step="1" inputmode="decimal">
+          <span class="unit-badge" id="p-length-badge">ft</span>
+        </div>
+        <span class="error-msg" id="p-length-err" role="alert"></span>
+      </div>
+      <div class="field">
+        <label for="p-flow">Flow rate</label>
+        <div class="input-with-unit">
+          <input type="number" id="p-flow" value="10" min="0.01" step="0.5" inputmode="decimal">
+          <span class="unit-badge" id="p-flow-badge">GPM</span>
+        </div>
+        <span class="error-msg" id="p-flow-err" role="alert"></span>
+      </div>
+      <div class="field">
+        <label for="p-material">Pipe material</label>
+        <select id="p-material">
+          <option value="pvc" selected>PVC / plastic</option>
+          <option value="copper">Copper</option>
+          <option value="hdpe">HDPE</option>
+          <option value="steel">Commercial steel</option>
+          <option value="galvanized">Galvanized steel</option>
+          <option value="castIron">Cast iron</option>
+          <option value="concrete">Concrete</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="p-kfactor">Fittings/valves (total K)</label>
+        <input type="number" id="p-kfactor" value="0" min="0" step="0.1">
+      </div>
+    </div>
+    <button type="submit" class="btn">Calculate</button>
+
+    <div class="result-panel" id="p-result" hidden aria-live="polite">
+      <p class="result-main" id="p-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label" id="p-lbl-vel">Flow velocity</span><span class="value" id="p-out-velocity">—</span></div>
+        <div class="result-item"><span class="label" id="p-lbl-drop">Pressure drop</span><span class="value" id="p-out-drop">—</span></div>
+        <div class="result-item"><span class="label" id="p-lbl-drop100">Drop per 100 ft</span><span class="value" id="p-out-drop100">—</span></div>
+        <div class="result-item"><span class="label" id="p-lbl-head">Head loss</span><span class="value" id="p-out-head">—</span></div>
+        <div class="result-item"><span class="label">Friction factor (f)</span><span class="value" id="p-out-friction">—</span></div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so the interactive calculator can't run. See "How it works" below for the Darcy-Weisbach formula and a worked example you can compute by hand.
+    </div>
+  </noscript>
+
+  <h2>Pressure drop vs. flow rate</h2>
+  <p>This chart is the central result on this page: it shows how pressure drop rises with flow rate for your current pipe and fluid.</p>
+  <div class="chart-wrap">
+    <canvas class="chart-canvas" id="p-chart" aria-label="Chart of pressure drop versus flow rate" role="img"></canvas>
+  </div>
+
+  <div class="notice">
+    <strong>Model-dependent estimate.</strong> Results depend on the selected fluid properties, roughness value, and the Darcy-Weisbach model. This is an engineering estimate, not a certified design — verify with a qualified engineer for critical systems.
+  </div>
+
+  <details class="advanced" id="p-advanced">
+    <summary>Advanced options (fluid overrides, pipe-size comparison)</summary>
+    <div class="advanced-body">
+      <div class="input-grid">
+        <div class="field">
+          <label for="p-density">Density override</label>
+          <div class="unit-row">
+            <input type="number" id="p-density" placeholder="auto" min="1" step="1">
+            <span class="unit">kg/m³</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="p-viscosity">Viscosity override</label>
+          <div class="unit-row">
+            <input type="number" id="p-viscosity" placeholder="auto" min="0.00001" step="0.0001" inputmode="decimal">
+            <span class="unit">Pa·s</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="p-roughness">Roughness override</label>
+          <div class="unit-row">
+            <input type="number" id="p-roughness" placeholder="auto" min="0" step="0.001" inputmode="decimal">
+            <span class="unit">mm</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Pipe-size comparison</h3>
+      <div id="p-table"></div>
+    </div>
+  </details>
+
+  <h2>How it works</h2>
+  <p>Flow velocity is the flow rate divided by the pipe's cross-sectional area. The Reynolds number then classifies the flow as laminar or turbulent, and the Darcy friction factor is estimated with the Swamee-Jain approximation (turbulent) or 64/Re (laminar). The Darcy-Weisbach equation gives the pressure drop:</p>
+  <p><strong>ΔP = f × (L / D) × (ρ × v² / 2)</strong></p>
+  <p>Where f is the friction factor, L is pipe length, D is inside diameter, ρ is fluid density, and v is velocity. Head loss is ΔP divided by (ρ × g). If you add fittings/valves (K), an additional minor loss of K × ρv²/2 is included in the total pressure drop.</p>
+
+  <h3>Worked example</h3>
+  <p>10 GPM of 20°C water through 100 ft of 1 in PVC pipe: velocity ≈ 4.0 ft/s, Reynolds number is well into the turbulent range, and the Darcy-Weisbach equation gives a pressure drop on the order of a few psi — see your calculated result above for the exact figure with today's inputs.</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>Fluid is incompressible and flow is steady and fully developed.</li>
+    <li>Friction factor uses the Swamee-Jain explicit approximation, not an iterative Colebrook solve.</li>
+    <li>Minor losses (fittings/valves) are zero unless you enter a total K factor.</li>
+    <li>Pipe roughness uses representative values per material; actual roughness varies with age and condition.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>Darcy-Weisbach equation and typical roughness values: <a href="https://www.engineeringtoolbox.com/darcy-weisbach-equation-d_646.html" rel="nofollow noopener" target="_blank">The Engineering ToolBox — Darcy-Weisbach Equation</a>.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/pipes/flow-rate.html">Pipe flow-rate calculator</a> — just need velocity and a pipe-size comparison? Use this instead.</li>
+    <li><a href="/tanks/tank-volume.html">Tank volume calculator</a> — size the tank feeding or receiving this pipe run.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>What causes pressure drop in a pipe?</summary>
+      <p>Friction between the fluid and pipe wall, driven by flow velocity, pipe diameter and length, fluid properties, and pipe roughness.</p>
+    </details>
+    <details>
+      <summary>What equation does this calculator use?</summary>
+      <p>The Darcy-Weisbach equation with the Swamee-Jain explicit friction-factor approximation.</p>
+    </details>
+    <details>
+      <summary>Is the result exact for my system?</summary>
+      <p>No — it depends on your selected fluid properties, roughness, and model assumptions, and excludes minor losses unless entered. Treat it as an estimate, not a certified design.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc, data = CalcAtlas.data;
+  const form = document.getElementById("pipe-form");
+  const resultPanel = document.getElementById("p-result");
+  const advancedEl = document.getElementById("p-advanced");
+
+  const SIZES_IMP = [0.5, 0.75, 1, 1.25, 1.5, 2, 2.5, 3, 4]; // inches
+  const SIZES_MET = [15, 20, 25, 32, 40, 50, 65, 80, 100]; // mm
+
+  const fieldDefs = [
+    { id: "p-diameter", badgeId: "p-diameter-badge", impUnit: "in", metUnit: "mm", impToMet: calc.inToMm, metToImp: calc.mmToIn, decimals: 1 },
+    { id: "p-length", badgeId: "p-length-badge", impUnit: "ft", metUnit: "m", impToMet: calc.ftToM, metToImp: calc.mToFt, decimals: 1 },
+    { id: "p-flow", badgeId: "p-flow-badge", impUnit: "GPM", metUnit: "L/min", impToMet: calc.gpmToLpm, metToImp: calc.lpmToGpm, decimals: 1 },
+  ];
+
+  let prevSystem = "imperial";
+  const unitManager = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, prevSystem, newSys);
+      prevSystem = newSys;
+      compute();
+    },
+  });
+  prevSystem = unitManager.getSystem();
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = prevSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (prevSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+  }
+
+  function solvePhysicsSI(diameterM, lengthM, flowM3s, material, fluidProps, roughnessMm, kFactor) {
+    const velocity = calc.pipeVelocity({ flowM3s, diameterM });
+    const re = calc.reynolds({ density: fluidProps.density, velocity, diameterM, viscosity: fluidProps.viscosity });
+    const roughnessM = (roughnessMm ?? data.pipeRoughnessMm[material]) / 1000;
+    const f = calc.frictionFactorSwameeJain({ roughnessM, diameterM, reynolds: re });
+    const dpFriction = calc.darcyPressureDropPa({ frictionFactor: f, lengthM, diameterM, density: fluidProps.density, velocity });
+    const dpMinor = kFactor * (fluidProps.density * velocity * velocity) / 2;
+    const dpTotal = dpFriction + dpMinor;
+    const head = calc.headLossM({ pressureDropPa: dpTotal, density: fluidProps.density });
+    return { velocity, re, f, dpTotal, head };
+  }
+
+  function compute() {
+    const isMetric = unitManager.getSystem() === "metric";
+    const diameterVal = util.readNumber(document.getElementById("p-diameter"), { label: "Pipe diameter", allowZero: false });
+    const lengthVal = util.readNumber(document.getElementById("p-length"), { label: "Pipe length", allowZero: false });
+    const flowVal = util.readNumber(document.getElementById("p-flow"), { label: "Flow rate", allowZero: false });
+    const kFactor = util.readNumber(document.getElementById("p-kfactor"), { label: "Fittings K", max: 1000 }) || 0;
+
+    if (diameterVal === null || lengthVal === null || flowVal === null) {
+      resultPanel.hidden = true;
+      return;
+    }
+
+    const material = document.getElementById("p-material").value;
+    const fluidKey = document.getElementById("p-fluid").value;
+    const fluidProps = { ...data.fluidProps[fluidKey] };
+    const densityOverride = parseFloat(document.getElementById("p-density").value);
+    const viscosityOverride = parseFloat(document.getElementById("p-viscosity").value);
+    if (isFinite(densityOverride) && densityOverride > 0) fluidProps.density = densityOverride;
+    if (isFinite(viscosityOverride) && viscosityOverride > 0) fluidProps.viscosity = viscosityOverride;
+    const roughnessOverride = parseFloat(document.getElementById("p-roughness").value);
+    const roughnessMm = isFinite(roughnessOverride) && roughnessOverride >= 0 ? roughnessOverride : null;
+
+    const diameterM = isMetric ? diameterVal / 1000 : util.units.inToM(diameterVal);
+    const lengthM = isMetric ? lengthVal : util.units.ftToM(lengthVal);
+    const flowM3s = isMetric ? (flowVal / 1000) / 60 : util.units.gpmToM3s(flowVal);
+
+    const r = solvePhysicsSI(diameterM, lengthM, flowM3s, material, fluidProps, roughnessMm, kFactor);
+
+    resultPanel.hidden = false;
+
+    if (isMetric) {
+      const dropKpa = r.dpTotal / 1000;
+      const dropBar = r.dpTotal / 100000;
+      const drop100 = (dropKpa / lengthVal) * 100;
+
+      document.getElementById("p-result-main").textContent = `≈ ${util.formatNumber(dropKpa, 2)} kPa (${util.formatNumber(dropBar, 3)} bar) pressure drop`;
+      document.getElementById("p-lbl-vel").textContent = "Flow velocity";
+      document.getElementById("p-out-velocity").textContent = `${util.formatNumber(r.velocity, 2)} m/s`;
+      document.getElementById("p-lbl-drop").textContent = "Pressure drop";
+      document.getElementById("p-out-drop").textContent = `${util.formatNumber(dropKpa, 2)} kPa (${util.formatNumber(dropBar, 3)} bar)`;
+      document.getElementById("p-lbl-drop100").textContent = "Drop per 100 m";
+      document.getElementById("p-out-drop100").textContent = `${util.formatNumber(drop100, 2)} kPa/100m`;
+      document.getElementById("p-lbl-head").textContent = "Head loss";
+      document.getElementById("p-out-head").textContent = `${util.formatNumber(r.head, 2)} m of head`;
+      document.getElementById("p-out-friction").textContent = util.formatNumber(r.f, 4);
+
+      // Metric Chart
+      const flowSteps = [5, 10, 20, 30, 50, 75, 100, 150, 200];
+      const flowSeries = flowSteps.map((fl) => {
+        const fM3s = (fl / 1000) / 60;
+        const rr = solvePhysicsSI(diameterM, lengthM, fM3s, material, fluidProps, roughnessMm, kFactor);
+        return { x: fl, y: rr.dpTotal / 1000 };
+      });
+      util.drawLineChart(document.getElementById("p-chart"), flowSeries, { xLabel: "Flow rate (L/min)", yLabel: "ΔP (kPa)", markX: flowVal });
+
+      // Metric Table
+      const rows = SIZES_MET.map((dMm) => {
+        const rr = solvePhysicsSI(dMm / 1000, lengthM, flowM3s, material, fluidProps, roughnessMm, kFactor);
+        return [`${dMm} mm`, `${util.formatNumber(rr.velocity, 2)} m/s`, `${util.formatNumber(rr.dpTotal / 1000, 2)} kPa`];
+      });
+      const highlightIndex = SIZES_MET.findIndex((d) => Math.abs(d - diameterVal) < 2);
+      util.renderTable(document.getElementById("p-table"), {
+        caption: `Pipe-size comparison (${material}, ${util.formatNumber(flowVal, 1)} L/min, ${util.formatNumber(lengthVal, 1)} m)`,
+        headers: ["Diameter", "Velocity", "Pressure drop"],
+        rows,
+        highlightRowIndex: highlightIndex,
+      });
+    } else {
+      const velocityFtS = util.units.mToFt(r.velocity);
+      const dropPsi = util.units.paToPsi(r.dpTotal);
+      const drop100 = (dropPsi / lengthVal) * 100;
+      const headFt = util.units.mToFt(r.head);
+
+      document.getElementById("p-result-main").textContent = `≈ ${util.formatNumber(dropPsi, 2)} psi pressure drop`;
+      document.getElementById("p-lbl-vel").textContent = "Flow velocity";
+      document.getElementById("p-out-velocity").textContent = `${util.formatNumber(velocityFtS, 2)} ft/s`;
+      document.getElementById("p-lbl-drop").textContent = "Pressure drop";
+      document.getElementById("p-out-drop").textContent = `${util.formatNumber(dropPsi, 2)} psi`;
+      document.getElementById("p-lbl-drop100").textContent = "Drop per 100 ft";
+      document.getElementById("p-out-drop100").textContent = `${util.formatNumber(drop100, 2)} psi/100ft`;
+      document.getElementById("p-lbl-head").textContent = "Head loss";
+      document.getElementById("p-out-head").textContent = `${util.formatNumber(headFt, 2)} ft of head`;
+      document.getElementById("p-out-friction").textContent = util.formatNumber(r.f, 4);
+
+      // Imperial Chart
+      const flowSteps = [1, 2, 5, 10, 15, 20, 30, 50];
+      const flowSeries = flowSteps.map((gpm) => {
+        const fM3s = util.units.gpmToM3s(gpm);
+        const rr = solvePhysicsSI(diameterM, lengthM, fM3s, material, fluidProps, roughnessMm, kFactor);
+        return { x: gpm, y: util.units.paToPsi(rr.dpTotal) };
+      });
+      util.drawLineChart(document.getElementById("p-chart"), flowSeries, { xLabel: "Flow rate (GPM)", yLabel: "ΔP (psi)", markX: flowVal });
+
+      // Imperial Table
+      const rows = SIZES_IMP.map((dIn) => {
+        const rr = solvePhysicsSI(util.units.inToM(dIn), lengthM, flowM3s, material, fluidProps, roughnessMm, kFactor);
+        return [`${dIn} in`, `${util.formatNumber(util.units.mToFt(rr.velocity), 2)} ft/s`, `${util.formatNumber(util.units.paToPsi(rr.dpTotal), 2)} psi`];
+      });
+      const highlightIndex = SIZES_IMP.findIndex((d) => Math.abs(d - diameterVal) < 0.05);
+      util.renderTable(document.getElementById("p-table"), {
+        caption: `Pipe-size comparison (${material}, ${util.formatNumber(flowVal, 1)} GPM, ${util.formatNumber(lengthVal, 1)} ft)`,
+        headers: ["Diameter", "Velocity", "Pressure drop"],
+        rows,
+        highlightRowIndex: highlightIndex,
+      });
+    }
+  }
+
+  form.addEventListener("input", util.debounce(compute, 80));
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  ["p-material", "p-fluid"].forEach((id) => document.getElementById(id).addEventListener("change", compute));
+  compute();
+})();
+</script>
+</body>
+</html>

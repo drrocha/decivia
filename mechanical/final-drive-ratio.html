@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Final Drive Ratio Calculator — Highway RPM Before &amp; After | Decivia</title>
+<meta name="description" content="Calculate engine RPM at a target highway speed for your final drive (differential) ratio, and compare RPM before and after a ring-and-pinion gear change.">
+<link rel="canonical" href="https://decivia.online/mechanical/final-drive-ratio.html">
+<meta property="og:title" content="Final Drive Ratio Calculator">
+<meta property="og:description" content="Highway RPM for your final-drive ratio, with a before/after comparison for a differential gear change.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/mechanical/final-drive-ratio.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Mechanical", "item": "https://decivia.online/mechanical/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Final Drive Ratio Calculator", "item": "https://decivia.online/mechanical/final-drive-ratio.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Final Drive Ratio Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/mechanical/final-drive-ratio.html",
+  "description": "Calculates engine RPM at a target highway speed for a given final-drive (differential) ratio, and compares RPM before and after a ratio change.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does a final drive or differential ratio do?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It is the gear reduction between the driveshaft and the wheels (the ring-and-pinion ratio). A higher (numerically larger) ratio increases torque at the wheels and engine RPM at a given speed, while a lower ratio does the opposite." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I know my engine RPM at highway speed?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Multiply your top-gear transmission ratio by your final-drive ratio to get the overall ratio, then use the tire's rolling circumference to convert your target speed into wheel RPM, and multiply by the overall ratio." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why would someone change their final-drive ratio?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A numerically higher ratio (\"shorter\" gearing) improves acceleration and towing torque at the cost of higher highway RPM and fuel use, which is common after installing larger tires. A lower ratio (\"taller\" gearing) does the reverse." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/mechanical/index.html">Mechanical</a></li>
+      <li>Final drive ratio</li>
+    </ol>
+  </nav>
+
+  <h1>Final Drive Ratio Calculator</h1>
+  <p class="lede">Enter a target highway speed, your top-gear transmission ratio, final-drive (differential) ratio, and tire diameter to get your engine RPM — and compare it against a proposed re-gear.</p>
+
+  <form class="calc-form" id="fd-form" novalidate>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">
+          Imperial (mph, in)
+        </button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">
+          Metric (km/h, mm)
+        </button>
+      </div>
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label for="fd-speed">Target highway speed</label>
+        <div class="input-with-unit">
+          <input type="number" id="fd-speed" value="70" min="1" step="1">
+          <span class="unit-badge" id="fd-speed-badge">mph</span>
+        </div>
+        <span class="error-msg" id="fd-speed-err" role="alert"></span>
+      </div>
+      <div class="field">
+        <label for="fd-trans">Top-gear transmission ratio</label>
+        <input type="number" id="fd-trans" value="1.00" min="0.1" step="0.01">
+        <span class="error-msg" id="fd-trans-err" role="alert"></span>
+      </div>
+      <div class="field">
+        <label for="fd-current">Current final-drive ratio</label>
+        <input type="number" id="fd-current" value="3.73" min="0.1" step="0.01">
+        <span class="error-msg" id="fd-current-err" role="alert"></span>
+      </div>
+      <div class="field">
+        <label for="fd-tire">Tire diameter</label>
+        <div class="input-with-unit">
+          <input type="number" id="fd-tire" value="28" min="1" step="0.1">
+          <span class="unit-badge" id="fd-tire-badge">in</span>
+        </div>
+        <span class="error-msg" id="fd-tire-err" role="alert"></span>
+      </div>
+    </div>
+    <button type="submit" class="btn">Calculate</button>
+
+    <div class="result-panel" id="fd-result" hidden aria-live="polite">
+      <p class="result-main" id="fd-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label">Engine RPM at this speed</span><span class="value" id="fd-out-rpm">—</span></div>
+        <div class="result-item"><span class="label">Overall ratio</span><span class="value" id="fd-out-overall">—</span></div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so the interactive calculator can't run. Use the formula in "How it works" below to compute by hand.
+    </div>
+  </noscript>
+
+  <div class="notice">
+    Real-world RPM varies with tire slip, drivetrain efficiency, and actual rolling diameter versus the sidewall-stamped size. Treat results as close estimates.
+  </div>
+
+  <details class="advanced" id="fd-advanced">
+    <summary>Advanced options (proposed ratio, before/after comparison)</summary>
+    <div class="advanced-body">
+      <div class="input-grid">
+        <div class="field">
+          <label for="fd-proposed">Proposed final-drive ratio</label>
+          <input type="number" id="fd-proposed" value="4.10" min="0.1" step="0.01">
+        </div>
+      </div>
+
+      <h3>Before / after comparison</h3>
+      <div id="fd-table"></div>
+    </div>
+  </details>
+
+  <h2>How it works</h2>
+  <p>This is the reverse of a typical gear-ratio calculation: instead of asking "how fast am I going at this RPM," it asks "what RPM will I turn at this speed." First, the overall ratio:</p>
+  <p><strong>Overall ratio = transmission ratio × final-drive ratio</strong></p>
+  <p>Then the tire's rolling circumference (π × diameter) converts your target speed into wheel RPM, and multiplying by the overall ratio gives engine RPM:</p>
+  <p><strong>Engine RPM = (speed × 63,360 ÷ 60 ÷ circumference) × overall ratio</strong></p>
+
+  <h3>Worked example</h3>
+  <p>70 mph, a 1.00 top-gear transmission ratio, a 3.73 final-drive ratio, and a 28 in tire: overall ratio = 3.73, and engine RPM ≈ 3,135. Re-gearing to 4.10 (a common choice after installing larger, heavier tires) raises that to about 3,446 RPM at the same 70 mph — see the before/after table for a full speed range.</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>No tire slip, and the tire's actual rolling diameter matches the value entered (not just the sidewall-stamped size).</li>
+    <li>Transmission ratio is your highest (likely overdrive or direct) gear, since that's what's engaged at steady highway speed.</li>
+    <li>Transfer case ratio is not included here; if your vehicle has one, multiply it into the transmission ratio field first.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>Differential and final-drive gearing fundamentals: <a href="https://en.wikipedia.org/wiki/Differential_(mechanical_device)" rel="nofollow noopener" target="_blank">Wikipedia — Differential (mechanical device)</a>.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/mechanical/gear-ratio.html">Gear ratio calculator</a> — go the other direction: find speed and torque from a given RPM.</li>
+    <li><a href="/electrical/transformer-sizing.html">Transformer VA sizing reference</a> — a different kind of ratio and sizing lookup.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>What does a final drive or differential ratio do?</summary>
+      <p>It's the gear reduction between the driveshaft and wheels. A numerically higher ratio increases torque and RPM at a given speed; a lower ratio does the opposite.</p>
+    </details>
+    <details>
+      <summary>How do I know my engine RPM at highway speed?</summary>
+      <p>Multiply your top-gear ratio by your final-drive ratio for the overall ratio, then convert your target speed to wheel RPM using tire circumference, and multiply by the overall ratio.</p>
+    </details>
+    <details>
+      <summary>Why would someone change their final-drive ratio?</summary>
+      <p>A numerically higher ("shorter") ratio improves acceleration and towing torque at the cost of higher highway RPM; a lower ("taller") ratio does the reverse.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc;
+  const form = document.getElementById("fd-form");
+  const resultPanel = document.getElementById("fd-result");
+
+  const fieldDefs = [
+    { id: "fd-speed", badgeId: "fd-speed-badge", impUnit: "mph", metUnit: "km/h", impToMet: calc.mphToKmh, metToImp: calc.kmhToMph, decimals: 0 },
+    { id: "fd-tire", badgeId: "fd-tire-badge", impUnit: "in", metUnit: "mm", impToMet: calc.inToMm, metToImp: calc.mmToIn, decimals: 0 },
+  ];
+
+  let prevSystem = "imperial";
+  const unitManager = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, prevSystem, newSys);
+      prevSystem = newSys;
+      compute();
+    },
+  });
+  prevSystem = unitManager.getSystem();
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = prevSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (prevSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+  }
+
+  function compute() {
+    const isMetric = unitManager.getSystem() === "metric";
+    const speedVal = util.readNumber(document.getElementById("fd-speed"), { label: "Target speed", allowZero: false });
+    const trans = util.readNumber(document.getElementById("fd-trans"), { label: "Transmission ratio", allowZero: false, max: 20 });
+    const current = util.readNumber(document.getElementById("fd-current"), { label: "Current final-drive ratio", allowZero: false, max: 20 });
+    const tireVal = util.readNumber(document.getElementById("fd-tire"), { label: "Tire diameter", allowZero: false });
+    const proposed = util.readNumber(document.getElementById("fd-proposed"), { label: "Proposed final-drive ratio", allowZero: false, max: 20 });
+
+    if (speedVal === null || trans === null || current === null || tireVal === null) {
+      resultPanel.hidden = true;
+      return;
+    }
+
+    const speedMph = isMetric ? calc.kmhToMph(speedVal) : speedVal;
+    const tireIn = isMetric ? calc.mmToIn(tireVal) : tireVal;
+    const speedUnitStr = isMetric ? "km/h" : "mph";
+
+    const overallRatio = calc.overallRatio({ transmissionRatio: trans, finalDriveRatio: current });
+    const rpm = calc.rpmAtSpeed({ speedMph, overallRatio, tireDiameterIn: tireIn });
+
+    resultPanel.hidden = false;
+    document.getElementById("fd-result-main").textContent = `${util.formatNumber(rpm, 0)} RPM at ${util.formatNumber(speedVal, 0)} ${speedUnitStr}`;
+    document.getElementById("fd-out-rpm").textContent = util.formatNumber(rpm, 0) + " RPM";
+    document.getElementById("fd-out-overall").textContent = util.formatNumber(overallRatio, 2) + ":1";
+
+    if (proposed === null) return;
+    const overallProposed = calc.overallRatio({ transmissionRatio: trans, finalDriveRatio: proposed });
+
+    const speeds = isMetric ? [80, 90, 100, 110, 120, 130, 140] : [50, 55, 60, 65, 70, 75, 80];
+    const rows = speeds.map((s) => {
+      const sMph = isMetric ? calc.kmhToMph(s) : s;
+      const rpmCurrent = calc.rpmAtSpeed({ speedMph: sMph, overallRatio, tireDiameterIn: tireIn });
+      const rpmProposed = calc.rpmAtSpeed({ speedMph: sMph, overallRatio: overallProposed, tireDiameterIn: tireIn });
+      return [`${s} ${speedUnitStr}`, util.formatNumber(rpmCurrent, 0) + ` RPM (${current})`, util.formatNumber(rpmProposed, 0) + ` RPM (${proposed})`];
+    });
+
+    const highlightIndex = speeds.reduce((best, s, i) => (Math.abs(s - speedVal) < Math.abs(speeds[best] - speedVal) ? i : best), 0);
+    util.renderTable(document.getElementById("fd-table"), {
+      caption: `RPM before and after final-drive change (${isMetric ? "Metric" : "Imperial"})`,
+      headers: [`Speed (${speedUnitStr})`, `Current (${current})`, `Proposed (${proposed})`],
+      rows,
+      highlightRowIndex: highlightIndex,
+    });
+  }
+
+  form.addEventListener("input", util.debounce(compute, 80));
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  compute();
+})();
+</script>
+</body>
+</html>

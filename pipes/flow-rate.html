@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pipe Flow Rate Calculator — Diameter &amp; Velocity Chart | Decivia</title>
+<meta name="description" content="Calculate pipe flow velocity from inside diameter and flow rate, then use the pipe diameter flow-rate chart to compare standard sizes against a recommended velocity limit.">
+<link rel="canonical" href="https://decivia.online/pipes/flow-rate.html">
+<meta property="og:title" content="Pipe Flow Rate Calculator — Diameter & Velocity Chart">
+<meta property="og:description" content="Flow velocity from pipe diameter and flow rate, with a standard-size comparison chart and velocity-limit check.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/pipes/flow-rate.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Pipes", "item": "https://decivia.online/pipes/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Pipe Flow Rate Calculator", "item": "https://decivia.online/pipes/flow-rate.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Pipe Flow Rate Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/pipes/flow-rate.html",
+  "description": "Calculates pipe flow velocity from inside diameter and flow rate, and compares velocity across standard pipe sizes.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I calculate flow velocity in a pipe?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Divide the flow rate by the pipe's cross-sectional area (the continuity equation, velocity = flow rate ÷ area). A smaller diameter at the same flow rate always gives a higher velocity." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a safe pipe velocity for water?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A commonly used guideline keeps water velocity at or below about 8 ft/s (2.4 m/s) in distribution piping to limit erosion, noise, and water hammer risk, though specific systems may use tighter limits." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this calculator account for pressure drop?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. This page only covers flow velocity from the continuity equation. Use the dedicated pressure-drop calculator for Darcy-Weisbach pressure loss and head loss." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/pipes/index.html">Pipes</a></li>
+      <li>Flow rate</li>
+    </ol>
+  </nav>
+
+  <h1>Pipe Flow Rate Calculator</h1>
+  <p class="lede">Enter a pipe's inside diameter and flow rate to get flow velocity, checked against a recommended velocity limit, with a comparison across standard pipe sizes.</p>
+
+  <form class="calc-form" id="f-form" novalidate>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">
+          Imperial (in, GPM, ft/s)
+        </button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">
+          Metric (mm, L/min, m/s)
+        </button>
+      </div>
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label for="f-diameter">Pipe inside diameter</label>
+        <div class="input-with-unit">
+          <input type="number" id="f-diameter" value="1" min="0.1" step="0.05" inputmode="decimal">
+          <span class="unit-badge" id="f-diameter-badge">in</span>
+        </div>
+        <span class="error-msg" id="f-diameter-err" role="alert"></span>
+      </div>
+      <div class="field">
+        <label for="f-flow">Flow rate</label>
+        <div class="input-with-unit">
+          <input type="number" id="f-flow" value="10" min="0.01" step="0.5" inputmode="decimal">
+          <span class="unit-badge" id="f-flow-badge">GPM</span>
+        </div>
+        <span class="error-msg" id="f-flow-err" role="alert"></span>
+      </div>
+      <div class="field">
+        <label for="f-limit">Recommended velocity limit</label>
+        <div class="input-with-unit">
+          <input type="number" id="f-limit" value="8" min="0.1" step="0.5">
+          <span class="unit-badge" id="f-limit-badge">ft/s</span>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn">Calculate</button>
+
+    <div class="result-panel" id="f-result" hidden aria-live="polite">
+      <p class="result-main" id="f-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label" id="f-lbl-vel">Flow velocity</span><span class="value" id="f-out-velocity">—</span></div>
+        <div class="result-item"><span class="label">Status</span><span class="value" id="f-out-status">—</span></div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so the interactive calculator can't run. See "How it works" below for the continuity-equation formula and a worked example.
+    </div>
+  </noscript>
+
+  <h2>Pipe-size comparison</h2>
+  <p>Velocity at your flow rate across standard pipe sizes, with your selected diameter highlighted.</p>
+  <div id="f-table"></div>
+
+  <details class="advanced" id="f-advanced">
+    <summary>Advanced options (velocity vs. flow-rate chart)</summary>
+    <div class="advanced-body">
+      <h3>Velocity vs. flow rate (selected diameter)</h3>
+      <div class="chart-wrap">
+        <canvas class="chart-canvas" id="f-chart" aria-label="Chart of flow velocity versus flow rate for the selected pipe diameter" role="img"></canvas>
+      </div>
+    </div>
+  </details>
+
+  <h2>How it works</h2>
+  <p>Flow velocity follows the continuity equation: velocity equals flow rate divided by the pipe's cross-sectional area.</p>
+  <p><strong>v = Q / A, where A = π × (D / 2)²</strong></p>
+  <p>Q is flow rate, D is inside diameter, and A is the circular cross-sectional area. A smaller diameter forces the same flow through a smaller area, so velocity rises.</p>
+
+  <h3>Worked example</h3>
+  <p>10 GPM through a 1 in inside-diameter pipe: area ≈ 0.785 in², so converting units gives a velocity of about 4.1 ft/s — comfortably under an 8 ft/s guideline. Dropping to a 0.5 in pipe at the same flow rate roughly quadruples the velocity to around 16 ft/s, well over the guideline.</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>Flow is treated as steady and fills the full pipe cross-section (no partial flow or free surface).</li>
+    <li>"Inside diameter" is the actual bore, which is smaller than the nominal pipe size for most schedules.</li>
+    <li>The velocity limit is a general guideline, not a code requirement for every application.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>Typical pipe velocity guidelines: <a href="https://www.engineeringtoolbox.com/flow-velocity-water-pipes-d_385.html" rel="nofollow noopener" target="_blank">The Engineering ToolBox — Water Velocity in Pipes</a>.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/pipes/pressure-drop.html">Pipe pressure-drop calculator</a> — estimate pressure loss and head loss for this same run.</li>
+    <li><a href="/tanks/tank-volume.html">Tank volume calculator</a> — size the tank feeding or receiving this pipe.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>How do I calculate flow velocity in a pipe?</summary>
+      <p>Divide the flow rate by the pipe's cross-sectional area. A smaller diameter at the same flow rate always gives a higher velocity.</p>
+    </details>
+    <details>
+      <summary>What is a safe pipe velocity for water?</summary>
+      <p>A common guideline is about 8 ft/s (2.4 m/s) or less in distribution piping, to limit erosion, noise, and water-hammer risk.</p>
+    </details>
+    <details>
+      <summary>Does this calculator account for pressure drop?</summary>
+      <p>No — use the dedicated pressure-drop calculator for Darcy-Weisbach pressure loss and head loss.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc;
+  const form = document.getElementById("f-form");
+  const resultPanel = document.getElementById("f-result");
+  const advancedEl = document.getElementById("f-advanced");
+
+  const SIZES_IMP = [0.5, 0.75, 1, 1.25, 1.5, 2, 2.5, 3, 4]; // inches
+  const SIZES_MET = [15, 20, 25, 32, 40, 50, 65, 80, 100]; // mm
+
+  const fieldDefs = [
+    { id: "f-diameter", badgeId: "f-diameter-badge", impUnit: "in", metUnit: "mm", impToMet: calc.inToMm, metToImp: calc.mmToIn, decimals: 1 },
+    { id: "f-flow", badgeId: "f-flow-badge", impUnit: "GPM", metUnit: "L/min", impToMet: calc.gpmToLpm, metToImp: calc.lpmToGpm, decimals: 1 },
+    { id: "f-limit", badgeId: "f-limit-badge", impUnit: "ft/s", metUnit: "m/s", impToMet: (v) => v * 0.3048, metToImp: (v) => v / 0.3048, decimals: 1 },
+  ];
+
+  let prevSystem = "imperial";
+  const unitManager = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, prevSystem, newSys);
+      prevSystem = newSys;
+      compute();
+    },
+  });
+  prevSystem = unitManager.getSystem();
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = prevSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (prevSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+  }
+
+  // Pure velocity calculation in m/s given diameter in meters and flow in m3/s
+  function calcVelocityMS(diameterM, flowM3s) {
+    const areaM2 = Math.PI * (diameterM / 2) ** 2;
+    return flowM3s / areaM2;
+  }
+
+  function compute() {
+    const isMetric = unitManager.getSystem() === "metric";
+    const diameterVal = util.readNumber(document.getElementById("f-diameter"), { label: "Pipe diameter", allowZero: false });
+    const flowVal = util.readNumber(document.getElementById("f-flow"), { label: "Flow rate", allowZero: false });
+    const limitVal = util.readNumber(document.getElementById("f-limit"), { label: "Velocity limit", allowZero: false });
+
+    if (diameterVal === null || flowVal === null || limitVal === null) {
+      resultPanel.hidden = true;
+      return;
+    }
+
+    // Convert entered inputs into base SI for exact computation
+    const diameterM = isMetric ? diameterVal / 1000 : util.units.inToM(diameterVal);
+    const flowM3s = isMetric ? (flowVal / 1000) / 60 : util.units.gpmToM3s(flowVal);
+
+    const velocityMS = calcVelocityMS(diameterM, flowM3s);
+    const velocityFtS = util.units.mToFt(velocityMS);
+
+    const displayVelocity = isMetric ? velocityMS : velocityFtS;
+    const velUnitStr = isMetric ? "m/s" : "ft/s";
+    const flowUnitStr = isMetric ? "L/min" : "GPM";
+    const diamUnitStr = isMetric ? "mm" : "in";
+
+    const pass = displayVelocity <= limitVal;
+
+    resultPanel.hidden = false;
+    document.getElementById("f-result-main").textContent = `${util.formatNumber(displayVelocity, 2)} ${velUnitStr}`;
+    document.getElementById("f-lbl-vel").textContent = `Flow velocity (${velUnitStr})`;
+    document.getElementById("f-out-velocity").textContent = `${util.formatNumber(displayVelocity, 2)} ${velUnitStr}`;
+    document.getElementById("f-out-status").textContent = pass
+      ? `Within ${util.formatNumber(limitVal, 1)} ${velUnitStr} guideline`
+      : `Exceeds ${util.formatNumber(limitVal, 1)} ${velUnitStr} guideline`;
+
+    // Comparison Table
+    const tableSizes = isMetric ? SIZES_MET : SIZES_IMP;
+    const rows = tableSizes.map((d) => {
+      const dM = isMetric ? d / 1000 : util.units.inToM(d);
+      const vMS = calcVelocityMS(dM, flowM3s);
+      const vDisp = isMetric ? vMS : util.units.mToFt(vMS);
+      return [`${d} ${diamUnitStr}`, `${util.formatNumber(vDisp, 2)} ${velUnitStr}`, vDisp <= limitVal ? "Yes" : "No"];
+    });
+
+    const highlightIndex = tableSizes.findIndex((d) => Math.abs(d - diameterVal) < (isMetric ? 2 : 0.05));
+    util.renderTable(document.getElementById("f-table"), {
+      caption: `Velocity across standard sizes at ${util.formatNumber(flowVal, 1)} ${flowUnitStr}`,
+      headers: [`Pipe Size (${diamUnitStr})`, `Velocity (${velUnitStr})`, `Under ${util.formatNumber(limitVal, 1)} ${velUnitStr}?`],
+      rows,
+      highlightRowIndex: highlightIndex,
+    });
+
+    // Chart
+    const flowSteps = isMetric
+      ? [5, 10, 20, 40, 60, 80, 100, 150, 200]
+      : [1, 2, 5, 10, 15, 20, 30, 50, 75];
+
+    const series = flowSteps.map((fl) => {
+      const fM3s = isMetric ? (fl / 1000) / 60 : util.units.gpmToM3s(fl);
+      const v = calcVelocityMS(diameterM, fM3s);
+      return { x: fl, y: isMetric ? v : util.units.mToFt(v) };
+    });
+
+    advancedEl._lastSeries = series;
+    advancedEl._markX = flowVal;
+    advancedEl._isMetric = isMetric;
+    if (advancedEl.open) drawChart(series, flowVal, isMetric);
+  }
+
+  function drawChart(series, markX, isMetric) {
+    const xLabel = isMetric ? "Flow rate (L/min)" : "Flow rate (GPM)";
+    const yLabel = isMetric ? "Velocity (m/s)" : "Velocity (ft/s)";
+    util.drawLineChart(document.getElementById("f-chart"), series, { xLabel, yLabel, markX });
+  }
+
+  util.onAdvancedOpen(advancedEl, () => {
+    if (advancedEl._lastSeries) drawChart(advancedEl._lastSeries, advancedEl._markX, advancedEl._isMetric);
+  });
+
+  form.addEventListener("input", util.debounce(compute, 80));
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  compute();
+})();
+</script>
+</body>
+</html>

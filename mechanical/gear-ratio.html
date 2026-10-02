@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gear Ratio Calculator — RPM, Speed &amp; Gear Ratio Chart | Decivia</title>
+<meta name="description" content="Calculate wheel RPM, vehicle speed, overall gear ratio, and torque multiplication, then compare gears in a gear ratio chart using engine RPM, final drive, and tire diameter.">
+<link rel="canonical" href="https://decivia.online/mechanical/gear-ratio.html">
+<meta property="og:title" content="Gear Ratio Calculator — RPM, Speed & Gear Ratio Chart">
+<meta property="og:description" content="Wheel RPM, vehicle speed, overall ratio, torque multiplication, and gear-by-gear comparison.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/mechanical/gear-ratio.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Mechanical", "item": "https://decivia.online/mechanical/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Gear Ratio Calculator", "item": "https://decivia.online/mechanical/gear-ratio.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Gear Ratio Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/mechanical/gear-ratio.html",
+  "description": "Estimates wheel RPM, vehicle speed, overall gear ratio, and torque multiplication from engine RPM, transmission ratio, final-drive ratio, and tire diameter.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I calculate overall gear ratio?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Multiply the transmission (gear) ratio by the final-drive ratio, and by the transfer-case ratio if one is present. The result is the overall ratio between the engine and the wheels." }
+    },
+    {
+      "@type": "Question",
+      "name": "How does tire diameter affect speed?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A larger tire covers more distance per revolution, which increases vehicle speed at the same wheel RPM and effectively lowers the gearing, while a smaller tire does the opposite." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does my real-world speed differ from the calculated value?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Real-world speed and torque vary with tire slip, drivetrain efficiency losses, load, tire pressure, and speedometer calibration, so treat the calculated value as a close estimate rather than an exact reading." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/mechanical/index.html">Mechanical</a></li>
+      <li>Gear ratio</li>
+    </ol>
+  </nav>
+
+  <h1>Gear Ratio Calculator</h1>
+  <p class="lede">Enter engine RPM, transmission ratio, final-drive ratio, and tire diameter to get wheel RPM, vehicle speed, overall ratio, and torque multiplication.</p>
+
+  <form class="calc-form" id="gear-form" novalidate>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">Imperial (in / mph)</button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">Metric (mm / km/h)</button>
+      </div>
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label for="g-rpm">Engine / motor RPM</label>
+        <div class="unit-row">
+          <input type="number" id="g-rpm" value="3000" min="1" step="50">
+          <span class="unit">RPM</span>
+        </div>
+        <span class="error-msg" id="g-rpm-err" role="alert"></span>
+      </div>
+      <div class="field">
+        <label for="g-selected-gear">Selected gear</label>
+        <select id="g-selected-gear"></select>
+      </div>
+      <div class="field">
+        <label for="g-trans-ratio">Transmission ratio</label>
+        <input type="number" id="g-trans-ratio" value="1.00" min="0.01" step="0.01">
+        <span class="error-msg" id="g-trans-ratio-err" role="alert"></span>
+      </div>
+      <div class="field">
+        <label for="g-final-ratio">Final-drive ratio</label>
+        <input type="number" id="g-final-ratio" value="3.73" min="0.1" step="0.01">
+        <span class="error-msg" id="g-final-ratio-err" role="alert"></span>
+      </div>
+      <div class="field">
+        <label for="g-tire">Tire diameter</label>
+        <div class="input-with-unit">
+          <input type="number" id="g-tire" value="28" min="1" step="0.1">
+          <span class="unit-badge" id="g-tire-badge">in</span>
+        </div>
+        <span class="error-msg" id="g-tire-err" role="alert"></span>
+      </div>
+    </div>
+    <button type="submit" class="btn">Calculate</button>
+
+    <div class="result-panel" id="g-result" hidden aria-live="polite">
+      <p class="result-main" id="g-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label">Wheel RPM</span><span class="value" id="g-out-wheelrpm">—</span></div>
+        <div class="result-item"><span class="label" id="g-out-speed-lbl">Vehicle speed</span><span class="value" id="g-out-speed">—</span></div>
+        <div class="result-item"><span class="label">Overall ratio</span><span class="value" id="g-out-overall">—</span></div>
+        <div class="result-item"><span class="label">Torque multiplication</span><span class="value" id="g-out-torque">—</span></div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so the interactive calculator can't run. Use the formula in "How it works" below to compute by hand.
+    </div>
+  </noscript>
+
+  <div class="notice">
+    Real-world speed and torque vary with tire slip, drivetrain efficiency, load, and measurement accuracy. Treat results as close estimates, not exact readings.
+  </div>
+
+  <details class="advanced" id="g-advanced">
+    <summary>Advanced options (full gear set, transfer case, final-drive comparison)</summary>
+    <div class="advanced-body">
+      <div class="input-grid">
+        <div class="field">
+          <label for="g-gearset">Gear ratios (comma-separated, low → high)</label>
+          <input type="text" id="g-gearset" value="3.42, 2.14, 1.47, 1.00, 0.72">
+        </div>
+        <div class="field">
+          <label for="g-transfer">Transfer case ratio</label>
+          <input type="number" id="g-transfer" value="1.00" min="0.1" step="0.01">
+        </div>
+        <div class="field">
+          <label for="g-final-alt">Compare final-drive ratio</label>
+          <input type="number" id="g-final-alt" value="4.10" min="0.1" step="0.01">
+        </div>
+      </div>
+
+      <h3>Gear-by-gear comparison</h3>
+      <div id="g-table"></div>
+
+      <h3>Speed vs. engine RPM (selected gear)</h3>
+      <div class="chart-wrap">
+        <canvas class="chart-canvas" id="g-chart" aria-label="Chart of vehicle speed versus engine RPM" role="img"></canvas>
+      </div>
+    </div>
+  </details>
+
+  <h2>How it works</h2>
+  <p>The overall ratio multiplies every reduction stage between the engine and the wheels:</p>
+  <p><strong>Overall ratio = transmission ratio × final-drive ratio × transfer-case ratio</strong></p>
+  <p>Wheel RPM is engine RPM divided by the overall ratio. Vehicle speed converts wheel RPM to distance per minute using the tire's circumference (π × diameter), then to miles per hour. Torque multiplication, ignoring drivetrain losses, equals the overall ratio — a higher ratio means more torque at the wheels but a lower top speed for a given engine RPM.</p>
+
+  <h3>Worked example</h3>
+  <p>3000 RPM, a 1.00 transmission ratio (direct/top gear), a 3.73 final-drive ratio, and a 28 in tire: overall ratio = 3.73, wheel RPM ≈ 804, and vehicle speed ≈ 67 mph (π × 28 in × 804 RPM × 60 min/hr ÷ 63,360 in/mile).</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>No tire slip, and 100% drivetrain efficiency (torque multiplication is the theoretical maximum).</li>
+    <li>Tire diameter is the loaded rolling diameter, not just the sidewall-stamped size.</li>
+    <li>Transfer-case ratio defaults to 1.00 (not applicable) unless changed in Advanced.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>Gear ratio and drivetrain fundamentals: <a href="https://en.wikipedia.org/wiki/Gear_train" rel="nofollow noopener" target="_blank">Wikipedia — Gear Train</a>.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/mechanical/final-drive-ratio.html">Final drive ratio calculator</a> — compare highway RPM before and after a re-gear.</li>
+    <li><a href="/construction/index.html">Construction calculators</a> — plan materials for your next project.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>How do I calculate overall gear ratio?</summary>
+      <p>Multiply the transmission ratio by the final-drive ratio, and by the transfer-case ratio if present.</p>
+    </details>
+    <details>
+      <summary>How does tire diameter affect speed?</summary>
+      <p>A larger tire increases speed at the same wheel RPM (effectively lowering the gearing); a smaller tire does the opposite.</p>
+    </details>
+    <details>
+      <summary>Why does my real-world speed differ from the calculated value?</summary>
+      <p>Tire slip, drivetrain efficiency, load, tire pressure, and speedometer calibration all introduce real-world variation.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc;
+  const form = document.getElementById("gear-form");
+  const resultPanel = document.getElementById("g-result");
+  const advancedEl = document.getElementById("g-advanced");
+  const gearSelect = document.getElementById("g-selected-gear");
+
+  const fieldDefs = [
+    { id: "g-tire", badgeId: "g-tire-badge", impUnit: "in", metUnit: "mm", impToMet: (v) => Math.round(v * 25.4), metToImp: (v) => +(v / 25.4).toFixed(1) }
+  ];
+
+  let currentSystem = "imperial";
+  const unitMgr = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, currentSystem, newSys);
+      currentSystem = newSys;
+      compute();
+    },
+  });
+  currentSystem = unitMgr.getSystem();
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = currentSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (currentSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+  }
+
+  function getGearSet() {
+    return document.getElementById("g-gearset").value.split(",").map((s) => parseFloat(s.trim())).filter((n) => isFinite(n) && n > 0);
+  }
+
+  function populateGearSelect() {
+    const gears = getGearSet();
+    const current = gearSelect.value;
+    gearSelect.innerHTML = gears.map((g, i) => `<option value="${i}">Gear ${i + 1} (${g})</option>`).join("");
+    if (current && current < gears.length) gearSelect.value = current;
+  }
+
+  gearSelect.addEventListener("change", () => {
+    const gears = getGearSet();
+    const idx = parseInt(gearSelect.value, 10);
+    if (gears[idx]) document.getElementById("g-trans-ratio").value = gears[idx];
+    compute();
+  });
+
+  function compute() {
+    const isMetric = (currentSystem === "metric");
+    const speedUnit = isMetric ? "km/h" : "mph";
+
+    const rpm = util.readNumber(document.getElementById("g-rpm"), { label: "Engine RPM", allowZero: false, max: 20000 });
+    const transRatio = util.readNumber(document.getElementById("g-trans-ratio"), { label: "Transmission ratio", allowZero: false, max: 20 });
+    const finalRatio = util.readNumber(document.getElementById("g-final-ratio"), { label: "Final-drive ratio", allowZero: false, max: 20 });
+    const tireVal = util.readNumber(document.getElementById("g-tire"), { label: "Tire diameter", allowZero: false, max: 2500 });
+    const transfer = util.readNumber(document.getElementById("g-transfer"), { label: "Transfer case ratio", allowZero: false, max: 10 }) || 1;
+
+    if (rpm === null || transRatio === null || finalRatio === null || tireVal === null) {
+      resultPanel.hidden = true;
+      return;
+    }
+
+    const tireIn = isMetric ? (tireVal / 25.4) : tireVal;
+    const overallRatio = calc.overallRatio({ transmissionRatio: transRatio, finalDriveRatio: finalRatio, transferCaseRatio: transfer });
+    const wheelRpm = calc.wheelRpm({ engineRpm: rpm, overallRatio });
+    const speedMph = calc.speedMph({ wheelRpm, tireDiameterIn: tireIn });
+    const displaySpeed = isMetric ? (speedMph * 1.609344) : speedMph;
+
+    resultPanel.hidden = false;
+    document.getElementById("g-result-main").textContent = `${util.formatNumber(displaySpeed, 1)} ${speedUnit} at ${rpm} RPM`;
+    document.getElementById("g-out-wheelrpm").textContent = util.formatNumber(wheelRpm, 0) + " RPM";
+    document.getElementById("g-out-speed").textContent = `${util.formatNumber(displaySpeed, 1)} ${speedUnit}`;
+    document.getElementById("g-out-overall").textContent = util.formatNumber(overallRatio, 2) + ":1";
+    document.getElementById("g-out-torque").textContent = util.formatNumber(overallRatio, 2) + "×";
+
+    const gears = getGearSet();
+    const finalAlt = util.readNumber(document.getElementById("g-final-alt"), { label: "Compare final-drive ratio", max: 20 });
+    const rows = gears.map((g, i) => {
+      const or1 = calc.overallRatio({ transmissionRatio: g, finalDriveRatio: finalRatio, transferCaseRatio: transfer });
+      const wr1 = calc.wheelRpm({ engineRpm: rpm, overallRatio: or1 });
+      const spMph1 = calc.speedMph({ wheelRpm: wr1, tireDiameterIn: tireIn });
+      const sp1 = isMetric ? (spMph1 * 1.609344) : spMph1;
+      const row = [`Gear ${i + 1} (${g})`, util.formatNumber(or1, 2), util.formatNumber(wr1, 0) + " RPM", `${util.formatNumber(sp1, 1)} ${speedUnit}`];
+      if (finalAlt) {
+        const or2 = calc.overallRatio({ transmissionRatio: g, finalDriveRatio: finalAlt, transferCaseRatio: transfer });
+        const spMph2 = calc.speedMph({ wheelRpm: calc.wheelRpm({ engineRpm: rpm, overallRatio: or2 }), tireDiameterIn: tireIn });
+        const sp2 = isMetric ? (spMph2 * 1.609344) : spMph2;
+        row.push(`${util.formatNumber(sp2, 1)} ${speedUnit} (final ${finalAlt})`);
+      }
+      return row;
+    });
+    const headers = ["Gear", "Overall ratio", "Wheel RPM", `Speed (${speedUnit})`];
+    if (finalAlt) headers.push(`Speed @ alt (${speedUnit})`);
+    const selectedIdx = parseInt(gearSelect.value, 10);
+    util.renderTable(document.getElementById("g-table"), {
+      caption: `Gear-by-gear comparison at ${rpm} RPM (${speedUnit})`,
+      headers,
+      rows,
+      highlightRowIndex: selectedIdx,
+    });
+
+    const series = [];
+    for (let r = 1000; r <= 7000; r += 250) {
+      const sMph = calc.speedMph({ wheelRpm: calc.wheelRpm({ engineRpm: r, overallRatio }), tireDiameterIn: tireIn });
+      const sVal = isMetric ? (sMph * 1.609344) : sMph;
+      series.push({ x: r, y: sVal });
+    }
+    advancedEl._lastSeries = series;
+    advancedEl._markX = rpm;
+    advancedEl._speedUnit = speedUnit;
+    if (advancedEl.open) drawChart(series, rpm, speedUnit);
+  }
+
+  function drawChart(series, markX, unit) {
+    const yLabel = `Speed (${unit || (currentSystem === "metric" ? "km/h" : "mph")})`;
+    util.drawLineChart(document.getElementById("g-chart"), series, { xLabel: "Engine RPM", yLabel, markX });
+  }
+
+  util.onAdvancedOpen(advancedEl, () => {
+    if (advancedEl._lastSeries) drawChart(advancedEl._lastSeries, advancedEl._markX, advancedEl._speedUnit);
+  });
+
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  ["g-rpm", "g-trans-ratio", "g-final-ratio", "g-tire", "g-transfer", "g-final-alt"].forEach((id) => {
+    document.getElementById(id).addEventListener("input", compute);
+  });
+  document.getElementById("g-gearset").addEventListener("change", () => { populateGearSelect(); compute(); });
+
+  populateGearSelect();
+  compute();
+})();
+</script>
+</body>
+</html>

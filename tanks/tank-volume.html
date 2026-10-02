@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tank Volume Calculator — Rectangular &amp; Cylindrical | Decivia</title>
+<meta name="description" content="Calculate total tank volume in gallons and liters for rectangular or vertical cylindrical tanks from their dimensions.">
+<link rel="canonical" href="https://decivia.online/tanks/tank-volume.html">
+<meta property="og:title" content="Tank Volume Calculator">
+<meta property="og:description" content="Total capacity for rectangular or vertical-cylinder tanks, in gallons and liters.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/tanks/tank-volume.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Tanks", "item": "https://decivia.online/tanks/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Tank Volume Calculator", "item": "https://decivia.online/tanks/tank-volume.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Tank Volume Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/tanks/tank-volume.html",
+  "description": "Calculates total tank volume in gallons and liters for rectangular or vertical cylindrical tanks from their dimensions.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many gallons are in a cylindrical tank?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Multiply the cross-sectional area (π × radius²) by the height, then divide the result in cubic inches by 231 to convert to US gallons." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate the volume of a rectangular tank?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Multiply length by width by height to get cubic inches, then divide by 231 to convert to US gallons." }
+    },
+    {
+      "@type": "Question",
+      "name": "What if my tank is a horizontal cylinder?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Use the dedicated fuel tank capacity calculator, which supports horizontal cylinders, or the fill-level calculator if you need partial-fill volume." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/tanks/index.html">Tanks</a></li>
+      <li>Tank volume</li>
+    </ol>
+  </nav>
+
+  <h1>Tank Volume Calculator</h1>
+  <p class="lede">Pick a shape and enter its dimensions to get total tank capacity in gallons and liters.</p>
+
+  <div class="mode-selector" id="t-mode-selector" role="group" aria-label="Tank shape">
+    <button type="button" data-mode="rect" aria-pressed="true">Rectangular</button>
+    <button type="button" data-mode="vert" aria-pressed="false">Vertical cylinder</button>
+  </div>
+
+  <form class="calc-form" id="t-form" novalidate>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">
+          Imperial (in, gal)
+        </button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">
+          Metric (cm, L)
+        </button>
+      </div>
+    </div>
+
+    <div data-mode-panel="rect">
+      <div class="input-grid">
+        <div class="field">
+          <label for="t-rect-l">Length</label>
+          <div class="input-with-unit">
+            <input type="number" id="t-rect-l" value="48" min="0.1" step="0.1">
+            <span class="unit-badge" id="t-rect-l-badge">in</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="t-rect-w">Width</label>
+          <div class="input-with-unit">
+            <input type="number" id="t-rect-w" value="24" min="0.1" step="0.1">
+            <span class="unit-badge" id="t-rect-w-badge">in</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="t-rect-h">Height</label>
+          <div class="input-with-unit">
+            <input type="number" id="t-rect-h" value="24" min="0.1" step="0.1">
+            <span class="unit-badge" id="t-rect-h-badge">in</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div data-mode-panel="vert" hidden>
+      <div class="input-grid">
+        <div class="field">
+          <label for="t-vert-d">Diameter</label>
+          <div class="input-with-unit">
+            <input type="number" id="t-vert-d" value="24" min="0.1" step="0.1">
+            <span class="unit-badge" id="t-vert-d-badge">in</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="t-vert-h">Height</label>
+          <div class="input-with-unit">
+            <input type="number" id="t-vert-h" value="48" min="0.1" step="0.1">
+            <span class="unit-badge" id="t-vert-h-badge">in</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn">Calculate</button>
+
+    <div class="result-panel" id="t-result" hidden aria-live="polite">
+      <p class="result-main" id="t-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label" id="t-lbl-vol1">Capacity (gallons)</span><span class="value" id="t-out-vol1">—</span></div>
+        <div class="result-item"><span class="label" id="t-lbl-vol2">Capacity (cubic feet)</span><span class="value" id="t-out-vol2">—</span></div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so the interactive calculator can't run. See "How it works" below for the formulas.
+    </div>
+  </noscript>
+
+  <h2>How it works</h2>
+  <p id="t-how-it-works">Rectangular tank volume is length × width × height. Vertical cylinder volume is π × radius² × height. In Imperial units, cubic inches convert to US gallons by dividing by 231 (1 US gallon = 231 in³). In Metric units, cubic centimeters convert to liters by dividing by 1,000 (1,000 cm³ = 1 L).</p>
+
+  <h3>Worked example</h3>
+  <p id="t-worked-example">Imperial: A rectangular tank 48 in × 24 in × 24 in holds 27,648 in³, which equals 119.7 gallons (16.0 cu ft).<br>Metric equivalent: 121.9 cm × 61.0 cm × 61.0 cm holds 453,592 cm³, which equals 453.6 liters (0.45 m³).</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>Tank walls are thin enough that inside dimensions ≈ outside dimensions; use inside dimensions for best accuracy.</li>
+    <li>Volume is total/nominal capacity — real-world usable volume is often slightly less due to fittings or an outlet above the floor.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>Standard volume formulas for rectangular prisms and cylinders: <a href="https://en.wikipedia.org/wiki/Volume" rel="nofollow noopener" target="_blank">Wikipedia — Volume</a>.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/tanks/fuel-tank-capacity.html">Fuel tank capacity calculator</a> — adds horizontal cylinders and liquid mass.</li>
+    <li><a href="/tanks/fill-level.html">Tank fill-level calculator</a> — explore partial-fill volume with a chart.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>How many gallons are in a cylindrical tank?</summary>
+      <p>Multiply the cross-sectional area (π × radius²) by the height, then divide by 231 for US gallons.</p>
+    </details>
+    <details>
+      <summary>How do I calculate the volume of a rectangular tank?</summary>
+      <p>Multiply length × width × height for cubic inches, then divide by 231 for US gallons.</p>
+    </details>
+    <details>
+      <summary>What if my tank is a horizontal cylinder?</summary>
+      <p>Use the fuel tank capacity calculator, which supports horizontal cylinders, or the fill-level calculator for partial-fill volume.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc;
+  const form = document.getElementById("t-form");
+  const resultPanel = document.getElementById("t-result");
+
+  const fieldDefs = [
+    { id: "t-rect-l", badgeId: "t-rect-l-badge", impUnit: "in", metUnit: "cm", impToMet: calc.inToCm, metToImp: calc.cmToIn, decimals: 1 },
+    { id: "t-rect-w", badgeId: "t-rect-w-badge", impUnit: "in", metUnit: "cm", impToMet: calc.inToCm, metToImp: calc.cmToIn, decimals: 1 },
+    { id: "t-rect-h", badgeId: "t-rect-h-badge", impUnit: "in", metUnit: "cm", impToMet: calc.inToCm, metToImp: calc.cmToIn, decimals: 1 },
+    { id: "t-vert-d", badgeId: "t-vert-d-badge", impUnit: "in", metUnit: "cm", impToMet: calc.inToCm, metToImp: calc.cmToIn, decimals: 1 },
+    { id: "t-vert-h", badgeId: "t-vert-h-badge", impUnit: "in", metUnit: "cm", impToMet: calc.inToCm, metToImp: calc.cmToIn, decimals: 1 },
+  ];
+
+  let prevSystem = "imperial";
+  const unitManager = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, prevSystem, newSys);
+      prevSystem = newSys;
+      compute();
+    },
+  });
+  prevSystem = unitManager.getSystem();
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = prevSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (prevSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+  }
+
+  function currentMode() {
+    const btn = document.querySelector("#t-mode-selector [aria-pressed='true']");
+    return btn ? btn.dataset.mode : "rect";
+  }
+
+  function compute() {
+    const mode = currentMode();
+    const isMetric = unitManager.getSystem() === "metric";
+    let volGal;
+
+    if (mode === "rect") {
+      const l = util.readNumber(document.getElementById("t-rect-l"), { label: "Length", allowZero: false });
+      const w = util.readNumber(document.getElementById("t-rect-w"), { label: "Width", allowZero: false });
+      const h = util.readNumber(document.getElementById("t-rect-h"), { label: "Height", allowZero: false });
+      if (l === null || w === null || h === null) return (resultPanel.hidden = true);
+      const lIn = isMetric ? calc.cmToIn(l) : l;
+      const wIn = isMetric ? calc.cmToIn(w) : w;
+      const hIn = isMetric ? calc.cmToIn(h) : h;
+      volGal = calc.rectTankVolumeGal({ lengthIn: lIn, widthIn: wIn, heightIn: hIn });
+    } else {
+      const d = util.readNumber(document.getElementById("t-vert-d"), { label: "Diameter", allowZero: false });
+      const h = util.readNumber(document.getElementById("t-vert-h"), { label: "Height", allowZero: false });
+      if (d === null || h === null) return (resultPanel.hidden = true);
+      const dIn = isMetric ? calc.cmToIn(d) : d;
+      const hIn = isMetric ? calc.cmToIn(h) : h;
+      volGal = calc.vertCylinderVolumeGal({ diameterIn: dIn, heightIn: hIn });
+    }
+
+    resultPanel.hidden = false;
+    const volLiters = calc.galToLiters(volGal);
+    const volCuFt = volGal / 7.48052;
+    const volCuM = volLiters / 1000;
+
+    if (isMetric) {
+      document.getElementById("t-result-main").textContent = `${util.formatNumber(volLiters, 1)} liters`;
+      document.getElementById("t-lbl-vol1").textContent = "Capacity (liters)";
+      document.getElementById("t-out-vol1").textContent = util.formatNumber(volLiters, 1) + " L";
+      document.getElementById("t-lbl-vol2").textContent = "Volume (cubic meters)";
+      document.getElementById("t-out-vol2").textContent = util.formatNumber(volCuM, 3) + " m³";
+    } else {
+      document.getElementById("t-result-main").textContent = `${util.formatNumber(volGal, 1)} gallons`;
+      document.getElementById("t-lbl-vol1").textContent = "Capacity (gallons)";
+      document.getElementById("t-out-vol1").textContent = util.formatNumber(volGal, 1) + " gal";
+      document.getElementById("t-lbl-vol2").textContent = "Volume (cubic feet)";
+      document.getElementById("t-out-vol2").textContent = util.formatNumber(volCuFt, 2) + " cu ft";
+    }
+  }
+
+  util.initModeSelector(document);
+  document.querySelectorAll("#t-mode-selector button").forEach((b) => b.addEventListener("click", compute));
+  form.addEventListener("input", util.debounce(compute, 80));
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  compute();
+})();
+</script>
+</body>
+</html>

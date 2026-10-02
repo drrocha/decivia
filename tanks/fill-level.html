@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tank Fill-Level Calculator — Horizontal Cylinder | Decivia</title>
+<meta name="description" content="Explore partial-fill volume for a horizontal cylindrical tank with a fill-height slider, fill-level chart, and capacity-by-height table.">
+<link rel="canonical" href="https://decivia.online/tanks/fill-level.html">
+<meta property="og:title" content="Tank Fill-Level Calculator">
+<meta property="og:description" content="Partial-fill volume explorer for horizontal cylindrical tanks with a fill-height chart.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/tanks/fill-level.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Tanks", "item": "https://decivia.online/tanks/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Tank Fill-Level Calculator", "item": "https://decivia.online/tanks/fill-level.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Tank Fill-Level Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/tanks/fill-level.html",
+  "description": "Calculates partial-fill volume for a horizontal cylindrical tank at a given fill height, with a fill-level chart and capacity-by-height table.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I calculate the volume of a horizontal cylindrical tank at partial fill?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Find the circular-segment area of the liquid's cross-section at the given fill height, then multiply by the tank's length. This is not a simple linear percentage of total volume because the tank's cross-section is a circle, not a rectangle." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does fill percentage mean 50% height is 50% volume?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Only at exactly the halfway point. For a horizontal cylinder, 50% height is 50% volume, but other fill heights are not a straight-line percentage because of the circular cross-section." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I measure fill height on a real tank?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Measure the vertical distance from the bottom inside of the tank straight up to the liquid surface, using a dipstick or sight gauge, not along the curved wall." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/tanks/index.html">Tanks</a></li>
+      <li>Fill level</li>
+    </ol>
+  </nav>
+
+  <h1>Tank Fill-Level Calculator</h1>
+  <p class="lede">For a horizontal cylindrical tank, enter its diameter and length, then slide the fill height to see the current volume and how it compares to other fill levels.</p>
+
+  <form class="calc-form" id="l-form" novalidate>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">
+          Imperial (in, gal)
+        </button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">
+          Metric (cm, L)
+        </button>
+      </div>
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label for="l-d">Diameter</label>
+        <div class="input-with-unit">
+          <input type="number" id="l-d" value="24" min="0.1" step="0.1">
+          <span class="unit-badge" id="l-d-badge">in</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="l-l">Length</label>
+        <div class="input-with-unit">
+          <input type="number" id="l-l" value="60" min="0.1" step="0.1">
+          <span class="unit-badge" id="l-l-badge">in</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="l-fill">Fill height</label>
+        <div class="unit-row">
+          <input type="range" id="l-fill" min="0" max="100" value="60" step="1">
+          <span class="unit" id="l-fill-label">60%</span>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn">Calculate</button>
+
+    <div class="result-panel" id="l-result" hidden aria-live="polite">
+      <p class="result-main" id="l-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label" id="l-lbl-vol">Current volume</span><span class="value" id="l-out-vol">—</span></div>
+        <div class="result-item"><span class="label" id="l-lbl-height">Liquid level</span><span class="value" id="l-out-height">—</span></div>
+        <div class="result-item"><span class="label" id="l-lbl-total">Total capacity</span><span class="value" id="l-out-total">—</span></div>
+        <div class="result-item"><span class="label" id="l-lbl-pct">Capacity filled</span><span class="value" id="l-out-pct">—</span></div>
+      </div>
+    </div>
+  </form>
+
+  <h2>Fill-level chart</h2>
+  <div class="chart-wrap">
+    <canvas class="chart-canvas" id="l-fill-chart" aria-label="Fill-level chart showing current liquid height in the tank" role="img" style="height:160px;"></canvas>
+  </div>
+
+  <h2>Capacity by fill height</h2>
+  <div id="l-table"></div>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so the interactive slider can't run. See "How it works" below for the circular-segment formula.
+    </div>
+  </noscript>
+
+  <h2>How it works</h2>
+  <p>The liquid's cross-section at a given fill height is a circular segment, not a simple percentage of the circle:</p>
+  <p><strong>Segment area = ½r²(θ − sin θ), where θ = 2·cos⁻¹((r − h) / r)</strong></p>
+  <p>Here r is the tank radius and h is the fill height measured from the bottom. The segment area × tank length ÷ 231 gives the fill volume in US gallons.</p>
+
+  <h3>Worked example</h3>
+  <p>A 24 in diameter × 60 in long tank filled to 12 in (exactly half): the segment area equals half the circle's area (π × 12² ÷ 2 ≈ 226 in²), giving 226 × 60 ÷ 231 ≈ 58.7 gallons — exactly half of the tank's ~117.5 gallon total capacity, as expected at the midpoint.</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>Tank ends are flat (not domed/elliptical); domed ends add extra volume not modeled here.</li>
+    <li>Fill height is measured vertically from the lowest inside point of the tank.</li>
+    <li>Waste space such as sump depth or an outlet above the floor is not subtracted automatically.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>Circular-segment geometry: <a href="https://en.wikipedia.org/wiki/Circular_segment" rel="nofollow noopener" target="_blank">Wikipedia — Circular Segment</a>.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/tanks/fuel-tank-capacity.html">Fuel tank capacity calculator</a> — total capacity and mass for this same tank shape.</li>
+    <li><a href="/pipes/flow-rate.html">Pipe flow-rate calculator</a> — size the fill or drain line for this tank.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>How do I calculate the volume of a horizontal cylindrical tank at partial fill?</summary>
+      <p>Find the circular-segment area at the fill height, then multiply by the tank length. It is not a simple linear percentage of total volume.</p>
+    </details>
+    <details>
+      <summary>Does fill percentage mean 50% height is 50% volume?</summary>
+      <p>Only at exactly the halfway point. Other fill heights are not a straight-line percentage because of the circular cross-section.</p>
+    </details>
+    <details>
+      <summary>How do I measure fill height on a real tank?</summary>
+      <p>Measure the vertical distance from the bottom inside of the tank to the liquid surface, using a dipstick or sight gauge.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc;
+  const form = document.getElementById("l-form");
+  const resultPanel = document.getElementById("l-result");
+  const fillInput = document.getElementById("l-fill");
+  const fillLabel = document.getElementById("l-fill-label");
+
+  const fieldDefs = [
+    { id: "l-d", badgeId: "l-d-badge", impUnit: "in", metUnit: "cm", impToMet: calc.inToCm, metToImp: calc.cmToIn, decimals: 1 },
+    { id: "l-l", badgeId: "l-l-badge", impUnit: "in", metUnit: "cm", impToMet: calc.inToCm, metToImp: calc.cmToIn, decimals: 1 },
+  ];
+
+  let prevSystem = "imperial";
+  const unitManager = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, prevSystem, newSys);
+      prevSystem = newSys;
+      compute();
+    },
+  });
+  prevSystem = unitManager.getSystem();
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = prevSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (prevSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+  }
+
+  fillInput.addEventListener("input", () => {
+    fillLabel.textContent = fillInput.value + "%";
+    compute();
+  });
+
+  function drawFillChart(fillPct, fillHeightFormatted, volFormatted) {
+    const canvas = document.getElementById("l-fill-chart");
+    const ctx = canvas.getContext("2d");
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    const w = Math.max(rect.width, 280), h = Math.max(rect.height, 160);
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    const tankW = 160, tankH = 90, x0 = w / 2 - tankW / 2, y0 = (h - tankH) / 2 - 8;
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark" || (!document.documentElement.getAttribute("data-theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    ctx.strokeStyle = isDark ? "#475569" : "#94a3b8"; ctx.lineWidth = 2;
+    ctx.strokeRect(x0, y0, tankW, tankH);
+    const fillH = (fillPct / 100) * tankH;
+    ctx.fillStyle = isDark ? "#38bdf8" : "#1d4ed8";
+    ctx.fillRect(x0 + 2, y0 + tankH - fillH + 2, tankW - 4, fillH - 4 > 0 ? fillH - 4 : 0);
+    ctx.fillStyle = isDark ? "#cbd5e1" : "#334155";
+    ctx.font = "12px ui-monospace, 'SF Mono', monospace";
+    ctx.textAlign = "center";
+    ctx.fillText(`${fillPct}% height (${fillHeightFormatted}) — ${volFormatted}`, w / 2, y0 + tankH + 24);
+  }
+
+  function compute() {
+    const isMetric = unitManager.getSystem() === "metric";
+    const d = util.readNumber(document.getElementById("l-d"), { label: "Diameter", allowZero: false });
+    const l = util.readNumber(document.getElementById("l-l"), { label: "Length", allowZero: false });
+    const fillPct = parseFloat(fillInput.value);
+
+    if (d === null || l === null) {
+      resultPanel.hidden = true;
+      return;
+    }
+
+    const dIn = isMetric ? calc.cmToIn(d) : d;
+    const lIn = isMetric ? calc.cmToIn(l) : l;
+
+    const totalGal = calc.horizCylinderFillGal({ diameterIn: dIn, lengthIn: lIn, fillHeightIn: dIn });
+    const fillHeightIn = (fillPct / 100) * dIn;
+    const currentGal = calc.horizCylinderFillGal({ diameterIn: dIn, lengthIn: lIn, fillHeightIn });
+    const volPct = totalGal > 0 ? (currentGal / totalGal) * 100 : 0;
+
+    const totalL = calc.galToLiters(totalGal);
+    const currentL = calc.galToLiters(currentGal);
+    const fillHeightDisp = isMetric ? (fillPct / 100) * d : fillHeightIn;
+    const unitDim = isMetric ? "cm" : "in";
+    const unitVol = isMetric ? "L" : "gal";
+
+    resultPanel.hidden = false;
+
+    if (isMetric) {
+      document.getElementById("l-result-main").textContent = `${util.formatNumber(currentL, 1)} L at ${fillPct}% height`;
+      document.getElementById("l-lbl-vol").textContent = "Current volume";
+      document.getElementById("l-out-vol").textContent = util.formatNumber(currentL, 1) + " L";
+      document.getElementById("l-lbl-height").textContent = "Liquid level";
+      document.getElementById("l-out-height").textContent = `${util.formatNumber(fillHeightDisp, 1)} / ${util.formatNumber(d, 1)} cm`;
+      document.getElementById("l-lbl-total").textContent = "Total capacity";
+      document.getElementById("l-out-total").textContent = util.formatNumber(totalL, 1) + " L";
+      document.getElementById("l-lbl-pct").textContent = "Capacity filled";
+      document.getElementById("l-out-pct").textContent = util.formatNumber(volPct, 1) + "%";
+
+      drawFillChart(fillPct, `${util.formatNumber(fillHeightDisp, 1)} cm`, `${util.formatNumber(currentL, 1)} L`);
+    } else {
+      document.getElementById("l-result-main").textContent = `${util.formatNumber(currentGal, 1)} gal at ${fillPct}% height`;
+      document.getElementById("l-lbl-vol").textContent = "Current volume";
+      document.getElementById("l-out-vol").textContent = util.formatNumber(currentGal, 1) + " gal";
+      document.getElementById("l-lbl-height").textContent = "Liquid level";
+      document.getElementById("l-out-height").textContent = `${util.formatNumber(fillHeightDisp, 1)} / ${util.formatNumber(d, 1)} in`;
+      document.getElementById("l-lbl-total").textContent = "Total capacity";
+      document.getElementById("l-out-total").textContent = util.formatNumber(totalGal, 1) + " gal";
+      document.getElementById("l-lbl-pct").textContent = "Capacity filled";
+      document.getElementById("l-out-pct").textContent = util.formatNumber(volPct, 1) + "%";
+
+      drawFillChart(fillPct, `${util.formatNumber(fillHeightDisp, 1)} in`, `${util.formatNumber(currentGal, 1)} gal`);
+    }
+
+    const heights = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+    const rows = heights.map((pct) => {
+      const hIn = (pct / 100) * dIn;
+      const g = calc.horizCylinderFillGal({ diameterIn: dIn, lengthIn: lIn, fillHeightIn: hIn });
+      const hDisp = isMetric ? (pct / 100) * d : hIn;
+      const vDisp = isMetric ? calc.galToLiters(g) : g;
+      const pctCap = totalGal > 0 ? (g / totalGal) * 100 : 0;
+      return [
+        pct + "%",
+        `${util.formatNumber(hDisp, 1)} ${unitDim}`,
+        `${util.formatNumber(vDisp, 1)} ${unitVol}`,
+        `${util.formatNumber(pctCap, 1)}%`
+      ];
+    });
+
+    const highlightIndex = heights.reduce((best, h, i) => (Math.abs(h - fillPct) < Math.abs(heights[best] - fillPct) ? i : best), 0);
+    util.renderTable(document.getElementById("l-table"), {
+      caption: `Capacity by fill height (${isMetric ? "Metric SI" : "Imperial US"})`,
+      headers: ["Fill Height %", `Liquid Level (${unitDim})`, `Volume (${unitVol})`, "Share of Total"],
+      rows,
+      highlightRowIndex: highlightIndex,
+    });
+  }
+
+  form.addEventListener("input", util.debounce(compute, 80));
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  compute();
+})();
+</script>
+</body>
+</html>

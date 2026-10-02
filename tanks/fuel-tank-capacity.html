@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fuel Tank Capacity Calculator — Gallons, Liters &amp; Mass | Decivia</title>
+<meta name="description" content="Calculate fuel tank capacity and liquid mass for rectangular, vertical-cylinder, or horizontal-cylinder tanks, in gallons and liters.">
+<link rel="canonical" href="https://decivia.online/tanks/fuel-tank-capacity.html">
+<meta property="og:title" content="Fuel Tank Capacity Calculator">
+<meta property="og:description" content="Fuel tank capacity and optional liquid mass for rectangular, vertical, or horizontal tanks.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/tanks/fuel-tank-capacity.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Tanks", "item": "https://decivia.online/tanks/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Fuel Tank Capacity Calculator", "item": "https://decivia.online/tanks/fuel-tank-capacity.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Fuel Tank Capacity Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/tanks/fuel-tank-capacity.html",
+  "description": "Calculates fuel tank capacity and optional liquid mass for rectangular, vertical-cylinder, or horizontal-cylinder tanks from their dimensions and fuel type.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I calculate fuel tank dimensions to capacity?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Compute the tank's geometric volume from its shape (rectangular, vertical cylinder, or horizontal cylinder), convert cubic inches to gallons by dividing by 231, and multiply by a fuel density if you also want the mass." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can a fuel tank actually be filled to its full rated capacity?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Usually not quite. Fuel tanks are commonly designed and filled with some vapor space (ullage), often a few percent of volume, for thermal expansion and safety, so usable capacity is typically slightly below the geometric total." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this calculator safe to use for fuel storage design?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. It only estimates geometric volume and mass. Fuel storage, venting, and tank construction are governed by codes such as NFPA 30 and should be designed by a qualified professional." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/tanks/index.html">Tanks</a></li>
+      <li>Fuel tank capacity</li>
+    </ol>
+  </nav>
+
+  <h1>Fuel Tank Capacity Calculator</h1>
+  <p class="lede">Pick a tank shape and fuel type to get capacity in gallons and liters, plus the liquid's approximate mass.</p>
+
+  <div class="mode-selector" id="f-mode-selector" role="group" aria-label="Tank shape">
+    <button type="button" data-mode="rect" aria-pressed="true">Rectangular</button>
+    <button type="button" data-mode="vert" aria-pressed="false">Vertical cylinder</button>
+    <button type="button" data-mode="horiz" aria-pressed="false">Horizontal cylinder</button>
+  </div>
+
+  <form class="calc-form" id="f-form" novalidate>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">
+          Imperial (in, gal, lb)
+        </button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">
+          Metric (cm, L, kg)
+        </button>
+      </div>
+    </div>
+
+    <div data-mode-panel="rect">
+      <div class="input-grid">
+        <div class="field">
+          <label for="f-rect-l">Length</label>
+          <div class="input-with-unit">
+            <input type="number" id="f-rect-l" value="30" min="0.1" step="0.1">
+            <span class="unit-badge" id="f-rect-l-badge">in</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-rect-w">Width</label>
+          <div class="input-with-unit">
+            <input type="number" id="f-rect-w" value="20" min="0.1" step="0.1">
+            <span class="unit-badge" id="f-rect-w-badge">in</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-rect-h">Height</label>
+          <div class="input-with-unit">
+            <input type="number" id="f-rect-h" value="16" min="0.1" step="0.1">
+            <span class="unit-badge" id="f-rect-h-badge">in</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div data-mode-panel="vert" hidden>
+      <div class="input-grid">
+        <div class="field">
+          <label for="f-vert-d">Diameter</label>
+          <div class="input-with-unit">
+            <input type="number" id="f-vert-d" value="20" min="0.1" step="0.1">
+            <span class="unit-badge" id="f-vert-d-badge">in</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-vert-h">Height</label>
+          <div class="input-with-unit">
+            <input type="number" id="f-vert-h" value="30" min="0.1" step="0.1">
+            <span class="unit-badge" id="f-vert-h-badge">in</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div data-mode-panel="horiz" hidden>
+      <div class="input-grid">
+        <div class="field">
+          <label for="f-horiz-d">Diameter</label>
+          <div class="input-with-unit">
+            <input type="number" id="f-horiz-d" value="24" min="0.1" step="0.1">
+            <span class="unit-badge" id="f-horiz-d-badge">in</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-horiz-l">Length</label>
+          <div class="input-with-unit">
+            <input type="number" id="f-horiz-l" value="48" min="0.1" step="0.1">
+            <span class="unit-badge" id="f-horiz-l-badge">in</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label for="f-fuel">Fuel type (for mass)</label>
+        <select id="f-fuel">
+          <option value="gasoline" selected>Gasoline (≈0.74 kg/L / 6.2 lb/gal)</option>
+          <option value="diesel">Diesel (≈0.85 kg/L / 7.1 lb/gal)</option>
+          <option value="water">Water, for reference (1.0 kg/L / 8.34 lb/gal)</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="submit" class="btn">Calculate</button>
+
+    <div class="result-panel" id="f-result" hidden aria-live="polite">
+      <p class="result-main" id="f-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label" id="f-lbl-cap">Geometric capacity</span><span class="value" id="f-out-cap">—</span></div>
+        <div class="result-item"><span class="label" id="f-lbl-usable">Approx. usable (95%)</span><span class="value" id="f-out-usable">—</span></div>
+        <div class="result-item"><span class="label" id="f-lbl-mass">Approx. fuel mass</span><span class="value" id="f-out-mass">—</span></div>
+        <div class="result-item"><span class="label" id="f-lbl-vol">Volume space</span><span class="value" id="f-out-vol">—</span></div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so the interactive calculator can't run. See "How it works" below for the formulas.
+    </div>
+  </noscript>
+
+  <div class="notice">
+    <strong>Not a fuel-storage design tool.</strong> This calculates geometric volume and mass only. Fuel storage, venting, and tank construction are governed by codes such as NFPA 30 and should be designed by a qualified professional.
+  </div>
+
+  <h2>How it works</h2>
+  <p>Each shape uses its own geometric volume formula (rectangular: L×W×H; vertical cylinder: π×r²×H; horizontal cylinder: π×r²×L), converted from cubic inches to US gallons by dividing by 231. Mass multiplies the volume in liters by the selected fuel's typical density. The "approximate usable" figure assumes about 5% vapor space (ullage), a common allowance so tanks aren't filled to the geometric brim.</p>
+
+  <h3>Worked example</h3>
+  <p>A horizontal cylindrical tank 24 in diameter × 48 in long holds π × 12² × 48 ÷ 231 ≈ 94 gallons geometrically. At 95% usable, that's about 89.3 gallons. Filled with gasoline (≈0.74 kg/L), the full tank's liquid mass is roughly 94 × 3.785 × 0.74 ≈ 263 kg (≈580 lb).</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>Tank walls are thin enough that inside dimensions ≈ outside dimensions.</li>
+    <li>Fuel densities are typical values at normal ambient temperature; actual density varies with fuel blend and temperature.</li>
+    <li>The 95% usable allowance is a common rule of thumb, not a specific code requirement for your tank.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>Flammable and combustible liquid storage is governed by <a href="https://www.nfpa.org/" rel="nofollow noopener" target="_blank">NFPA 30, Flammable and Combustible Liquids Code</a>. Consult a qualified professional for any fuel storage installation.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/tanks/tank-volume.html">Tank volume calculator</a> — a simpler total-capacity calculation for water or other liquid tanks.</li>
+    <li><a href="/tanks/fill-level.html">Tank fill-level calculator</a> — explore partial-fill volume with a chart.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>How do I calculate fuel tank dimensions to capacity?</summary>
+      <p>Compute geometric volume from the tank's shape, convert to gallons by dividing by 231, and multiply by fuel density for mass.</p>
+    </details>
+    <details>
+      <summary>Can a fuel tank actually be filled to its full rated capacity?</summary>
+      <p>Usually not quite — tanks commonly keep some vapor space (ullage) for thermal expansion and safety, so usable capacity is slightly below the geometric total.</p>
+    </details>
+    <details>
+      <summary>Is this calculator safe to use for fuel storage design?</summary>
+      <p>No — it only estimates volume and mass. Fuel storage design is governed by codes like NFPA 30 and needs a qualified professional.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc, data = CalcAtlas.data;
+  const form = document.getElementById("f-form");
+  const resultPanel = document.getElementById("f-result");
+
+  const fieldDefs = [
+    { id: "f-rect-l", badgeId: "f-rect-l-badge", impUnit: "in", metUnit: "cm", impToMet: calc.inToCm, metToImp: calc.cmToIn, decimals: 1 },
+    { id: "f-rect-w", badgeId: "f-rect-w-badge", impUnit: "in", metUnit: "cm", impToMet: calc.inToCm, metToImp: calc.cmToIn, decimals: 1 },
+    { id: "f-rect-h", badgeId: "f-rect-h-badge", impUnit: "in", metUnit: "cm", impToMet: calc.inToCm, metToImp: calc.cmToIn, decimals: 1 },
+    { id: "f-vert-d", badgeId: "f-vert-d-badge", impUnit: "in", metUnit: "cm", impToMet: calc.inToCm, metToImp: calc.cmToIn, decimals: 1 },
+    { id: "f-vert-h", badgeId: "f-vert-h-badge", impUnit: "in", metUnit: "cm", impToMet: calc.inToCm, metToImp: calc.cmToIn, decimals: 1 },
+    { id: "f-horiz-d", badgeId: "f-horiz-d-badge", impUnit: "in", metUnit: "cm", impToMet: calc.inToCm, metToImp: calc.cmToIn, decimals: 1 },
+    { id: "f-horiz-l", badgeId: "f-horiz-l-badge", impUnit: "in", metUnit: "cm", impToMet: calc.inToCm, metToImp: calc.cmToIn, decimals: 1 },
+  ];
+
+  let prevSystem = "imperial";
+  const unitManager = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, prevSystem, newSys);
+      prevSystem = newSys;
+      compute();
+    },
+  });
+  prevSystem = unitManager.getSystem();
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = prevSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (prevSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+  }
+
+  function currentMode() {
+    const btn = document.querySelector("#f-mode-selector [aria-pressed='true']");
+    return btn ? btn.dataset.mode : "rect";
+  }
+
+  function compute() {
+    const mode = currentMode();
+    const isMetric = unitManager.getSystem() === "metric";
+    let gal;
+
+    if (mode === "rect") {
+      const l = util.readNumber(document.getElementById("f-rect-l"), { label: "Length", allowZero: false });
+      const w = util.readNumber(document.getElementById("f-rect-w"), { label: "Width", allowZero: false });
+      const h = util.readNumber(document.getElementById("f-rect-h"), { label: "Height", allowZero: false });
+      if (l === null || w === null || h === null) return (resultPanel.hidden = true);
+      const lIn = isMetric ? calc.cmToIn(l) : l;
+      const wIn = isMetric ? calc.cmToIn(w) : w;
+      const hIn = isMetric ? calc.cmToIn(h) : h;
+      gal = calc.rectTankVolumeGal({ lengthIn: lIn, widthIn: wIn, heightIn: hIn });
+    } else if (mode === "vert") {
+      const d = util.readNumber(document.getElementById("f-vert-d"), { label: "Diameter", allowZero: false });
+      const h = util.readNumber(document.getElementById("f-vert-h"), { label: "Height", allowZero: false });
+      if (d === null || h === null) return (resultPanel.hidden = true);
+      const dIn = isMetric ? calc.cmToIn(d) : d;
+      const hIn = isMetric ? calc.cmToIn(h) : h;
+      gal = calc.vertCylinderVolumeGal({ diameterIn: dIn, heightIn: hIn });
+    } else {
+      const d = util.readNumber(document.getElementById("f-horiz-d"), { label: "Diameter", allowZero: false });
+      const l = util.readNumber(document.getElementById("f-horiz-l"), { label: "Length", allowZero: false });
+      if (d === null || l === null) return (resultPanel.hidden = true);
+      const dIn = isMetric ? calc.cmToIn(d) : d;
+      const lIn = isMetric ? calc.cmToIn(l) : l;
+      gal = calc.horizCylinderFillGal({ diameterIn: dIn, lengthIn: lIn, fillHeightIn: dIn });
+    }
+
+    const fuelKey = document.getElementById("f-fuel").value;
+    const densityKgPerL = data.fuelDensityKgPerL[fuelKey];
+    const liters = calc.galToLiters(gal);
+    const massKg = liters * densityKgPerL;
+    const massLbs = massKg * 2.20462262;
+    const usableGal = gal * 0.95;
+    const usableLiters = liters * 0.95;
+    const volCuFt = gal / 7.48052;
+    const volCuM = liters / 1000;
+
+    resultPanel.hidden = false;
+
+    if (isMetric) {
+      document.getElementById("f-result-main").textContent = `${util.formatNumber(liters, 1)} liters geometric capacity`;
+      document.getElementById("f-lbl-cap").textContent = "Geometric capacity";
+      document.getElementById("f-out-cap").textContent = util.formatNumber(liters, 1) + " L";
+      document.getElementById("f-lbl-usable").textContent = "Approx. usable (95%)";
+      document.getElementById("f-out-usable").textContent = util.formatNumber(usableLiters, 1) + " L";
+      document.getElementById("f-lbl-mass").textContent = "Approx. fuel mass";
+      document.getElementById("f-out-mass").textContent = util.formatNumber(massKg, 1) + " kg";
+      document.getElementById("f-lbl-vol").textContent = "Volume space";
+      document.getElementById("f-out-vol").textContent = util.formatNumber(volCuM, 3) + " m³";
+    } else {
+      document.getElementById("f-result-main").textContent = `${util.formatNumber(gal, 1)} gallons geometric capacity`;
+      document.getElementById("f-lbl-cap").textContent = "Geometric capacity";
+      document.getElementById("f-out-cap").textContent = util.formatNumber(gal, 1) + " gal";
+      document.getElementById("f-lbl-usable").textContent = "Approx. usable (95%)";
+      document.getElementById("f-out-usable").textContent = util.formatNumber(usableGal, 1) + " gal";
+      document.getElementById("f-lbl-mass").textContent = "Approx. fuel mass";
+      document.getElementById("f-out-mass").textContent = util.formatNumber(massLbs, 1) + " lb";
+      document.getElementById("f-lbl-vol").textContent = "Volume space";
+      document.getElementById("f-out-vol").textContent = util.formatNumber(volCuFt, 2) + " cu ft";
+    }
+  }
+
+  util.initModeSelector(document);
+  document.querySelectorAll("#f-mode-selector button").forEach((b) => b.addEventListener("click", compute));
+  form.addEventListener("input", util.debounce(compute, 80));
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  document.getElementById("f-fuel").addEventListener("change", compute);
+  compute();
+})();
+</script>
+</body>
+</html>
