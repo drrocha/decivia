@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Present-Value Annuity Factor Calculator — PVIFA &amp; Cash Flow | Decivia</title>
+<meta name="description" content="Calculate ordinary and due present-value annuity factors (PVIFA) and discounted cash flow totals from interest rate and number of periods.">
+<link rel="canonical" href="https://decivia.online/finance/present-value-annuity.html">
+<meta property="og:title" content="Present-Value Annuity Factor Calculator">
+<meta property="og:description" content="Ordinary and annuity-due factors and cash flow valuations by interest rate and periods.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/finance/present-value-annuity.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Finance", "item": "https://decivia.online/finance/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Present-Value Annuity Calculator", "item": "https://decivia.online/finance/present-value-annuity.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Present-Value Annuity Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/finance/present-value-annuity.html",
+  "description": "Calculates ordinary and due present-value annuity factors and discounted cash flows.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a present value annuity factor (PVIFA)?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It is a multiplier used to calculate the current lump-sum value of a series of equal future cash payments, given a specified discount or interest rate per period." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between an ordinary annuity and an annuity due?",
+      "acceptedAnswer": { "@type": "Answer", "text": "In an ordinary annuity, payments occur at the end of each period (common for loans and mortgages). In an annuity due, payments occur at the beginning of each period (common for leases and rent)." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="site-brand-group">
+      <a class="brand-icon" href="/" aria-label="Decivia Home">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 2 12 12 22 22 12 12 2"></polygon>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+          <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+      </a>
+      <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+      <p class="site-tagline">From a question to a clear decision.</p>
+    </div>
+
+    <div class="header-actions">
+      <nav class="header-nav">
+        <a href="/">All Tools</a>
+        <a href="/finance/index.html">Finance</a>
+      </nav>
+      <!-- Theme toggle mounted by app.js -->
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/finance/index.html">Finance</a></li>
+      <li>Present-Value Annuity</li>
+    </ol>
+  </nav>
+
+  <h1>Present-Value Annuity Calculator</h1>
+  <p class="lede">Compute ordinary annuity and annuity-due present value interest factors (PVIFA) and evaluate total lump-sum cash flow valuations.</p>
+
+  <form class="calc-form" id="a-form" novalidate>
+    <div class="form-header">
+      <span class="form-header-title">1. Valuation Terms</span>
+      <span style="font-size: 0.8rem; color: var(--text-subtle);">Discounted Cash Flow Model</span>
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label for="a-rate">Discount / Interest Rate Per Period</label>
+        <div class="unit-row">
+          <input type="number" id="a-rate" value="5" min="0" max="100" step="0.1" inputmode="decimal">
+          <span class="unit">%</span>
+        </div>
+        <div class="preset-chips">
+          <button type="button" class="chip-btn" data-set-input="a-rate" data-val="3">3%</button>
+          <button type="button" class="chip-btn" data-set-input="a-rate" data-val="5">5%</button>
+          <button type="button" class="chip-btn" data-set-input="a-rate" data-val="7">7%</button>
+          <button type="button" class="chip-btn" data-set-input="a-rate" data-val="10">10%</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="a-periods">Number of Periods (n)</label>
+        <div class="unit-row">
+          <input type="number" id="a-periods" value="10" min="1" max="600" step="1">
+          <span class="unit">periods</span>
+        </div>
+        <div class="preset-chips">
+          <button type="button" class="chip-btn" data-set-input="a-periods" data-val="5">5</button>
+          <button type="button" class="chip-btn" data-set-input="a-periods" data-val="10">10</button>
+          <button type="button" class="chip-btn" data-set-input="a-periods" data-val="20">20</button>
+          <button type="button" class="chip-btn" data-set-input="a-periods" data-val="30">30</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="a-payment">Payment Per Period (PMT, optional)</label>
+        <div class="unit-row">
+          <input type="number" id="a-payment" value="1000" min="0" step="50" placeholder="e.g. 1000">
+          <span class="unit">$</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="a-type">Timing of Payment</label>
+        <select id="a-type">
+          <option value="ordinary" selected>Ordinary Annuity (End of Period)</option>
+          <option value="due">Annuity Due (Beginning of Period)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        <span>Calculate Annuity Value</span>
+      </button>
+    </div>
+
+    <!-- Result Panel -->
+    <div class="result-panel" id="a-result" hidden aria-live="polite">
+      <p class="result-main" id="a-result-main">—</p>
+
+      <div class="result-grid">
+        <div class="result-item">
+          <span class="label">PVIFA Factor</span>
+          <span class="value" id="a-out-factor">—</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Total Present Value</span>
+          <span class="value" id="a-out-pv">—</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Undiscounted Total</span>
+          <span class="value" id="a-out-undiscounted">—</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Discount Savings / Interest</span>
+          <span class="value" id="a-out-discount">—</span>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off. Review standard annuity formulas in the section below.
+    </div>
+  </noscript>
+
+  <h2>Annuity Factor Lookup Table</h2>
+  <div id="a-table"></div>
+
+  <h2>How Present-Value Annuities Work</h2>
+  <p>The present-value of an ordinary annuity determines what a series of future periodic payments is worth right now at a given discount rate:</p>
+  <p><strong>PVIFA = [1 - (1 + r)<sup>-n</sup>] / r</strong></p>
+  <p>Where <em>r</em> is the periodic discount rate (as a decimal) and <em>n</em> is the number of periods. For an annuity due, each payment is discounted by one period less, multiplying the factor by <strong>(1 + r)</strong>.</p>
+
+  <h3>Worked Example</h3>
+  <p>For 10 annual payments of <strong>$1,000</strong> at a <strong>5% discount rate</strong>: the ordinary PVIFA is <code>[1 - (1.05)<sup>-10</sup>] / 0.05 = 7.7217</code>. The present value is <code>$1,000 &times; 7.7217 = $7,721.73</code>. Receiving the full $10,000 over 10 years at 5% inflation is equivalent to holding $7,721.73 today.</p>
+
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>What is an annuity factor used for?</summary>
+      <p>Financial analysts and planners use it to price bonds, value lease obligations, calculate mortgage amortization schedules, and determine lottery lump-sum equivalents.</p>
+    </details>
+    <details>
+      <summary>How do I adjust for monthly payments?</summary>
+      <p>Divide the annual interest rate by 12 (e.g., 6% / 12 = 0.5% per month) and multiply years by 12 (e.g., 5 years = 60 periods).</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><strong>decivia.online</strong> &mdash; Practical engineering, finance, and trade calculators.</div>
+  </div>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc;
+  const form = document.getElementById("a-form");
+  const resultPanel = document.getElementById("a-result");
+
+  document.querySelectorAll(".chip-btn").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const input = document.getElementById(chip.dataset.setInput);
+      if (input) {
+        input.value = chip.dataset.val;
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+        compute();
+      }
+    });
+  });
+
+  function compute() {
+    const rate = util.readNumber(document.getElementById("a-rate"), { label: "Rate", max: 100 });
+    const periods = util.readNumber(document.getElementById("a-periods"), { label: "Periods", allowZero: false, max: 600 });
+    const payment = parseFloat(document.getElementById("a-payment").value) || 0;
+    const type = document.getElementById("a-type").value;
+
+    if (rate === null || periods === null) {
+      resultPanel.hidden = true;
+      return;
+    }
+
+    const factor = type === "due"
+      ? calc.presentValueAnnuityFactorDue({ ratePct: rate, periods })
+      : calc.presentValueAnnuityFactor({ ratePct: rate, periods });
+
+    const pv = payment * factor;
+    const undiscounted = payment * periods;
+    const discount = undiscounted - pv;
+
+    resultPanel.hidden = false;
+    document.getElementById("a-result-main").textContent = payment > 0
+      ? `Present Value: $${util.formatNumber(pv, 2)} (Factor: ${util.formatNumber(factor, 4)})`
+      : `Annuity Factor: ${util.formatNumber(factor, 4)}`;
+
+    document.getElementById("a-out-factor").textContent = util.formatNumber(factor, 4);
+    document.getElementById("a-out-pv").textContent = payment > 0 ? "$" + util.formatNumber(pv, 2) : "—";
+    document.getElementById("a-out-undiscounted").textContent = payment > 0 ? "$" + util.formatNumber(undiscounted, 2) : "—";
+    document.getElementById("a-out-discount").textContent = payment > 0 ? "$" + util.formatNumber(discount, 2) : "—";
+
+    const periodSteps = [1, 2, 3, 5, 10, 15, 20, 25, 30];
+    const rows = periodSteps.map((n) => {
+      const f = type === "due"
+        ? calc.presentValueAnnuityFactorDue({ ratePct: rate, periods: n })
+        : calc.presentValueAnnuityFactor({ ratePct: rate, periods: n });
+      return [
+        n + " periods",
+        util.formatNumber(f, 4),
+        payment > 0 ? "$" + util.formatNumber(payment * f, 2) : "—"
+      ];
+    });
+
+    const highlightIndex = periodSteps.findIndex((n) => n === periods);
+    util.renderTable(document.getElementById("a-table"), {
+      caption: `Present-Value Annuity Factors at ${rate}% (${type === "due" ? "Annuity Due" : "Ordinary Annuity"})`,
+      headers: ["Periods (n)", "PVIFA Factor", "Present Value (PMT = $" + payment + ")"],
+      rows,
+      highlightRowIndex: highlightIndex,
+    });
+  }
+
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  ["a-rate", "a-periods", "a-payment", "a-type"].forEach((id) => {
+    document.getElementById(id).addEventListener("change", compute);
+  });
+
+  compute();
+})();
+</script>
+</body>
+</html>
