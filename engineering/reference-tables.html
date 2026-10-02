@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Engineering Reference Tables Directory | Decivia</title>
+<meta name="description" content="Printable reference tables for beam/joist spans and water hardness classification, in one place, with links back to the interactive reverse-lookup calculators.">
+<link rel="canonical" href="https://decivia.online/engineering/reference-tables.html">
+<meta property="og:title" content="Engineering Reference Tables Directory">
+<meta property="og:description" content="Beam span and water hardness reference tables in one directory.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/engineering/reference-tables.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Engineering", "item": "https://decivia.online/engineering/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Reference Tables Directory", "item": "https://decivia.online/engineering/reference-tables.html" }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/engineering/index.html">Engineering</a></li>
+      <li>Reference tables</li>
+    </ol>
+  </nav>
+
+  <h1>Engineering Reference Tables Directory</h1>
+  <p class="lede">The full reference tables behind this site's engineering reverse-lookup calculators, in one place for quick scanning or printing.</p>
+
+  <h2>Beam &amp; joist span (illustrative, all sizes and spacings)</h2>
+  <p>Full table behind the <a href="/engineering/beam-span.html">beam &amp; joist span lookup</a>, covering both 16" and 24" on-center spacing.</p>
+  <div id="rt-beam-table"></div>
+
+  <h2>Water hardness classification (USGS bands)</h2>
+  <p>Full table behind the <a href="/engineering/water-hardness.html">water hardness calculator</a>.</p>
+  <div id="rt-hardness-table"></div>
+
+  <div class="notice">
+    These are illustrative reference values for quick lookup, not a substitute for official code span tables, a structural engineer, or your water utility's own test results.
+  </div>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/engineering/beam-span.html">Beam &amp; joist span lookup</a> — reverse lookup that highlights the matching row.</li>
+    <li><a href="/engineering/water-hardness.html">Water hardness calculator</a> — classify hardness from calcium/magnesium or a direct mg/L value.</li>
+  </ul>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, data = CalcAtlas.data;
+
+  util.renderTable(document.getElementById("rt-beam-table"), {
+    caption: "Illustrative maximum joist spans, all sizes and spacings",
+    headers: ["Size", "Spacing", "Max span (ft)"],
+    rows: data.beamSpanTable.map((r) => [r.size, r.spacing, util.formatNumber(r.maxSpanFt, 1) + " ft"]),
+  });
+
+  util.renderTable(document.getElementById("rt-hardness-table"), {
+    caption: "USGS water hardness classification",
+    headers: ["Band", "Range"],
+    rows: data.waterHardnessBands.map((b) => [b.band, b.rangeMgL + " mg/L"]),
+  });
+})();
+</script>
+</body>
+</html>
+

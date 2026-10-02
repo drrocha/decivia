@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beam &amp; Joist Span Lookup | Decivia</title>
+<meta name="description" content="Look up illustrative maximum beam and joist spans by member size and spacing, with reverse lookup for a target span.">
+<link rel="canonical" href="https://decivia.online/engineering/beam-span.html">
+<meta property="og:title" content="Beam & Joist Span Lookup">
+<meta property="og:description" content="Illustrative maximum span ranges by member size and spacing, not a substitute for local code tables.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/engineering/beam-span.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Engineering", "item": "https://decivia.online/engineering/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Beam & Joist Span Lookup", "item": "https://decivia.online/engineering/beam-span.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Beam & Joist Span Lookup",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/engineering/beam-span.html",
+  "description": "Looks up an illustrative maximum span for a target span and joist spacing, for quick reference only.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are these beam span values code-accurate for my location?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. They are illustrative reference ranges for quick comparison only. Actual allowable spans depend on species, grade, load, and your local building code span tables, and should be confirmed with a structural engineer or code official." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does joist spacing matter for span?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Joists spaced farther apart (such as 24 in on center instead of 16 in) each carry a larger tributary load, which reduces the maximum span a given member size can safely cover." }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I do if my span exceeds every listed size?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Consider a larger or engineered member (such as an I-joist or glulam), an intermediate support, or closer spacing, and confirm the final design with a structural engineer." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/engineering/index.html">Engineering</a></li>
+      <li>Beam &amp; joist span</li>
+    </ol>
+  </nav>
+
+  <h1>Beam &amp; Joist Span Lookup</h1>
+  <p class="lede">Enter the span you need and a joist spacing to find the smallest listed member size that covers it, for quick reference only.</p>
+
+  <form class="calc-form" id="b-form" novalidate>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">Imperial (ft / in)</button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">Metric (m / mm)</button>
+      </div>
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label for="b-span">Span needed</label>
+        <div class="input-with-unit">
+          <input type="number" id="b-span" value="12" min="1" step="0.1">
+          <span class="unit-badge" id="b-span-badge">ft</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="b-spacing">Joist spacing</label>
+        <select id="b-spacing">
+          <option value="16" selected>16" on-center (400 mm)</option>
+          <option value="24">24" on-center (600 mm)</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="btn">Look up</button>
+
+    <div class="result-panel" id="b-result" hidden aria-live="polite">
+      <p class="result-main" id="b-result-main">—</p>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so reverse lookup and highlighting can't run, but the full table is below.
+    </div>
+  </noscript>
+
+  <div class="notice">
+    <strong>Illustrative values only.</strong> Not a substitute for your local building code's official span tables (e.g., American Wood Council span tables) or a structural engineer's calculation.
+  </div>
+
+  <h2>Span table</h2>
+  <div id="b-table"></div>
+
+  <h2>How it works</h2>
+  <p>Each listed size has a maximum span for a given joist spacing. Wider spacing means each joist supports more floor or roof area (a larger tributary width), which lowers its maximum safe span. This lookup simply finds the smallest listed size whose maximum span meets or exceeds the span you need.</p>
+
+  <h3>Worked example</h3>
+  <p>For a 12 ft span at 16" on-center spacing, a 2x8 (max span 11.9 ft) falls just short, so the smallest size that covers it is a 2x10 (max span 15.2 ft).</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>Values are illustrative reference ranges, not tied to a specific species, grade, or load combination.</li>
+    <li>Your local building code's official span tables and load requirements always take precedence.</li>
+    <li>Point loads, cantilevers, and non-uniform loading are not modeled.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>Wood span table methodology: <a href="https://www.awc.org/" rel="nofollow noopener" target="_blank">American Wood Council</a>.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/construction/drywall.html">Drywall calculator</a> — material planning for the walls around this framing.</li>
+    <li><a href="/construction/deck-materials.html">Deck material calculator</a> — decking for a joist layout like this one.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>Are these beam span values code-accurate for my location?</summary>
+      <p>No — they're illustrative reference ranges. Confirm with your local building code span tables and a structural engineer.</p>
+    </details>
+    <details>
+      <summary>Why does joist spacing matter for span?</summary>
+      <p>Wider spacing means each joist carries more tributary load, which reduces its maximum safe span.</p>
+    </details>
+    <details>
+      <summary>What should I do if my span exceeds every listed size?</summary>
+      <p>Consider a larger or engineered member, an intermediate support, or closer spacing, and confirm with a structural engineer.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, data = CalcAtlas.data;
+  const form = document.getElementById("b-form");
+  const resultPanel = document.getElementById("b-result");
+  const spacingSelect = document.getElementById("b-spacing");
+
+  const fieldDefs = [
+    { id: "b-span", badgeId: "b-span-badge", impUnit: "ft", metUnit: "m", impToMet: (v) => +(v * 0.3048).toFixed(2), metToImp: (v) => +(v / 0.3048).toFixed(1) }
+  ];
+
+  let currentSystem = "imperial";
+  const unitMgr = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, currentSystem, newSys);
+      currentSystem = newSys;
+      updateSpacingLabels();
+      compute();
+    },
+  });
+  currentSystem = unitMgr.getSystem();
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = currentSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (currentSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+    updateSpacingLabels();
+  }
+
+  function updateSpacingLabels() {
+    const isMetric = (currentSystem === "metric");
+    spacingSelect.options[0].text = isMetric ? "400 mm o.c. (16\" o.c.)" : "16\" on-center (400 mm)";
+    spacingSelect.options[1].text = isMetric ? "600 mm o.c. (24\" o.c.)" : "24\" on-center (600 mm)";
+  }
+
+  function compute() {
+    const isMetric = (currentSystem === "metric");
+    const unitLabel = isMetric ? "m" : "ft";
+    const spanInput = util.readNumber(document.getElementById("b-span"), { label: "Span", allowZero: false, max: 20 });
+    if (spanInput === null) return (resultPanel.hidden = true);
+
+    const spanNeededFt = isMetric ? (spanInput * 3.280839895) : spanInput;
+    const spacingVal = spacingSelect.value; // "16" or "24"
+    const spacingStr = spacingVal === "16" ? '16" o.c.' : '24" o.c.';
+    const spacingLabel = isMetric
+      ? (spacingVal === "16" ? "400 mm o.c." : "600 mm o.c.")
+      : (spacingVal === "16" ? '16" o.c.' : '24" o.c.');
+
+    const filtered = data.beamSpanTable.filter((r) => r.spacing === spacingStr);
+    const match = filtered.find((r) => r.maxSpanFt >= spanNeededFt);
+
+    resultPanel.hidden = false;
+    if (match) {
+      const matchSpanDisplay = isMetric ? `${(match.maxSpanFt * 0.3048).toFixed(2)} m` : `${match.maxSpanFt.toFixed(1)} ft`;
+      document.getElementById("b-result-main").textContent = `Smallest listed size: ${match.size} (max span ${matchSpanDisplay} at ${spacingLabel})`;
+    } else {
+      document.getElementById("b-result-main").textContent = `Span of ${util.formatNumber(spanInput, 2)} ${unitLabel} exceeds all listed single-member sizes at ${spacingLabel} — consult a structural engineer for built-up beams or LVL headers.`;
+    }
+
+    const rows = filtered.map((r) => {
+      const spanStr = isMetric ? `${(r.maxSpanFt * 0.3048).toFixed(2)} m` : `${r.maxSpanFt.toFixed(1)} ft`;
+      const covers = r.maxSpanFt >= spanNeededFt;
+      return [r.size, spacingLabel, spanStr, covers ? "✓ Covers Span" : "✕ Insufficient"];
+    });
+    const highlightIndex = filtered.findIndex((r) => match && r.size === match.size);
+    util.renderTable(document.getElementById("b-table"), {
+      caption: `Illustrative maximum joist spans at ${spacingLabel} (${unitLabel})`,
+      headers: ["Member Size", "Spacing", `Max Span (${unitLabel})`, "Status"],
+      rows,
+      highlightRowIndex: highlightIndex,
+    });
+  }
+
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  document.getElementById("b-span").addEventListener("input", compute);
+  spacingSelect.addEventListener("change", compute);
+
+  updateSpacingLabels();
+  compute();
+})();
+</script>
+</body>
+</html>

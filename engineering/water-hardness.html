@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Water Hardness Calculator — Calcium &amp; Magnesium to CaCO₃ | Decivia</title>
+<meta name="description" content="Calculate water hardness from calcium and magnesium concentrations, or enter mg/L directly, convert to grains per gallon, and classify against soft/moderately hard/hard/very hard bands.">
+<link rel="canonical" href="https://decivia.online/engineering/water-hardness.html">
+<meta property="og:title" content="Water Hardness Calculator">
+<meta property="og:description" content="Calculate hardness from calcium & magnesium concentrations, convert to grains per gallon, and classify against USGS bands.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/engineering/water-hardness.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Engineering", "item": "https://decivia.online/engineering/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Water Hardness Calculator", "item": "https://decivia.online/engineering/water-hardness.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Water Hardness Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/engineering/water-hardness.html",
+  "description": "Classifies water hardness from mg/L as calcium carbonate, with a grains-per-gallon conversion, against standard USGS bands.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is water hardness calculated from calcium and magnesium?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Multiply calcium concentration (mg/L) by 2.497, multiply magnesium concentration (mg/L) by 4.118, and add the two results to get hardness in mg/L as calcium carbonate (CaCO3)." }
+    },
+    {
+      "@type": "Question",
+      "name": "What counts as hard water?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Using the common USGS classification, water is generally considered hard at 121-180 mg/L as calcium carbonate, and very hard above 180 mg/L." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I convert mg/L to grains per gallon?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Divide mg/L (as calcium carbonate) by 17.118. Water softeners are commonly sized in grains per gallon, so this conversion is useful when your test result is reported in mg/L." }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between temporary and permanent hardness?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Temporary hardness comes from calcium and magnesium bicarbonates and can be removed by boiling. Permanent hardness comes from sulfates or chlorides and requires ion-exchange softening instead." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this tell me if my water is safe to drink?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Hardness is a measure of dissolved minerals, not a safety or contamination test. Contact your water utility or a certified lab for water-quality or safety testing." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/engineering/index.html">Engineering</a></li>
+      <li>Water hardness</li>
+    </ol>
+  </nav>
+
+  <h1>Water Hardness Calculator</h1>
+  <p class="lede">Calculate water hardness from calcium and magnesium concentrations, or enter a lab-reported hardness value directly, to get its classification and the equivalent in grains per gallon.</p>
+
+  <div class="mode-selector" id="h-mode-selector" role="group" aria-label="Input method">
+    <button type="button" data-mode="camg" aria-pressed="true">From calcium &amp; magnesium</button>
+    <button type="button" data-mode="direct" aria-pressed="false">Enter hardness directly</button>
+  </div>
+
+  <form class="calc-form" id="h-form" novalidate>
+    <div data-mode-panel="camg">
+      <div class="input-grid">
+        <div class="field">
+          <label for="h-ca">Calcium concentration (Ca²⁺)</label>
+          <div class="input-with-unit">
+            <input type="number" id="h-ca" value="31" min="0" max="1000" step="0.1">
+            <span class="unit-badge">mg/L</span>
+          </div>
+          <span class="error-msg" id="h-ca-err" role="alert"></span>
+        </div>
+        <div class="field">
+          <label for="h-mg">Magnesium concentration (Mg²⁺)</label>
+          <div class="input-with-unit">
+            <input type="number" id="h-mg" value="27" min="0" max="1000" step="0.1">
+            <span class="unit-badge">mg/L</span>
+          </div>
+          <span class="error-msg" id="h-mg-err" role="alert"></span>
+        </div>
+      </div>
+    </div>
+    <div data-mode-panel="direct" hidden>
+      <div class="input-grid">
+        <div class="field">
+          <label for="h-value">Hardness (as CaCO₃)</label>
+          <div class="input-with-unit">
+            <input type="number" id="h-value" value="150" min="0" max="2000" step="1">
+            <span class="unit-badge">mg/L</span>
+          </div>
+          <span class="error-msg" id="h-value-err" role="alert"></span>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn">Classify</button>
+
+    <div class="result-panel" id="h-result" hidden aria-live="polite">
+      <p class="result-main" id="h-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label">Hardness (as CaCO₃)</span><span class="value" id="h-out-hardness">—</span></div>
+        <div class="result-item"><span class="label">Grains per gallon</span><span class="value" id="h-out-gpg">—</span></div>
+        <div class="result-item"><span class="label">Classification</span><span class="value" id="h-out-band">—</span></div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so reverse lookup and highlighting can't run, but the full band table is below.
+    </div>
+  </noscript>
+
+  <h2>Hardness bands</h2>
+  <div id="h-table"></div>
+
+  <h2>How it works</h2>
+  <p>Water hardness is driven by dissolved calcium (Ca²⁺) and magnesium (Mg²⁺) ions, expressed as an equivalent concentration of calcium carbonate (CaCO₃):</p>
+  <p><strong>Hardness (mg/L as CaCO₃) = 2.497 × Ca + 4.118 × Mg</strong></p>
+  <p>where Ca and Mg are the calcium and magnesium concentrations in mg/L. If a lab already reports hardness directly (commonly as mg/L or ppm, which are effectively equal for dilute solutions like drinking water), use the "Enter hardness directly" option instead. Grains per gallon, the unit commonly used for water softener sizing, equals mg/L divided by 17.118.</p>
+
+  <h3>Worked example</h3>
+  <p>A supply with 31 mg/L calcium and 27 mg/L magnesium: hardness = 2.497 × 31 + 4.118 × 27 = 77.4 + 111.2 ≈ 188.6 mg/L as CaCO₃ — about 11.02 grains per gallon, which falls in the "Very hard" band (181+ mg/L).</p>
+
+  <h2>Types of hardness</h2>
+  <p>Hardness is sometimes split into two types, based on which minerals cause it:</p>
+  <ul>
+    <li><strong>Temporary hardness</strong> comes from calcium and magnesium bicarbonates and can be reduced by boiling (or treated with lime).</li>
+    <li><strong>Permanent hardness</strong> comes from calcium/magnesium sulfates or chlorides and isn't removed by boiling — it typically needs ion-exchange (water softening) treatment instead.</li>
+  </ul>
+  <p>Either way, persistently hard water can leave scale buildup in pipes, water heaters, and appliances, reducing their efficiency over time.</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>The calcium/magnesium formula assumes both are reported as elemental ion concentrations in mg/L, not as oxide or carbonate equivalents.</li>
+    <li>Hardness bands follow a common USGS classification; some water utilities or regions use slightly different cutoffs.</li>
+    <li>This is a unit conversion and classification tool, not a water-quality or safety test.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>Hardness classification: <a href="https://www.usgs.gov/special-topics/water-science-school" rel="nofollow noopener" target="_blank">USGS Water Science School</a>.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/household/utility-cost.html">Monthly utility cost estimator</a> — budget water costs alongside your other utilities.</li>
+    <li><a href="/engineering/beam-span.html">Beam &amp; joist span lookup</a> — another structural reference lookup.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>How is water hardness calculated from calcium and magnesium?</summary>
+      <p>Multiply calcium (mg/L) by 2.497, multiply magnesium (mg/L) by 4.118, and add the results to get hardness in mg/L as CaCO₃.</p>
+    </details>
+    <details>
+      <summary>What counts as hard water?</summary>
+      <p>Commonly, 121-180 mg/L as CaCO₃ is "hard," and above 180 mg/L is "very hard" (USGS classification).</p>
+    </details>
+    <details>
+      <summary>How do I convert mg/L to grains per gallon?</summary>
+      <p>Divide mg/L by 17.118 — useful when sizing a water softener that's rated in grains per gallon.</p>
+    </details>
+    <details>
+      <summary>What's the difference between temporary and permanent hardness?</summary>
+      <p>Temporary hardness (from bicarbonates) can be removed by boiling; permanent hardness (from sulfates/chlorides) needs ion-exchange softening instead.</p>
+    </details>
+    <details>
+      <summary>Does this tell me if my water is safe to drink?</summary>
+      <p>No — hardness measures dissolved minerals, not safety. Contact your water utility or a certified lab for quality testing.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc, data = CalcAtlas.data;
+  const form = document.getElementById("h-form");
+  const resultPanel = document.getElementById("h-result");
+
+  function currentMode() {
+    const btn = document.querySelector("#h-mode-selector [aria-pressed='true']");
+    return btn ? btn.dataset.mode : "camg";
+  }
+
+  function compute() {
+    const mode = currentMode();
+    let hardness;
+
+    if (mode === "camg") {
+      const ca = util.readNumber(document.getElementById("h-ca"), { label: "Calcium concentration", max: 1000 });
+      const mg = util.readNumber(document.getElementById("h-mg"), { label: "Magnesium concentration", max: 1000 });
+      if (ca === null || mg === null) return (resultPanel.hidden = true);
+      hardness = calc.hardnessFromCaMg({ ca, mg });
+    } else {
+      const value = util.readNumber(document.getElementById("h-value"), { label: "Hardness", max: 2000 });
+      if (value === null) return (resultPanel.hidden = true);
+      hardness = value;
+    }
+
+    const band = calc.classifyHardness(hardness);
+    const gpg = calc.mgLToGrainsPerGallon(hardness);
+
+    resultPanel.hidden = false;
+    document.getElementById("h-result-main").textContent = `${util.formatNumber(hardness, 1)} mg/L as CaCO₃ — classified as ${band}`;
+    document.getElementById("h-out-hardness").textContent = util.formatNumber(hardness, 1) + " mg/L";
+    document.getElementById("h-out-gpg").textContent = util.formatNumber(gpg, 2) + " gpg";
+    document.getElementById("h-out-band").textContent = band;
+
+    const rows = data.waterHardnessBands.map((b) => [b.band, b.rangeMgL + " mg/L"]);
+    const highlightIndex = data.waterHardnessBands.findIndex((b) => b.band === band);
+    util.renderTable(document.getElementById("h-table"), {
+      caption: "USGS water hardness classification",
+      headers: ["Band", "Range"],
+      rows,
+      highlightRowIndex: highlightIndex,
+    });
+  }
+
+  util.initModeSelector(document);
+  document.querySelectorAll("#h-mode-selector button").forEach((b) => b.addEventListener("click", compute));
+  form.addEventListener("input", util.debounce(compute, 80));
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  compute();
+})();
+</script>
+</body>
+</html>
