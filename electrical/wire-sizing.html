@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wire Size &amp; Ampacity Calculator — Wire Gauge Chart | Decivia</title>
+<meta name="description" content="Find the recommended wire gauge and amp rating from current, voltage, and run length. Calculates ampacity, voltage drop, and compares nearby wire sizes.">
+<link rel="canonical" href="https://decivia.online/electrical/wire-sizing.html">
+<meta property="og:title" content="Wire Size & Ampacity Calculator">
+<meta property="og:description" content="Find the right wire gauge and amp rating for current, voltage, and distance, with supporting voltage-drop results.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/electrical/wire-sizing.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Electrical", "item": "https://decivia.online/electrical/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Wire Size & Ampacity Calculator", "item": "https://decivia.online/electrical/wire-sizing.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Wire Size & Ampacity Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/electrical/wire-sizing.html",
+  "description": "Estimates recommended wire gauge and amp rating from current, voltage, cable length, and conductor material, with supporting voltage-drop results.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What wire gauge do I need for a given current and distance?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The required gauge depends on both the ampacity rating of the wire and the acceptable voltage drop over the run length. Longer runs or higher currents usually need a thicker (lower AWG number) wire than ampacity alone would suggest." }
+    },
+    {
+      "@type": "Question",
+      "name": "What voltage drop percentage is acceptable?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A common rule of thumb is to keep voltage drop at or below 3% for branch circuits and 5% for the combined feeder and branch circuit, though local code and equipment requirements can differ." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this calculator replace the National Electrical Code?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. This tool gives a general estimate based on simplified, published ampacity and resistance values. Always verify sizing against the current NEC (or local equivalent) and a qualified electrician before installation." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="site-brand-group">
+      <a class="brand-icon" href="/" aria-label="Decivia Home">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 2 12 12 22 22 12 12 2"></polygon>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+          <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+      </a>
+      <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+      <p class="site-tagline">From a question to a clear decision.</p>
+    </div>
+
+    <div class="header-actions">
+      <nav class="header-nav" aria-label="Quick links">
+        <a href="/">All Tools</a>
+        <a href="/electrical/index.html">Electrical</a>
+        <a href="/electrical/voltage-drop.html">Voltage Drop</a>
+      </nav>
+      <!-- Theme toggle mounted by app.js -->
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/electrical/index.html">Electrical</a></li>
+      <li>Wire Sizing</li>
+    </ol>
+  </nav>
+
+  <h1>Wire Size &amp; Ampacity Calculator</h1>
+  <p class="lede">Calculate the recommended American Wire Gauge (AWG), continuous ampacity, and expected voltage drop based on circuit load, voltage, and conductor distance.</p>
+
+  <form class="calc-form" id="wire-form" novalidate>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">Imperial (ft / AWG)</button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">Metric (m / mm²)</button>
+      </div>
+    </div>
+
+    <div class="form-header">
+      <span class="form-header-title">1. Circuit Parameters</span>
+      <span style="font-size: 0.8rem; color: var(--text-subtle);">NEC Table 310.16 Reference</span>
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label for="w-current">
+          <span>Current / Load</span>
+        </label>
+        <div class="unit-row">
+          <input type="number" id="w-current" value="20" min="0" step="0.1" inputmode="decimal">
+          <span class="unit">A</span>
+        </div>
+        <div class="preset-chips" aria-label="Quick current presets">
+          <button type="button" class="chip-btn" data-set-input="w-current" data-val="15">15A</button>
+          <button type="button" class="chip-btn" data-set-input="w-current" data-val="20">20A</button>
+          <button type="button" class="chip-btn" data-set-input="w-current" data-val="30">30A</button>
+          <button type="button" class="chip-btn" data-set-input="w-current" data-val="50">50A</button>
+          <button type="button" class="chip-btn" data-set-input="w-current" data-val="100">100A</button>
+        </div>
+        <span class="error-msg" id="w-current-err" role="alert"></span>
+      </div>
+
+      <div class="field">
+        <label for="w-voltage">
+          <span>System Voltage</span>
+        </label>
+        <div class="unit-row">
+          <input type="number" id="w-voltage" value="120" min="1" step="1" inputmode="decimal">
+          <span class="unit">V</span>
+        </div>
+        <div class="preset-chips" aria-label="Quick voltage presets">
+          <button type="button" class="chip-btn" data-set-input="w-voltage" data-val="120">120V</button>
+          <button type="button" class="chip-btn" data-set-input="w-voltage" data-val="208">208V</button>
+          <button type="button" class="chip-btn" data-set-input="w-voltage" data-val="240">240V</button>
+          <button type="button" class="chip-btn" data-set-input="w-voltage" data-val="277">277V</button>
+          <button type="button" class="chip-btn" data-set-input="w-voltage" data-val="480">480V</button>
+        </div>
+        <span class="error-msg" id="w-voltage-err" role="alert"></span>
+      </div>
+
+      <div class="field">
+        <label for="w-length">
+          <span>Cable Length (One-Way)</span>
+        </label>
+        <div class="input-with-unit">
+          <input type="number" id="w-length" value="50" min="0" step="1" inputmode="decimal">
+          <span class="unit-badge" id="w-length-badge">ft</span>
+        </div>
+        <div class="preset-chips" id="w-length-chips" aria-label="Quick distance presets">
+          <button type="button" class="chip-btn" data-set-input="w-length" data-val="25">25ft</button>
+          <button type="button" class="chip-btn" data-set-input="w-length" data-val="50">50ft</button>
+          <button type="button" class="chip-btn" data-set-input="w-length" data-val="100">100ft</button>
+          <button type="button" class="chip-btn" data-set-input="w-length" data-val="150">150ft</button>
+        </div>
+        <span class="error-msg" id="w-length-err" role="alert"></span>
+      </div>
+
+      <div class="field">
+        <label for="w-material">Conductor Material</label>
+        <select id="w-material">
+          <option value="copper" selected>Copper (Cu)</option>
+          <option value="aluminum">Aluminum (Al)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="w-current-type">Current Type</label>
+        <select id="w-current-type">
+          <option value="ac" selected>AC (Alternating)</option>
+          <option value="dc">DC (Direct)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        <span>Calculate Wire Size</span>
+      </button>
+    </div>
+
+    <!-- Live Result Panel -->
+    <div class="result-panel" id="w-result" hidden aria-live="polite">
+      <div class="result-top-bar">
+        <div class="result-badge" id="w-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span id="w-badge-text">Recommended Size</span>
+        </div>
+        <button type="button" class="copy-btn" id="w-copy-btn" title="Copy calculation summary">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span>Copy Summary</span>
+        </button>
+      </div>
+
+      <p class="result-main" id="w-result-main">—</p>
+
+      <div class="result-grid">
+        <div class="result-item">
+          <span class="label">Ampacity (90°C)</span>
+          <span class="value" id="w-out-ampacity">—</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Voltage Drop</span>
+          <span class="value" id="w-out-dropv">—</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Drop Percentage</span>
+          <span class="value" id="w-out-droppct">—</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Min. Size for Drop Limit</span>
+          <span class="value" id="w-out-minsize">—</span>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is required for live computation and interactive charts. Refer to the formulas and assumptions below for manual evaluation.
+    </div>
+  </noscript>
+
+  <div class="notice">
+    <div>
+      <strong>Engineering estimate only:</strong> Sizing follows published NEC reference values (Table 310.16 &amp; Ch. 9 Table 8). Always verify conduit fill, termination temperature ratings, and local electrical codes with a licensed professional before installation.
+    </div>
+  </div>
+
+  <details class="advanced" id="w-advanced">
+    <summary>Advanced Options &amp; Derating (Ambient Temp, Parallel Runs, Drop Limit)</summary>
+    <div class="advanced-body">
+      <div class="input-grid">
+        <div class="field">
+          <label for="w-length-mode">Length Entered Above Is</label>
+          <select id="w-length-mode">
+            <option value="oneway" selected>One-Way Distance</option>
+            <option value="roundtrip">Round-Trip Total (Loop)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="w-temp">Ambient Temperature</label>
+          <div class="unit-row">
+            <input type="number" id="w-temp" value="30" step="1">
+            <span class="unit">°C</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="w-insulation">Conductor Insulation</label>
+          <select id="w-insulation">
+            <option value="90" selected>90°C (THHN / XHHW-2)</option>
+            <option value="75">75°C (THWN / RHW)</option>
+            <option value="60">60°C (TW / UF)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="w-install">Installation Method</label>
+          <select id="w-install">
+            <option value="conduit" selected>Conduit / Raceway</option>
+            <option value="freeair">Free Air</option>
+            <option value="buried">Direct Buried</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="w-maxdrop">Max Voltage Drop Target</label>
+          <div class="unit-row">
+            <input type="number" id="w-maxdrop" value="3" min="0.5" max="10" step="0.5">
+            <span class="unit">%</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="w-parallel">Parallel Conductors Per Leg</label>
+          <input type="number" id="w-parallel" value="1" min="1" max="4" step="1">
+        </div>
+      </div>
+      <p id="w-advanced-note" style="font-size:0.85rem; color:var(--text-muted);"></p>
+
+      <h3>Voltage Drop Curve vs. Wire Gauge</h3>
+      <div class="chart-wrap">
+        <canvas class="chart-canvas" id="w-chart" aria-label="Chart of voltage drop percentage across wire gauge sizes" role="img"></canvas>
+      </div>
+
+      <h3>Conductor Comparison Table</h3>
+      <div id="w-table"></div>
+    </div>
+  </details>
+
+  <h2>How Wire Sizing Works</h2>
+  <p>Wire sizing balances two core criteria: <strong>safety (thermal ampacity)</strong> and <strong>performance (voltage drop)</strong>:</p>
+  <ol style="color:var(--text-muted); padding-left:1.25rem; margin-bottom:var(--space-3);">
+    <li><strong>Ampacity check:</strong> The conductor must carry the full design current without overheating the insulation. Ambient temperatures above 30°C reduce rated capacity via NEC correction factors.</li>
+    <li><strong>Voltage drop limit:</strong> Resistive losses over distance cause voltage to sag. Excessive drop causes lights to flicker, motors to stall, and electronics to malfunction.</li>
+  </ol>
+  <p>The standard single-phase two-way drop formula is:</p>
+  <p><strong>V<sub>drop</sub> = (2 &times; Length &times; Current &times; Resistance) / 1000</strong></p>
+  <p>Where <em>Length</em> is the one-way run in feet, <em>Current</em> is in amperes, and <em>Resistance</em> is conductor DC resistance in ohms per 1,000 feet from NEC Chapter 9, Table 8.</p>
+
+  <h3>Worked Example</h3>
+  <p>For a <strong>20 A, 120 V</strong> circuit running <strong>50 ft</strong> with copper conductor: 10 AWG copper has a resistance of 1.24 &Omega;/kft. The voltage drop is <code>2 &times; 50 &times; 20 &times; 1.24 / 1000 = 2.48 V</code>, which is <strong>2.07%</strong> of 120 V (safely below the 3% branch circuit threshold). The 10 AWG 90°C ampacity of 40 A provides ample thermal headroom.</p>
+
+  <h2>Technical Assumptions</h2>
+  <ul>
+    <li>Standard ampacities are referenced from the 90°C column of NEC Table 310.16.</li>
+    <li>Conductor resistance uses uncoated DC copper and aluminum values from NEC Chapter 9 Table 8.</li>
+    <li>Temperature derating above 30°C applies standard correction multipliers. Conduit fill derating for more than 3 current-carrying conductors is not automatically bundled.</li>
+  </ul>
+
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>What wire gauge do I need for a given current and distance?</summary>
+      <p>The required gauge depends on both conductor ampacity and circuit length. Even if 12 AWG handles 20 A safely for heat, runs over 60 feet will typically require 10 AWG or 8 AWG to avoid excessive voltage drop.</p>
+    </details>
+    <details>
+      <summary>What voltage drop percentage is acceptable?</summary>
+      <p>NEC Informational Note 210.19(A) recommends keeping voltage drop under 3% for branch circuits and under 5% for the combined feeder and branch circuit.</p>
+    </details>
+    <details>
+      <summary>Should I choose Copper or Aluminum?</summary>
+      <p>Copper has lower electrical resistance per gauge size and is standard for small branch circuits (14 AWG to 10 AWG). Aluminum is widely used for larger subpanel feeders and service entrances (4 AWG and larger) due to cost and weight advantages.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><strong>decivia.online</strong> &mdash; Practical engineering and trade calculators.</div>
+    <div class="footer-nav">
+      <a href="/">Home</a>
+      <a href="/electrical/index.html">Electrical Tools</a>
+      <a href="/electrical/voltage-drop.html">Voltage Drop</a>
+      <a href="/electrical/transformer-sizing.html">Transformer Sizing</a>
+    </div>
+    <p>General estimation tools only. Always consult a licensed electrical contractor and local building codes.</p>
+  </div>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc, data = CalcAtlas.data;
+  const form = document.getElementById("wire-form");
+  const resultPanel = document.getElementById("w-result");
+  const advancedNote = document.getElementById("w-advanced-note");
+  const advancedEl = document.getElementById("w-advanced");
+  const copyBtn = document.getElementById("w-copy-btn");
+  const chipsWrap = document.getElementById("w-length-chips");
+
+  const fieldDefs = [
+    { id: "w-length", badgeId: "w-length-badge", impUnit: "ft", metUnit: "m", impToMet: (v) => Math.round(v * 0.3048), metToImp: (v) => Math.round(v / 0.3048) }
+  ];
+
+  let currentSystem = "imperial";
+  const unitMgr = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, currentSystem, newSys);
+      currentSystem = newSys;
+      updateChips();
+      compute();
+    },
+  });
+  currentSystem = unitMgr.getSystem();
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = currentSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (currentSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+  }
+
+  function updateChips() {
+    if (!chipsWrap) return;
+    const isMetric = (currentSystem === "metric");
+    const vals = isMetric ? [10, 20, 30, 50] : [25, 50, 100, 150];
+    const unit = isMetric ? "m" : "ft";
+    chipsWrap.innerHTML = vals.map((v) => `<button type="button" class="chip-btn" data-set-input="w-length" data-val="${v}">${v}${unit}</button>`).join(" ");
+    chipsWrap.querySelectorAll(".chip-btn").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const input = document.getElementById("w-length");
+        if (input) {
+          input.value = chip.dataset.val;
+          input.dispatchEvent(new Event("change", { bubbles: true }));
+          compute();
+        }
+      });
+    });
+  }
+
+  // Quick preset chips handlers outside length
+  document.querySelectorAll(".preset-chips:not(#w-length-chips) .chip-btn").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const targetId = chip.dataset.setInput;
+      const input = document.getElementById(targetId);
+      if (input) {
+        input.value = chip.dataset.val;
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+        compute();
+      }
+    });
+  });
+
+  function deratingFactor(tempC) {
+    if (tempC <= 30) return 1.0;
+    if (tempC <= 35) return 0.96;
+    if (tempC <= 40) return 0.91;
+    if (tempC <= 45) return 0.87;
+    if (tempC <= 50) return 0.82;
+    if (tempC <= 55) return 0.76;
+    if (tempC <= 60) return 0.71;
+    return 0.58;
+  }
+
+  let lastComputedSummary = "";
+
+  function compute() {
+    const isMetric = (currentSystem === "metric");
+    const lengthUnit = isMetric ? "m" : "ft";
+    const current = util.readNumber(document.getElementById("w-current"), { label: "Current", allowZero: false, max: 1000 });
+    const voltage = util.readNumber(document.getElementById("w-voltage"), { label: "Voltage", allowZero: false, max: 1000 });
+    const lengthInput = util.readNumber(document.getElementById("w-length"), { label: "Cable length", allowZero: false, max: 10000 });
+    const maxDrop = util.readNumber(document.getElementById("w-maxdrop"), { label: "Maximum voltage drop", allowZero: false, max: 20 }) || 3;
+    const parallel = util.readNumber(document.getElementById("w-parallel"), { label: "Parallel conductors", allowZero: false, max: 10 }) || 1;
+    const temp = util.readNumber(document.getElementById("w-temp"), { label: "Ambient temperature", max: 90 });
+
+    if (current === null || voltage === null || lengthInput === null) {
+      resultPanel.hidden = true;
+      return;
+    }
+
+    const material = document.getElementById("w-material").value;
+    const lengthMode = document.getElementById("w-length-mode").value;
+    const oneWayDistance = lengthMode === "roundtrip" ? lengthInput / 2 : lengthInput;
+    const oneWayLengthFt = isMetric ? (oneWayDistance * 3.280839895) : oneWayDistance;
+    const insulation = document.getElementById("w-insulation").value;
+
+    advancedNote.textContent = insulation !== "90"
+      ? "Note: calculated using published 90°C ampacity tables; treat other ratings as informational only."
+      : "";
+
+    const derate = temp !== null ? deratingFactor(temp) : 1;
+    const table = data.wireAmpacity[material].map((row) => ({ ...row, deratedAmpacity: row.ampacity * derate }));
+
+    let recommended = null;
+    const rows = [];
+    for (const row of table) {
+      const r = data.wireResistanceOhmsPerKft[material][row.awg];
+      const dropV = calc.voltageDrop({ current, oneWayLengthFt, resistanceOhmsPerKft: r, parallelConductors: parallel });
+      const dropPct = (dropV / voltage) * 100;
+      const okAmpacity = current / parallel <= row.deratedAmpacity;
+      const okDrop = dropPct <= maxDrop;
+      if (!recommended && okAmpacity && okDrop) {
+        recommended = { awg: row.awg, ampacity: row.deratedAmpacity, dropV, dropPct };
+      }
+      const mInfo = data.wireMetricMm2 && data.wireMetricMm2[row.awg];
+      const name = isMetric ? (mInfo ? `${mInfo.label} (${row.awg} AWG)` : `${row.awg} AWG`) : `${row.awg} AWG`;
+      const resDisplay = isMetric ? (r * 3.28084).toFixed(3) + " Ω/km" : r.toFixed(3) + " Ω/kft";
+      rows.push([name, util.formatNumber(row.deratedAmpacity, 0) + " A", resDisplay, util.formatNumber(dropV, 2) + " V", util.formatNumber(dropPct, 2) + "%", okAmpacity && okDrop ? "✓ Pass" : "✕ Fail", row.awg]);
+    }
+
+    resultPanel.hidden = false;
+    const badge = document.getElementById("w-badge");
+    const badgeText = document.getElementById("w-badge-text");
+
+    if (!recommended) {
+      badge.className = "result-badge warning";
+      badgeText.textContent = "Exceeds limits";
+      document.getElementById("w-result-main").textContent = "No standard listed gauge meets both constraints. Consider shortening run or increasing voltage.";
+      ["w-out-ampacity", "w-out-dropv", "w-out-droppct", "w-out-minsize"].forEach((id) => (document.getElementById(id).textContent = "—"));
+      lastComputedSummary = "Decivia Wire Sizing: No standard gauge meets constraints.";
+    } else {
+      badge.className = "result-badge";
+      badgeText.textContent = `Within ${maxDrop}% drop limit`;
+      const materialLabel = material === "copper" ? "Copper" : "Aluminum";
+      const recMInfo = data.wireMetricMm2 && data.wireMetricMm2[recommended.awg];
+      const recTitle = isMetric
+        ? (recMInfo ? `${recMInfo.label} (${recommended.awg} AWG eq.) ${materialLabel}` : `${recommended.awg} AWG ${materialLabel}`)
+        : `${recommended.awg} AWG ${materialLabel} ${recMInfo ? '(' + recMInfo.mm2 + ' mm²)' : ''}`;
+
+      document.getElementById("w-result-main").textContent = recTitle;
+      document.getElementById("w-out-ampacity").textContent = util.formatNumber(recommended.ampacity, 0) + " A";
+      document.getElementById("w-out-dropv").textContent = util.formatNumber(recommended.dropV, 2) + " V";
+      document.getElementById("w-out-droppct").textContent = util.formatNumber(recommended.dropPct, 2) + "%";
+      document.getElementById("w-out-minsize").textContent = isMetric && recMInfo ? `${recMInfo.label} (${recommended.awg} AWG)` : `${recommended.awg} AWG`;
+
+      lastComputedSummary = `Decivia Wire Sizing: Recommended ${recTitle} | Voltage Drop: ${util.formatNumber(recommended.dropV, 2)} V (${util.formatNumber(recommended.dropPct, 2)}%) | Load: ${current} A @ ${voltage} V | Length: ${Math.round(lengthInput)} ${lengthUnit}`;
+    }
+
+    const highlightIndex = rows.findIndex((r) => recommended && r[6] === recommended.awg);
+    const displayRows = rows.map((r) => [r[0], r[1], r[2], r[3], r[4], r[5]]);
+    util.renderTable(document.getElementById("w-table"), {
+      caption: `Conductor sizes comparison (${material}, 90°C rating, ${util.formatNumber(derate, 2)}× temp correction)`,
+      headers: [isMetric ? "Conductor Size" : "Wire Gauge", "Ampacity", isMetric ? "Resistance (Ω/km)" : "Resistance (Ω/kft)", "Voltage Drop", "Drop %", "Meets Constraints"],
+      rows: displayRows,
+      highlightRowIndex: highlightIndex,
+    });
+
+    if (advancedEl.open) drawChart(rows, recommended);
+    advancedEl._lastRows = rows;
+    advancedEl._lastRec = recommended;
+  }
+
+  function drawChart(rows, recommended) {
+    const canvas = document.getElementById("w-chart");
+    const series = rows.map((r, i) => ({ x: i, y: parseFloat(r[4]) }));
+    const markX = recommended ? rows.findIndex((r) => r[6] === recommended.awg) : null;
+    const maxDrop = parseFloat(document.getElementById("w-maxdrop").value) || 3;
+    const isMetric = (currentSystem === "metric");
+    util.drawLineChart(canvas, series, {
+      xLabel: isMetric ? "Conductor Size (Thinner → Thicker)" : "Wire Gauge (Thinner 14 AWG → Thicker 4/0 AWG)",
+      yLabel: "Drop %",
+      markX,
+      thresholdY: maxDrop,
+      thresholdLabel: `${maxDrop}% limit`
+    });
+  }
+
+  if (copyBtn) {
+    copyBtn.addEventListener("click", () => {
+      if (lastComputedSummary) {
+        util.copyResultToClipboard(lastComputedSummary);
+      }
+    });
+  }
+
+  util.onAdvancedOpen(advancedEl, () => {
+    if (advancedEl._lastRows) drawChart(advancedEl._lastRows, advancedEl._lastRec);
+  });
+
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  ["w-current", "w-voltage", "w-length", "w-length-mode", "w-temp", "w-insulation", "w-install", "w-maxdrop", "w-parallel", "w-material", "w-current-type"].forEach((id) => {
+    document.getElementById(id).addEventListener("input", compute);
+    document.getElementById(id).addEventListener("change", compute);
+  });
+
+  window.addEventListener("resize", () => {
+    if (advancedEl.open && advancedEl._lastRows) {
+      drawChart(advancedEl._lastRows, advancedEl._lastRec);
+    }
+  });
+
+  updateChips();
+  compute();
+})();
+</script>
+</body>
+</html>

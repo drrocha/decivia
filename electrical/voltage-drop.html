@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voltage Drop Calculator — Volts &amp; Percent by Wire Gauge | Decivia</title>
+<meta name="description" content="Check voltage drop in volts and percent for a specific wire gauge, current, and run length. Includes a wire-gauge comparison chart against your drop threshold.">
+<link rel="canonical" href="https://decivia.online/electrical/voltage-drop.html">
+<meta property="og:title" content="Voltage Drop Calculator">
+<meta property="og:description" content="Voltage drop in volts and percent for a wire gauge, current, and run length, with a gauge comparison chart.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/electrical/voltage-drop.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Electrical", "item": "https://decivia.online/electrical/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Voltage Drop Calculator", "item": "https://decivia.online/electrical/voltage-drop.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Voltage Drop Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/electrical/voltage-drop.html",
+  "description": "Calculates voltage drop in volts and percent for a chosen wire gauge, current, system voltage, and run length.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is considered an acceptable voltage drop?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A common rule of thumb is 3% or less for a branch circuit and 5% or less for a combined feeder and branch circuit, though local code and equipment sensitivity can change the acceptable limit." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does voltage drop differ between AC and DC circuits?",
+      "acceptedAnswer": { "@type": "Answer", "text": "This calculator uses the DC-resistance-based estimate, which is accurate for typical branch-circuit sizes. For large conductors on long AC runs, inductive reactance should also be considered." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="site-brand-group">
+      <a class="brand-icon" href="/" aria-label="Decivia Home">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 2 12 12 22 22 12 12 2"></polygon>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+          <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+      </a>
+      <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+      <p class="site-tagline">From a question to a clear decision.</p>
+    </div>
+
+    <div class="header-actions">
+      <nav class="header-nav" aria-label="Quick links">
+        <a href="/">All Tools</a>
+        <a href="/electrical/index.html">Electrical</a>
+        <a href="/electrical/wire-sizing.html">Wire Sizing</a>
+      </nav>
+      <!-- Theme toggle mounted by app.js -->
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/electrical/index.html">Electrical</a></li>
+      <li>Voltage Drop</li>
+    </ol>
+  </nav>
+
+  <h1>Voltage Drop Calculator</h1>
+  <p class="lede">Calculate voltage drop in volts and percentage for an existing conductor gauge, verify compliance with the 3% branch limit, and compare adjacent wire sizes.</p>
+
+  <form class="calc-form" id="v-form" novalidate>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">Imperial (ft / AWG)</button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">Metric (m / mm²)</button>
+      </div>
+    </div>
+
+    <div class="form-header">
+      <span class="form-header-title">1. Circuit Specifications</span>
+      <span style="font-size: 0.8rem; color: var(--text-subtle);">NEC Chapter 9 Table 8</span>
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label for="v-material">Conductor Material</label>
+        <select id="v-material">
+          <option value="copper" selected>Copper (Cu)</option>
+          <option value="aluminum">Aluminum (Al)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="v-awg" id="v-awg-label">Wire Gauge (AWG)</label>
+        <select id="v-awg"></select>
+      </div>
+
+      <div class="field">
+        <label for="v-current">Current / Load</label>
+        <div class="unit-row">
+          <input type="number" id="v-current" value="20" min="0" step="0.1" inputmode="decimal">
+          <span class="unit">A</span>
+        </div>
+        <div class="preset-chips">
+          <button type="button" class="chip-btn" data-set-input="v-current" data-val="15">15A</button>
+          <button type="button" class="chip-btn" data-set-input="v-current" data-val="20">20A</button>
+          <button type="button" class="chip-btn" data-set-input="v-current" data-val="30">30A</button>
+          <button type="button" class="chip-btn" data-set-input="v-current" data-val="50">50A</button>
+        </div>
+        <span class="error-msg" id="v-current-err" role="alert"></span>
+      </div>
+
+      <div class="field">
+        <label for="v-voltage">Supply Voltage</label>
+        <div class="unit-row">
+          <input type="number" id="v-voltage" value="120" min="1" step="1" inputmode="decimal">
+          <span class="unit">V</span>
+        </div>
+        <div class="preset-chips">
+          <button type="button" class="chip-btn" data-set-input="v-voltage" data-val="120">120V</button>
+          <button type="button" class="chip-btn" data-set-input="v-voltage" data-val="208">208V</button>
+          <button type="button" class="chip-btn" data-set-input="v-voltage" data-val="240">240V</button>
+          <button type="button" class="chip-btn" data-set-input="v-voltage" data-val="480">480V</button>
+        </div>
+        <span class="error-msg" id="v-voltage-err" role="alert"></span>
+      </div>
+
+      <div class="field">
+        <label for="v-length">Run Distance</label>
+        <div class="input-with-unit">
+          <input type="number" id="v-length" value="75" min="0" step="1" inputmode="decimal">
+          <span class="unit-badge" id="v-length-badge">ft</span>
+        </div>
+        <div class="preset-chips" id="v-length-chips">
+          <button type="button" class="chip-btn" data-set-input="v-length" data-val="50">50ft</button>
+          <button type="button" class="chip-btn" data-set-input="v-length" data-val="75">75ft</button>
+          <button type="button" class="chip-btn" data-set-input="v-length" data-val="100">100ft</button>
+          <button type="button" class="chip-btn" data-set-input="v-length" data-val="150">150ft</button>
+        </div>
+        <span class="error-msg" id="v-length-err" role="alert"></span>
+      </div>
+
+      <div class="field">
+        <label for="v-length-mode">Length Mode</label>
+        <select id="v-length-mode">
+          <option value="oneway" selected>One-Way Distance</option>
+          <option value="roundtrip">Round-Trip Total (Loop)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="v-current-type">Current Type</label>
+        <select id="v-current-type">
+          <option value="ac" selected>AC (Single Phase)</option>
+          <option value="dc">DC (Direct Current)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        <span>Calculate Voltage Drop</span>
+      </button>
+    </div>
+
+    <!-- Live Result Panel -->
+    <div class="result-panel" id="v-result" hidden aria-live="polite">
+      <div class="result-top-bar">
+        <div class="result-badge" id="v-badge">
+          <span id="v-badge-text">Result</span>
+        </div>
+        <button type="button" class="copy-btn" id="v-copy-btn" title="Copy calculation summary">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span>Copy Summary</span>
+        </button>
+      </div>
+
+      <p class="result-main" id="v-result-main">—</p>
+
+      <div class="result-grid">
+        <div class="result-item">
+          <span class="label">Voltage Drop</span>
+          <span class="value" id="v-out-dropv">—</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Voltage Drop %</span>
+          <span class="value" id="v-out-droppct">—</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Voltage at End Load</span>
+          <span class="value" id="v-out-remaining">—</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Compliance Status</span>
+          <span class="value" id="v-out-status">—</span>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off. Use the mathematical formula in the "How it works" section below to calculate by hand.
+    </div>
+  </noscript>
+
+  <h2>Voltage Drop vs. Wire Gauge</h2>
+  <p>The interactive curve below displays voltage drop across available wire sizes. Your chosen gauge is highlighted against the threshold.</p>
+  <div class="chart-wrap">
+    <canvas class="chart-canvas" id="v-chart" aria-label="Chart of voltage drop percentage across wire gauges" role="img"></canvas>
+  </div>
+  <div id="v-table"></div>
+
+  <div class="notice">
+    <div>
+      <strong>Reference values only:</strong> DC conductor resistances follow NEC Chapter 9, Table 8. Sizing for high-power long-distance AC feeders should account for conductor skin-effect and conduit inductive reactance.
+    </div>
+  </div>
+
+  <details class="advanced" id="v-advanced">
+    <summary>Advanced Settings (Parallel Conductors &amp; Custom Drop Limit)</summary>
+    <div class="advanced-body">
+      <div class="input-grid">
+        <div class="field">
+          <label for="v-parallel">Parallel Conductors Per Leg</label>
+          <input type="number" id="v-parallel" value="1" min="1" max="4" step="1">
+        </div>
+        <div class="field">
+          <label for="v-maxdrop">Maximum Acceptable Drop Target</label>
+          <div class="unit-row">
+            <input type="number" id="v-maxdrop" value="3" min="0.5" max="10" step="0.5">
+            <span class="unit">%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <h2>How Voltage Drop is Calculated</h2>
+  <p>Electrical resistance causes a loss of electrical potential over distance according to Ohm's Law (V = I &times; R):</p>
+  <p><strong>V<sub>drop</sub> = (2 &times; Length &times; Current &times; Resistance) / 1000</strong></p>
+  <p>Where <em>Length</em> is one-way distance in feet, <em>Current</em> is in amperes, and <em>Resistance</em> is the conductor resistance in ohms per 1,000 feet. The round-trip circuit doubles the resistance (conducted through hot and return path).</p>
+
+  <h3>Worked Example</h3>
+  <p>With a <strong>20 A, 120 V</strong> circuit running <strong>75 ft</strong> of 10 AWG copper (resistance &asymp; 1.24 &Omega;/kft):</p>
+  <p><code>V<sub>drop</sub> = 2 &times; 75 &times; 20 &times; 1.24 / 1000 = 3.72 V</code></p>
+  <p>The percentage drop is <code>(3.72 / 120) &times; 100 = 3.10%</code>. Because this slightly exceeds the 3% target, stepping up to <strong>8 AWG</strong> (0.778 &Omega;/kft) drops the loss down to <strong>2.33 V (1.94%)</strong>.</p>
+
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>What is considered an acceptable voltage drop?</summary>
+      <p>Standard design practice (NEC 210.19(A)) targets 3% or less on branch circuits, and 5% total drop across both feeder and branch circuits combined.</p>
+    </details>
+    <details>
+      <summary>How can I reduce voltage drop?</summary>
+      <p>You can: (1) Increase wire gauge size (lower AWG), (2) Shorten the run distance, (3) Raise circuit voltage (e.g. converting 120 V loads to 240 V halves current for identical power), or (4) Run parallel conductors.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><strong>decivia.online</strong> &mdash; Practical engineering and trade calculators.</div>
+    <div class="footer-nav">
+      <a href="/">Home</a>
+      <a href="/electrical/index.html">Electrical Tools</a>
+      <a href="/electrical/wire-sizing.html">Wire Sizing</a>
+      <a href="/electrical/transformer-sizing.html">Transformer Sizing</a>
+    </div>
+    <p>General estimation tools only. Always consult a licensed electrical contractor and local building codes.</p>
+  </div>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc, data = CalcAtlas.data;
+  const form = document.getElementById("v-form");
+  const resultPanel = document.getElementById("v-result");
+  const materialSelect = document.getElementById("v-material");
+  const awgSelect = document.getElementById("v-awg");
+  const copyBtn = document.getElementById("v-copy-btn");
+  const chipsWrap = document.getElementById("v-length-chips");
+
+  const fieldDefs = [
+    { id: "v-length", badgeId: "v-length-badge", impUnit: "ft", metUnit: "m", impToMet: (v) => Math.round(v * 0.3048), metToImp: (v) => Math.round(v / 0.3048) }
+  ];
+
+  let currentSystem = "imperial";
+  const unitMgr = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, currentSystem, newSys);
+      currentSystem = newSys;
+      updateChips();
+      populateAwg();
+      compute();
+    },
+  });
+  currentSystem = unitMgr.getSystem();
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = currentSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (currentSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+  }
+
+  function updateChips() {
+    if (!chipsWrap) return;
+    const isMetric = (currentSystem === "metric");
+    const vals = isMetric ? [15, 25, 30, 50] : [50, 75, 100, 150];
+    const unit = isMetric ? "m" : "ft";
+    chipsWrap.innerHTML = vals.map((v) => `<button type="button" class="chip-btn" data-set-input="v-length" data-val="${v}">${v}${unit}</button>`).join(" ");
+    chipsWrap.querySelectorAll(".chip-btn").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const input = document.getElementById("v-length");
+        if (input) {
+          input.value = chip.dataset.val;
+          input.dispatchEvent(new Event("change", { bubbles: true }));
+          compute();
+        }
+      });
+    });
+  }
+
+  // Preset button chips outside length
+  document.querySelectorAll(".preset-chips:not(#v-length-chips) .chip-btn").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const input = document.getElementById(chip.dataset.setInput);
+      if (input) {
+        input.value = chip.dataset.val;
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+        compute();
+      }
+    });
+  });
+
+  function populateAwg() {
+    const isMetric = (currentSystem === "metric");
+    const material = materialSelect.value;
+    const current = awgSelect.value;
+    const awgs = calc.awgOrder(material);
+    const awgLabel = document.getElementById("v-awg-label");
+    if (awgLabel) {
+      awgLabel.textContent = isMetric ? "Conductor Size (Metric mm² / AWG)" : "Wire Gauge (AWG)";
+    }
+    awgSelect.innerHTML = awgs.map((a) => {
+      const mInfo = data.wireMetricMm2 && data.wireMetricMm2[a];
+      if (isMetric) {
+        return `<option value="${a}">${mInfo ? mInfo.label + ' (' + a + ' AWG)' : a + ' AWG'}</option>`;
+      } else {
+        return `<option value="${a}">${a} AWG ${mInfo ? '(' + mInfo.mm2 + ' mm²)' : ''}</option>`;
+      }
+    }).join("");
+    if (awgs.includes(current)) awgSelect.value = current;
+    else awgSelect.value = awgs[Math.min(2, awgs.length - 1)];
+  }
+
+  let lastComputedSummary = "";
+
+  function compute() {
+    const isMetric = (currentSystem === "metric");
+    const lengthUnit = isMetric ? "m" : "ft";
+    const current = util.readNumber(document.getElementById("v-current"), { label: "Current", allowZero: false, max: 1000 });
+    const voltage = util.readNumber(document.getElementById("v-voltage"), { label: "System voltage", allowZero: false, max: 1000 });
+    const lengthInput = util.readNumber(document.getElementById("v-length"), { label: "Cable distance", allowZero: false, max: 10000 });
+    const maxDrop = util.readNumber(document.getElementById("v-maxdrop"), { label: "Maximum drop", allowZero: false, max: 20 }) || 3;
+    const parallel = util.readNumber(document.getElementById("v-parallel"), { label: "Parallel conductors", allowZero: false, max: 10 }) || 1;
+
+    if (current === null || voltage === null || lengthInput === null) {
+      resultPanel.hidden = true;
+      return;
+    }
+
+    const material = materialSelect.value;
+    const lengthMode = document.getElementById("v-length-mode").value;
+    const oneWayDistance = lengthMode === "roundtrip" ? lengthInput / 2 : lengthInput;
+    const oneWayLengthFt = isMetric ? (oneWayDistance * 3.280839895) : oneWayDistance;
+    const awg = awgSelect.value;
+    const resTable = data.wireResistanceOhmsPerKft[material];
+    const awgs = calc.awgOrder(material);
+
+    const dropV = calc.voltageDrop({ current, oneWayLengthFt, resistanceOhmsPerKft: resTable[awg], parallelConductors: parallel });
+    const dropPct = (dropV / voltage) * 100;
+    const pass = dropPct <= maxDrop;
+
+    resultPanel.hidden = false;
+    const badge = document.getElementById("v-badge");
+    const badgeText = document.getElementById("v-badge-text");
+
+    if (pass) {
+      badge.className = "result-badge";
+      badgeText.textContent = `Within ${maxDrop}% Limit`;
+    } else {
+      badge.className = "result-badge warning";
+      badgeText.textContent = `Exceeds ${maxDrop}% Limit`;
+    }
+
+    const materialLabel = material === "copper" ? "Copper" : "Aluminum";
+    const mInfo = data.wireMetricMm2 && data.wireMetricMm2[awg];
+    const conductorName = isMetric ? (mInfo ? `${mInfo.label} (${awg} AWG)` : `${awg} AWG`) : `${awg} AWG`;
+
+    document.getElementById("v-result-main").textContent = `${conductorName} ${materialLabel}: ${util.formatNumber(dropV, 2)} V Drop (${util.formatNumber(dropPct, 2)}%)`;
+    document.getElementById("v-out-dropv").textContent = util.formatNumber(dropV, 2) + " V";
+    document.getElementById("v-out-droppct").textContent = util.formatNumber(dropPct, 2) + "%";
+    document.getElementById("v-out-remaining").textContent = util.formatNumber(voltage - dropV, 2) + " V";
+    document.getElementById("v-out-status").textContent = pass ? `✓ Pass (≤ ${maxDrop}%)` : `⚠ High Loss (> ${maxDrop}%)`;
+
+    lastComputedSummary = `Decivia Voltage Drop: ${conductorName} ${materialLabel} | Drop: ${util.formatNumber(dropV, 2)} V (${util.formatNumber(dropPct, 2)}%) | Load: ${current} A @ ${voltage} V | Run: ${Math.round(lengthInput)} ${lengthUnit}`;
+
+    const rows = awgs.map((a) => {
+      const dv = calc.voltageDrop({ current, oneWayLengthFt, resistanceOhmsPerKft: resTable[a], parallelConductors: parallel });
+      const dp = (dv / voltage) * 100;
+      const aInfo = data.wireMetricMm2 && data.wireMetricMm2[a];
+      const aName = isMetric ? (aInfo ? `${aInfo.label} (${a})` : `${a} AWG`) : `${a} AWG`;
+      const resVal = isMetric ? (resTable[a] * 3.28084).toFixed(3) + " Ω/km" : resTable[a].toFixed(3) + " Ω/kft";
+      return [aName, resVal, util.formatNumber(dv, 2) + " V", util.formatNumber(dp, 2) + "%", dp <= maxDrop ? "✓ Pass" : "✕ Fail"];
+    });
+    const highlightIndex = awgs.indexOf(awg);
+    util.renderTable(document.getElementById("v-table"), {
+      caption: `Voltage drop comparison across conductor sizes (${materialLabel}, ${util.formatNumber(current, 1)} A, ${util.formatNumber(lengthInput, 1)} ${lengthUnit})`,
+      headers: [isMetric ? "Conductor Size" : "Gauge", isMetric ? "Resistance (Ω/km)" : "Resistance (Ω/kft)", "Drop (V)", "Drop (%)", "Target Met"],
+      rows,
+      highlightRowIndex: highlightIndex,
+    });
+
+    const series = rows.map((r, i) => ({ x: i, y: parseFloat(r[3]) }));
+    util.drawLineChart(document.getElementById("v-chart"), series, {
+      xLabel: isMetric ? "Conductor Size (Thinner → Thicker)" : "Wire Gauge (Thinner → Thicker)",
+      yLabel: "Drop %",
+      markX: highlightIndex,
+      thresholdY: maxDrop,
+      thresholdLabel: `${maxDrop}% limit`,
+    });
+  }
+
+  if (copyBtn) {
+    copyBtn.addEventListener("click", () => {
+      if (lastComputedSummary) {
+        util.copyResultToClipboard(lastComputedSummary);
+      }
+    });
+  }
+
+  materialSelect.addEventListener("change", () => { populateAwg(); compute(); });
+  awgSelect.addEventListener("change", compute);
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  ["v-current", "v-voltage", "v-length", "v-length-mode", "v-current-type", "v-parallel", "v-maxdrop"].forEach((id) => {
+    document.getElementById(id).addEventListener("input", compute);
+    document.getElementById(id).addEventListener("change", compute);
+  });
+
+  window.addEventListener("resize", compute);
+
+  updateChips();
+  populateAwg();
+  compute();
+})();
+</script>
+</body>
+</html>

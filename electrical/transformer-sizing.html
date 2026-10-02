@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transformer Sizing Calculator — VA &amp; kVA | Decivia</title>
+<meta name="description" content="Calculate transformer VA and find the next standard transformer size for a single-phase or three-phase load from voltage and current, with a derating disclaimer.">
+<link rel="canonical" href="https://decivia.online/electrical/transformer-sizing.html">
+<meta property="og:title" content="Transformer Sizing Calculator — VA & kVA">
+<meta property="og:description" content="Transformer VA and next-standard-size estimate for single- or three-phase loads.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/electrical/transformer-sizing.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Electrical", "item": "https://decivia.online/electrical/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Transformer Sizing Calculator", "item": "https://decivia.online/electrical/transformer-sizing.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Transformer Sizing Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/electrical/transformer-sizing.html",
+  "description": "Calculates transformer VA from voltage and current for single- or three-phase systems and finds the next standard transformer size.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is transformer VA calculated?",
+      "acceptedAnswer": { "@type": "Answer", "text": "For single-phase loads, VA equals voltage times current. For three-phase loads, VA equals voltage times current times the square root of 3 (about 1.732)." }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I size a transformer to exactly match my load?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. It's common practice to add margin for future growth and to avoid running a transformer at its absolute limit continuously; many designers target 80% or less of rated capacity for continuous loads." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="site-brand-group">
+      <a class="brand-icon" href="/" aria-label="Decivia Home">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 2 12 12 22 22 12 12 2"></polygon>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+          <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+      </a>
+      <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+      <p class="site-tagline">From a question to a clear decision.</p>
+    </div>
+
+    <div class="header-actions">
+      <nav class="header-nav" aria-label="Quick links">
+        <a href="/">All Tools</a>
+        <a href="/electrical/index.html">Electrical</a>
+        <a href="/electrical/wire-sizing.html">Wire Sizing</a>
+      </nav>
+      <!-- Theme toggle mounted by app.js -->
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/electrical/index.html">Electrical</a></li>
+      <li>Transformer Sizing</li>
+    </ol>
+  </nav>
+
+  <h1>Transformer Sizing Calculator</h1>
+  <p class="lede">Calculate total apparent power in volt-amperes (VA) and find the standard catalog transformer capacity for single-phase and three-phase loads.</p>
+
+  <form class="calc-form" id="t-form" novalidate>
+    <div class="form-header">
+      <span class="form-header-title">1. Electrical Load Requirements</span>
+      <span style="font-size: 0.8rem; color: var(--text-subtle);">NEMA Standard Sizes</span>
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label for="t-voltage">System Voltage</label>
+        <div class="unit-row">
+          <input type="number" id="t-voltage" value="240" min="1" max="50000" step="1">
+          <span class="unit">V</span>
+        </div>
+        <div class="preset-chips">
+          <button type="button" class="chip-btn" data-set-input="t-voltage" data-val="120">120V</button>
+          <button type="button" class="chip-btn" data-set-input="t-voltage" data-val="208">208V</button>
+          <button type="button" class="chip-btn" data-set-input="t-voltage" data-val="240">240V</button>
+          <button type="button" class="chip-btn" data-set-input="t-voltage" data-val="480">480V</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="t-current">Total Design Current</label>
+        <div class="unit-row">
+          <input type="number" id="t-current" value="20" min="0.1" max="5000" step="0.1">
+          <span class="unit">A</span>
+        </div>
+        <div class="preset-chips">
+          <button type="button" class="chip-btn" data-set-input="t-current" data-val="15">15A</button>
+          <button type="button" class="chip-btn" data-set-input="t-current" data-val="20">20A</button>
+          <button type="button" class="chip-btn" data-set-input="t-current" data-val="50">50A</button>
+          <button type="button" class="chip-btn" data-set-input="t-current" data-val="100">100A</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="t-phase">Phase Configuration</label>
+        <select id="t-phase">
+          <option value="1" selected>Single-Phase (1&Phi;)</option>
+          <option value="3">Three-Phase (3&Phi;)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        <span>Calculate Transformer VA</span>
+      </button>
+    </div>
+
+    <!-- Result Panel -->
+    <div class="result-panel" id="t-result" hidden aria-live="polite">
+      <div class="result-top-bar">
+        <div class="result-badge" id="t-badge">
+          <span>Standard Catalog Rating</span>
+        </div>
+        <button type="button" class="copy-btn" id="t-copy-btn" title="Copy calculation summary">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span>Copy Summary</span>
+        </button>
+      </div>
+
+      <p class="result-main" id="t-result-main">—</p>
+
+      <div class="result-grid">
+        <div class="result-item">
+          <span class="label">Calculated Load</span>
+          <span class="value" id="t-out-va">—</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Next Standard Size</span>
+          <span class="value" id="t-out-size">—</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Recommended (with 25% Growth)</span>
+          <span class="value" id="t-out-growth">—</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Capacity in kVA</span>
+          <span class="value" id="t-out-kva">—</span>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off. Review standard NEMA transformer sizes in the reference table below.
+    </div>
+  </noscript>
+
+  <div class="notice">
+    <div>
+      <strong>Design guidance:</strong> Standard sizes reflect common NEMA commercial ratings. For motor loads, evaluate inrush starting current. Continuous loads under NEC 215.2 must be sized at 125% of load current.
+    </div>
+  </div>
+
+  <h2>Standard Transformer Ratings Table</h2>
+  <div id="t-table"></div>
+
+  <h2>How Transformer VA is Calculated</h2>
+  <p>Apparent power represents the total volt-ampere demand on the supply:</p>
+  <p><strong>Single-Phase: VA = Voltage &times; Current</strong></p>
+  <p><strong>Three-Phase: VA = Voltage &times; Current &times; &radic;3 (&asymp; 1.732)</strong></p>
+
+  <h3>Worked Example</h3>
+  <p>For a single-phase <strong>240 V, 20 A</strong> circuit: <code>VA = 240 &times; 20 = 4,800 VA (4.8 kVA)</code>. The next standard NEMA size is <strong>5,000 VA (5 kVA)</strong>. If sized for continuous duty (+25% margin): <code>4,800 &times; 1.25 = 6,000 VA</code>, leading to a <strong>7,500 VA (7.5 kVA)</strong> transformer.</p>
+
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>Should I size a transformer to match the exact calculated VA?</summary>
+      <p>No. Industry best practice recommends adding a 20% to 25% safety margin for continuous duty and future expansion. Transformers operating at near 100% capacity continuously produce excess heat and experience shorter lifespans.</p>
+    </details>
+    <details>
+      <summary>What is the difference between VA and Watts?</summary>
+      <p>Watts measure real power consumed by resistive loads. Volt-Amperes (VA) measure apparent power including reactive current caused by inductors and capacitors (power factor). Transformer coils and wiring must be sized to carry total VA.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><strong>decivia.online</strong> &mdash; Practical engineering and trade calculators.</div>
+    <div class="footer-nav">
+      <a href="/">Home</a>
+      <a href="/electrical/index.html">Electrical Tools</a>
+      <a href="/electrical/wire-sizing.html">Wire Sizing</a>
+      <a href="/electrical/voltage-drop.html">Voltage Drop</a>
+    </div>
+    <p>General estimation tools only. Always consult a licensed electrical contractor and local building codes.</p>
+  </div>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc;
+  const form = document.getElementById("t-form");
+  const resultPanel = document.getElementById("t-result");
+  const copyBtn = document.getElementById("t-copy-btn");
+  const standardSizes = [250, 500, 750, 1000, 1500, 2000, 3000, 5000, 7500, 10000, 15000, 25000, 37500, 50000, 75000];
+
+  document.querySelectorAll(".chip-btn").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const input = document.getElementById(chip.dataset.setInput);
+      if (input) {
+        input.value = chip.dataset.val;
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+        compute();
+      }
+    });
+  });
+
+  let lastComputedSummary = "";
+
+  function compute() {
+    const voltage = util.readNumber(document.getElementById("t-voltage"), { label: "Voltage", allowZero: false, max: 50000 });
+    const current = util.readNumber(document.getElementById("t-current"), { label: "Current", allowZero: false, max: 5000 });
+    if (voltage === null || current === null) return (resultPanel.hidden = true);
+
+    const phase = parseInt(document.getElementById("t-phase").value, 10);
+    const va = calc.transformerVA({ voltage, current, phase });
+    const recommended = standardSizes.find((s) => s >= va);
+    const withMargin = va * 1.25;
+    const recommendedWithMargin = standardSizes.find((s) => s >= withMargin);
+
+    resultPanel.hidden = false;
+    document.getElementById("t-result-main").textContent = `${recommended ? (recommended >= 1000 ? (recommended / 1000) + " kVA" : recommended + " VA") : "Custom order (>75 kVA)"} (${util.formatNumber(va, 0)} VA load)`;
+    document.getElementById("t-out-va").textContent = util.formatNumber(va, 0) + " VA";
+    document.getElementById("t-out-size").textContent = recommended ? `${util.formatNumber(recommended, 0)} VA (${recommended / 1000} kVA)` : "Above 75 kVA";
+    document.getElementById("t-out-growth").textContent = recommendedWithMargin ? `${util.formatNumber(recommendedWithMargin, 0)} VA (${recommendedWithMargin / 1000} kVA)` : "Above 75 kVA";
+    document.getElementById("t-out-kva").textContent = (va / 1000).toFixed(2) + " kVA";
+
+    lastComputedSummary = `Decivia Transformer Sizing: Load ${util.formatNumber(va, 0)} VA (${(va/1000).toFixed(2)} kVA) | Next Standard Size: ${recommended ? recommended + " VA" : "Custom"} | +25% Margin: ${recommendedWithMargin ? recommendedWithMargin + " VA" : "Custom"}`;
+
+    const rows = standardSizes.map((s) => [
+      s >= 1000 ? (s / 1000) + " kVA (" + s + " VA)" : s + " VA",
+      s >= va ? "✓ Covers Base Load" : "✕ Too Small",
+      s >= withMargin ? "✓ Meets 125% Continuous" : "✕ Low Headroom"
+    ]);
+    const highlightIndex = standardSizes.findIndex((s) => s === recommended);
+    util.renderTable(document.getElementById("t-table"), {
+      caption: `Standard NEMA Transformer Ratings for ${util.formatNumber(va, 0)} VA Load (${phase === 3 ? "Three-Phase" : "Single-Phase"})`,
+      headers: ["Catalog Rating", "Base Load Status", "125% Continuous Duty"],
+      rows,
+      highlightRowIndex: highlightIndex,
+    });
+  }
+
+  if (copyBtn) {
+    copyBtn.addEventListener("click", () => {
+      if (lastComputedSummary) {
+        util.copyResultToClipboard(lastComputedSummary);
+      }
+    });
+  }
+
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  document.getElementById("t-phase").addEventListener("change", compute);
+  compute();
+})();
+</script>
+</body>
+</html>
