@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Car Lease Mileage Calculator — Overage Cost Projection | Decivia</title>
+<meta name="description" content="Project your car lease mileage and estimate overage charges from your remaining term, allowed mileage, current odometer, and expected monthly mileage.">
+<link rel="canonical" href="https://decivia.online/household/lease-mileage.html">
+<meta property="og:title" content="Car Lease Mileage Calculator">
+<meta property="og:description" content="Projected mileage and estimated lease overage cost, with a month-by-month projection table.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/household/lease-mileage.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Household", "item": "https://decivia.online/household/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Car Lease Mileage Calculator", "item": "https://decivia.online/household/lease-mileage.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Car Lease Mileage Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/household/lease-mileage.html",
+  "description": "Projects total lease mileage from current odometer, expected monthly mileage, and remaining term, and estimates overage cost against the allowed mileage.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is lease mileage overage calculated?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Projected total mileage (current odometer plus expected monthly mileage times remaining months) is compared to your allowed mileage. Any amount over the allowance is multiplied by the per-mile overage rate." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I avoid a lease overage charge?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Options include driving less for the rest of the term, negotiating a mileage adjustment with the leasing company before lease-end, or purchasing the vehicle instead of returning it, which typically avoids the per-mile charge." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the monthly projection exact?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. It assumes your monthly mileage stays constant for the rest of the term. Update the expected monthly mileage field periodically for a more current projection." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/household/index.html">Household</a></li>
+      <li>Lease mileage</li>
+    </ol>
+  </nav>
+
+  <h1>Car Lease Mileage Calculator</h1>
+  <p class="lede">Enter your remaining lease term, allowed mileage, current odometer, and expected monthly mileage to project your overage cost before it happens.</p>
+
+  <form class="calc-form" id="m-form" novalidate>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">Imperial (Miles)</button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">Metric (Kilometers)</button>
+      </div>
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label for="m-term">Lease term remaining</label>
+        <div class="unit-row">
+          <input type="number" id="m-term" value="18" min="1" max="60" step="1">
+          <span class="unit">months</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="m-allowed">Total allowed distance (full lease)</label>
+        <div class="input-with-unit">
+          <input type="number" id="m-allowed" value="36000" min="0" step="100">
+          <span class="unit-badge" id="m-allowed-badge">mi</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="m-current">Current odometer reading</label>
+        <div class="input-with-unit">
+          <input type="number" id="m-current" value="18000" min="0" step="100">
+          <span class="unit-badge" id="m-current-badge">mi</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="m-monthly">Expected monthly driving</label>
+        <div class="input-with-unit">
+          <input type="number" id="m-monthly" value="1200" min="0" step="10">
+          <span class="unit-badge" id="m-monthly-badge">mi/mo</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="m-overage">Overage rate</label>
+        <div class="input-with-unit">
+          <input type="number" id="m-overage" value="0.25" min="0" step="0.01">
+          <span class="unit-badge" id="m-overage-badge">$/mi</span>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn">Calculate</button>
+
+    <div class="result-panel" id="m-result" hidden aria-live="polite">
+      <p class="result-main" id="m-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label">Projected total distance</span><span class="value" id="m-out-projected">—</span></div>
+        <div class="result-item"><span class="label" id="m-out-overmiles-lbl">Overage distance</span><span class="value" id="m-out-overmiles">—</span></div>
+        <div class="result-item"><span class="label">Estimated overage cost</span><span class="value" id="m-out-cost">—</span></div>
+      </div>
+      <p class="notice" id="m-warning" hidden></p>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so the interactive calculator can't run. See "How it works" below for the formula.
+    </div>
+  </noscript>
+
+  <h2>Monthly mileage projection</h2>
+  <p>Projected odometer reading at each future month, assuming your expected monthly mileage stays constant.</p>
+  <div id="m-table"></div>
+
+  <h2>How it works</h2>
+  <p>Projected total mileage equals your current odometer plus expected monthly mileage times the remaining lease-term months:</p>
+  <p><strong>Projected total = current mileage + (monthly mileage × remaining months)</strong></p>
+  <p>Overage miles is the amount by which that projection exceeds your total allowed mileage (zero if it doesn't exceed it), and overage cost multiplies overage miles by your per-mile rate.</p>
+
+  <h3>Worked example</h3>
+  <p>18 months remaining, 36,000 mi allowed, 18,000 mi on the odometer, 1,200 mi/month expected: projected total = 18,000 + 1,200 × 18 = 39,600 mi, which is 3,600 mi over the 36,000 mi allowance — at $0.25/mi that's a $900 projected overage charge.</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>Monthly mileage is assumed constant for the rest of the term.</li>
+    <li>Figures are based on your lease agreement's stated allowance and per-mile rate — confirm both against your actual contract.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>For exact terms, consult your lease agreement or leasing company directly.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/household/utility-cost.html">Monthly utility cost estimator</a> — budget alongside your lease payment.</li>
+    <li><a href="/mechanical/final-drive-ratio.html">Final drive ratio calculator</a> — another vehicle-related calculation.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>How is lease mileage overage calculated?</summary>
+      <p>Projected total mileage is compared to your allowed mileage, and any excess is multiplied by the per-mile overage rate.</p>
+    </details>
+    <details>
+      <summary>Can I avoid a lease overage charge?</summary>
+      <p>Drive less for the rest of the term, negotiate a mileage adjustment, or purchase the vehicle instead of returning it.</p>
+    </details>
+    <details>
+      <summary>Is the monthly projection exact?</summary>
+      <p>No — it assumes constant monthly mileage. Update the field periodically for a more current projection.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc;
+  const form = document.getElementById("m-form");
+  const resultPanel = document.getElementById("m-result");
+  const warningEl = document.getElementById("m-warning");
+
+  const fieldDefs = [
+    { id: "m-allowed", badgeId: "m-allowed-badge", impUnit: "mi", metUnit: "km", impToMet: (v) => Math.round(v * 1.609344), metToImp: (v) => Math.round(v / 1.609344) },
+    { id: "m-current", badgeId: "m-current-badge", impUnit: "mi", metUnit: "km", impToMet: (v) => Math.round(v * 1.609344), metToImp: (v) => Math.round(v / 1.609344) },
+    { id: "m-monthly", badgeId: "m-monthly-badge", impUnit: "mi/mo", metUnit: "km/mo", impToMet: (v) => Math.round(v * 1.609344), metToImp: (v) => Math.round(v / 1.609344) },
+    { id: "m-overage", badgeId: "m-overage-badge", impUnit: "$/mi", metUnit: "$/km", impToMet: (v) => +(v / 1.609344).toFixed(3), metToImp: (v) => +(v * 1.609344).toFixed(2) }
+  ];
+
+  let currentSystem = "imperial";
+  const unitMgr = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, currentSystem, newSys);
+      currentSystem = newSys;
+      compute();
+    },
+  });
+  currentSystem = unitMgr.getSystem();
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = currentSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (currentSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+  }
+
+  function compute() {
+    const isMetric = (currentSystem === "metric");
+    const distUnit = isMetric ? "km" : "mi";
+    const distWord = isMetric ? "kilometers" : "miles";
+
+    const term = util.readNumber(document.getElementById("m-term"), { label: "Lease term", allowZero: false, max: 120 });
+    const allowed = util.readNumber(document.getElementById("m-allowed"), { label: "Allowed distance", min: 0 });
+    const current = util.readNumber(document.getElementById("m-current"), { label: "Current odometer", min: 0 });
+    const monthlyDist = util.readNumber(document.getElementById("m-monthly"), { label: "Expected monthly driving", min: 0 });
+    const rate = util.readNumber(document.getElementById("m-overage"), { label: "Overage rate", min: 0 });
+    warningEl.hidden = true;
+
+    if ([term, allowed, current, monthlyDist, rate].some((v) => v === null)) {
+      resultPanel.hidden = true;
+      return;
+    }
+
+    const projectedTotal = current + monthlyDist * term;
+    const overageDist = Math.max(0, projectedTotal - allowed);
+    const overageCost = overageDist * rate;
+
+    resultPanel.hidden = false;
+    document.getElementById("m-result-main").textContent = overageDist > 0 ? `Projected to exceed allowance by ${util.formatNumber(overageDist, 0)} ${distUnit}` : "Projected to stay within your allowance";
+    document.getElementById("m-out-projected").textContent = `${util.formatNumber(projectedTotal, 0)} ${distUnit}`;
+    document.getElementById("m-out-overmiles").textContent = `${util.formatNumber(overageDist, 0)} ${distUnit}`;
+    document.getElementById("m-out-cost").textContent = "$" + util.formatNumber(overageCost, 2);
+
+    if (overageDist > 0) {
+      warningEl.hidden = false;
+      warningEl.textContent = `Warning: projected distance exceeds your lease allowance by ${util.formatNumber(overageDist, 0)} ${distWord}. Projected excess fee: $${util.formatNumber(overageCost, 2)}.`;
+    }
+
+    const step = Math.max(1, Math.round(term / 6));
+    const rows = [];
+    for (let m = step; m <= term; m += step) {
+      const projected = current + monthlyDist * m;
+      rows.push([`Month ${m}`, `${util.formatNumber(projected, 0)} ${distUnit}`, projected > allowed ? "Over allowance" : "Within allowance"]);
+    }
+    if (rows.length === 0 || !rows[rows.length - 1][0].includes(String(term))) {
+      rows.push([`Month ${term}`, `${util.formatNumber(projectedTotal, 0)} ${distUnit}`, projectedTotal > allowed ? "Over allowance" : "Within allowance"]);
+    }
+    util.renderTable(document.getElementById("m-table"), {
+      caption: `Distance projection over ${term} remaining months (${distUnit})`,
+      headers: ["Month", `Projected odometer (${distUnit})`, "Status"],
+      rows,
+      highlightRowIndex: rows.length - 1,
+    });
+  }
+
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  ["m-term", "m-allowed", "m-current", "m-monthly", "m-overage"].forEach((id) => {
+    document.getElementById(id).addEventListener("input", compute);
+  });
+  compute();
+})();
+</script>
+</body>
+</html>

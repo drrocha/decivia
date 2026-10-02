@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monthly Utility Cost Estimator | Decivia</title>
+<meta name="description" content="Estimate your monthly and annual utility budget from electricity, gas, water, internet, and other costs, with a low/base/high scenario comparison.">
+<link rel="canonical" href="https://decivia.online/household/utility-cost.html">
+<meta property="og:title" content="Monthly Utility Cost Estimator">
+<meta property="og:description" content="Monthly and annual utility budget estimator with scenario comparison.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/household/utility-cost.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Household", "item": "https://decivia.online/household/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Monthly Utility Cost Estimator", "item": "https://decivia.online/household/utility-cost.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Monthly Utility Cost Estimator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/household/utility-cost.html",
+  "description": "Estimates monthly and annual utility budgets from electricity, gas, water, internet, and other costs with a low/base/high scenario comparison.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are these utility cost estimates specific to my location?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. These are model-based estimates using the amounts you enter, not live local tariff data. Enter your own bills for the most accurate estimate." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does the estimate show a low and high scenario?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Utility costs often vary with season (heating and cooling in particular), so the low/high range applies a ±15% adjustment to your base estimate as a simple way to model that variation." }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I include in \"other\" costs?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Anything recurring you want tracked alongside utilities, such as trash service, HOA utility pass-throughs, or a propane or heating-oil budget." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/household/index.html">Household</a></li>
+      <li>Utility cost</li>
+    </ol>
+  </nav>
+
+  <h1>Monthly Utility Cost Estimator</h1>
+  <p class="lede">Enter your monthly electricity, gas, water, internet, and other costs to get a monthly and annual total, with a low/base/high comparison.</p>
+
+  <form class="calc-form" id="u-form" novalidate>
+    <div class="input-grid">
+      <div class="field"><label for="u-elec">Electricity</label><div class="unit-row"><input type="number" id="u-elec" value="120" min="0" step="1"><span class="unit">$/mo</span></div></div>
+      <div class="field"><label for="u-gas">Gas</label><div class="unit-row"><input type="number" id="u-gas" value="40" min="0" step="1"><span class="unit">$/mo</span></div></div>
+      <div class="field"><label for="u-water">Water</label><div class="unit-row"><input type="number" id="u-water" value="35" min="0" step="1"><span class="unit">$/mo</span></div></div>
+      <div class="field"><label for="u-internet">Internet</label><div class="unit-row"><input type="number" id="u-internet" value="60" min="0" step="1"><span class="unit">$/mo</span></div></div>
+      <div class="field"><label for="u-other">Other</label><div class="unit-row"><input type="number" id="u-other" value="0" min="0" step="1"><span class="unit">$/mo</span></div></div>
+    </div>
+    <button type="submit" class="btn">Calculate</button>
+
+    <div class="result-panel" id="u-result" hidden aria-live="polite">
+      <p class="result-main" id="u-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label">Monthly total</span><span class="value" id="u-out-monthly">—</span></div>
+        <div class="result-item"><span class="label">Annual total</span><span class="value" id="u-out-annual">—</span></div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so the interactive calculator can't run. See "How it works" below for the formula.
+    </div>
+  </noscript>
+
+  <div class="notice">
+    All figures are user-entered or model-based estimates, not live local tariff data or guaranteed pricing.
+  </div>
+
+  <h2>Scenario comparison</h2>
+  <div id="u-table"></div>
+
+  <h2>How it works</h2>
+  <p>Monthly total is electricity + gas + water + internet + other. Annual total is the monthly total × 12. Low and high scenarios apply ±15% to model typical seasonal variation (such as higher heating or cooling bills).</p>
+
+  <h3>Worked example</h3>
+  <p>$120 electricity + $40 gas + $35 water + $60 internet + $0 other = $255/month, or $3,060/year. A low season might run closer to $217/month, and a high season closer to $293/month.</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>Figures are not location-specific unless you enter your own local rates and bills.</li>
+    <li>The ±15% scenario range is a simple model, not a forecast based on your specific utility's rate history.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>For current rates, consult your utility provider's published tariff or your most recent bill.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/household/lease-mileage.html">Car lease mileage calculator</a> — another common recurring-cost estimate.</li>
+    <li><a href="/engineering/water-hardness.html">Water hardness calculator</a> — check your water hardness alongside its cost.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>Are these utility cost estimates specific to my location?</summary>
+      <p>No — they're model-based estimates using the amounts you enter, not live local tariff data.</p>
+    </details>
+    <details>
+      <summary>Why does the estimate show a low and high scenario?</summary>
+      <p>Utility costs vary seasonally, so a ±15% range models that variation around your base estimate.</p>
+    </details>
+    <details>
+      <summary>What should I include in "other" costs?</summary>
+      <p>Any recurring cost you want tracked alongside utilities, like trash service or a heating-oil budget.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc;
+  const form = document.getElementById("u-form");
+  const resultPanel = document.getElementById("u-result");
+
+  function compute() {
+    const electricity = util.readNumber(document.getElementById("u-elec"), { label: "Electricity" });
+    const gas = util.readNumber(document.getElementById("u-gas"), { label: "Gas" });
+    const water = util.readNumber(document.getElementById("u-water"), { label: "Water" });
+    const internet = util.readNumber(document.getElementById("u-internet"), { label: "Internet" });
+    const other = util.readNumber(document.getElementById("u-other"), { label: "Other" });
+    if ([electricity, gas, water, internet, other].some((v) => v === null)) return (resultPanel.hidden = true);
+
+    const monthly = calc.monthlyUtilityTotal({ electricity, gas, water, internet, other });
+
+    resultPanel.hidden = false;
+    document.getElementById("u-result-main").textContent = "Estimated utility budget";
+    document.getElementById("u-out-monthly").textContent = "$" + util.formatNumber(monthly, 2);
+    document.getElementById("u-out-annual").textContent = "$" + util.formatNumber(monthly * 12, 2);
+
+    util.renderTable(document.getElementById("u-table"), {
+      caption: "Low / base / high scenario comparison",
+      headers: ["Scenario", "Monthly estimate"],
+      rows: [
+        ["Low (−15%, mild season)", "$" + util.formatNumber(monthly * 0.85, 2)],
+        ["Base", "$" + util.formatNumber(monthly, 2)],
+        ["High (+15%, peak season)", "$" + util.formatNumber(monthly * 1.15, 2)],
+      ],
+      highlightRowIndex: 1,
+    });
+  }
+
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  compute();
+})();
+</script>
+</body>
+</html>

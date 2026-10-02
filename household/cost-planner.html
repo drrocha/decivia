@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Combined Household Cost Planner | Decivia</title>
+<meta name="description" content="Combine monthly utility costs, projected car lease mileage overage, and pet-sitting costs into one household cost planner with a combined total.">
+<link rel="canonical" href="https://decivia.online/household/cost-planner.html">
+<meta property="og:title" content="Combined Household Cost Planner">
+<meta property="og:description" content="Combined utility, lease mileage overage, and pet-sitting cost estimate in one workflow.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/household/cost-planner.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Household", "item": "https://decivia.online/household/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Combined Household Cost Planner", "item": "https://decivia.online/household/cost-planner.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Combined Household Cost Planner",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/household/cost-planner.html",
+  "description": "Combines monthly utility costs, projected car lease mileage overage, and pet-sitting costs into one household budgeting workflow with a combined total.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does the combined cost planner include?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Three independent household estimates in one workflow: monthly utility costs, a projected car lease mileage overage charge, and a pet-sitting or boarding total, plus a combined total of all three." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do the three sections share the same time period?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Utility cost is monthly, lease overage is a one-time projected charge at lease end, and pet-sitting is a total for the visits you enter. The combined total simply adds them together for a single reference number, not a true monthly figure." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I skip a section I don't need?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Each section calculates independently, and the combined total only includes the sections you've filled in." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/household/index.html">Household</a></li>
+      <li>Cost planner</li>
+    </ol>
+  </nav>
+
+  <h1>Combined Household Cost Planner</h1>
+  <p class="lede">Combine monthly utility costs, a projected car lease mileage overage, and a pet-sitting cost into one workflow, with a combined total.</p>
+
+  <form class="calc-form" id="cp-form" novalidate>
+    <h2>1. Monthly utilities</h2>
+    <div class="input-grid">
+      <div class="field"><label for="cpu-elec">Electricity</label><div class="input-with-unit"><input type="number" id="cpu-elec" value="120" min="0" step="1"><span class="unit-badge">$/mo</span></div></div>
+      <div class="field"><label for="cpu-gas">Gas</label><div class="input-with-unit"><input type="number" id="cpu-gas" value="40" min="0" step="1"><span class="unit-badge">$/mo</span></div></div>
+      <div class="field"><label for="cpu-water">Water</label><div class="input-with-unit"><input type="number" id="cpu-water" value="35" min="0" step="1"><span class="unit-badge">$/mo</span></div></div>
+      <div class="field"><label for="cpu-internet">Internet</label><div class="input-with-unit"><input type="number" id="cpu-internet" value="60" min="0" step="1"><span class="unit-badge">$/mo</span></div></div>
+      <div class="field"><label for="cpu-other">Other</label><div class="input-with-unit"><input type="number" id="cpu-other" value="0" min="0" step="1"><span class="unit-badge">$/mo</span></div></div>
+    </div>
+    <div class="result-panel" id="cpu-result" hidden aria-live="polite">
+      <p class="result-main" id="cpu-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label">Monthly total</span><span class="value" id="cpu-out-monthly">—</span></div>
+        <div class="result-item"><span class="label">Annual total</span><span class="value" id="cpu-out-annual">—</span></div>
+      </div>
+    </div>
+
+    <h2>2. Car lease mileage overage</h2>
+    <div class="unit-system-bar" role="group" aria-label="Measurement unit system">
+      <span class="unit-system-legend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+        Unit System:
+      </span>
+      <div class="unit-system-options">
+        <button type="button" class="unit-system-btn active" data-system="imperial" aria-pressed="true">Imperial (Miles)</button>
+        <button type="button" class="unit-system-btn" data-system="metric" aria-pressed="false">Metric (Kilometers)</button>
+      </div>
+    </div>
+    <div class="input-grid">
+      <div class="field">
+        <label for="cpl-term">Lease term remaining</label>
+        <div class="input-with-unit"><input type="number" id="cpl-term" value="18" min="1" max="60" step="1"><span class="unit-badge">months</span></div>
+      </div>
+      <div class="field">
+        <label for="cpl-allowed">Total allowed distance (full lease)</label>
+        <div class="input-with-unit"><input type="number" id="cpl-allowed" value="36000" min="0" step="100"><span class="unit-badge" id="cpl-allowed-badge">mi</span></div>
+      </div>
+      <div class="field">
+        <label for="cpl-current">Current odometer reading</label>
+        <div class="input-with-unit"><input type="number" id="cpl-current" value="18000" min="0" step="100"><span class="unit-badge" id="cpl-current-badge">mi</span></div>
+      </div>
+      <div class="field">
+        <label for="cpl-monthly">Expected monthly driving</label>
+        <div class="input-with-unit"><input type="number" id="cpl-monthly" value="1200" min="0" step="10"><span class="unit-badge" id="cpl-monthly-badge">mi/mo</span></div>
+      </div>
+      <div class="field">
+        <label for="cpl-overage">Overage rate</label>
+        <div class="input-with-unit"><input type="number" id="cpl-overage" value="0.25" min="0" step="0.01"><span class="unit-badge" id="cpl-overage-badge">$/mi</span></div>
+      </div>
+    </div>
+    <div class="result-panel" id="cpl-result" hidden aria-live="polite">
+      <p class="result-main" id="cpl-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label">Projected total distance</span><span class="value" id="cpl-out-projected">—</span></div>
+        <div class="result-item"><span class="label">Overage distance</span><span class="value" id="cpl-out-overdist">—</span></div>
+        <div class="result-item"><span class="label">Projected overage cost</span><span class="value" id="cpl-out-cost">—</span></div>
+      </div>
+    </div>
+
+    <h2>3. Pet-sitting</h2>
+    <div class="input-grid">
+      <div class="field"><label for="cpp-pets">Number of pets</label><input type="number" id="cpp-pets" value="2" min="1" max="20" step="1"></div>
+      <div class="field"><label for="cpp-visits">Visits or nights</label><input type="number" id="cpp-visits" value="10" min="1" max="365" step="1"></div>
+      <div class="field"><label for="cpp-rate">Rate per visit/night</label><div class="input-with-unit"><input type="number" id="cpp-rate" value="25" min="0" step="0.5"><span class="unit-badge">$</span></div></div>
+      <div class="field"><label for="cpp-surcharge">Holiday/medication surcharge</label><div class="input-with-unit"><input type="number" id="cpp-surcharge" value="0" min="0" step="1"><span class="unit-badge">$</span></div></div>
+    </div>
+    <div class="result-panel" id="cpp-result" hidden aria-live="polite">
+      <p class="result-main" id="cpp-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label">Total cost</span><span class="value" id="cpp-out-total">—</span></div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn">Calculate combined total</button>
+
+    <div class="result-panel" id="cps-result" hidden aria-live="polite">
+      <p class="result-main" id="cps-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label">Monthly utilities</span><span class="value" id="cps-out-utility">—</span></div>
+        <div class="result-item"><span class="label">Lease overage (projected)</span><span class="value" id="cps-out-lease">—</span></div>
+        <div class="result-item"><span class="label">Pet-sitting total</span><span class="value" id="cps-out-pet">—</span></div>
+        <div class="result-item"><span class="label">Combined total</span><span class="value" id="cps-out-combined">—</span></div>
+      </div>
+      <p class="notice">The combined total simply adds all three figures together for a single reference number — it is not a single monthly cost, since utilities are monthly, lease overage is a one-time projected charge, and pet-sitting is a total for the visits entered.</p>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so the interactive calculator can't run. See "How it works" below for the formulas.
+    </div>
+  </noscript>
+
+  <h2>How it works</h2>
+  <p>Monthly utilities total is electricity + gas + water + internet + other. Lease mileage overage projects your odometer forward (current + monthly driving × remaining months), compares it to your total allowance, and multiplies any excess by your overage rate. Pet-sitting total is pets × visits × rate, plus any surcharge. The combined total adds all three — useful as a single reference figure, even though each section covers a different time period.</p>
+
+  <h3>Worked example</h3>
+  <p>$255/month in utilities, an 18-month lease projected to run 3,600 miles over its 36,000 mi allowance at $0.25/mi (a $900 projected overage), and 2 pets for 10 visits at $25/visit ($500): the combined total is $255 + $900 + $500 = $1,655.</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>Each section is independent — figures are not shared between sections.</li>
+    <li>The combined total is an additive convenience figure across different time periods, not a normalized monthly cost.</li>
+    <li>All figures are user-entered or model-based estimates, not live local rates or guaranteed pricing.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>For exact utility rates, consult your utility provider; for lease terms, consult your lease agreement; for pet-sitting rates, confirm directly with your sitter.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/household/utility-cost.html">Monthly utility cost estimator</a> — the standalone utilities-only version.</li>
+    <li><a href="/household/lease-mileage.html">Car lease mileage calculator</a> — the standalone lease-only version.</li>
+    <li><a href="/household/pet-sitting-cost.html">Pet-sitting rate calculator</a> — the standalone pet-sitting-only version.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>What does the combined cost planner include?</summary>
+      <p>Monthly utilities, a projected car lease mileage overage, and a pet-sitting total — three independent estimates plus a combined total.</p>
+    </details>
+    <details>
+      <summary>Do the three sections share the same time period?</summary>
+      <p>No — utilities are monthly, lease overage is a one-time projected charge, and pet-sitting is a total for the visits entered. The combined total just adds them together.</p>
+    </details>
+    <details>
+      <summary>Can I skip a section I don't need?</summary>
+      <p>Yes — each section calculates independently, and the combined total only includes sections you've filled in.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc;
+  const form = document.getElementById("cp-form");
+
+  const fieldDefs = [
+    { id: "cpl-allowed", badgeId: "cpl-allowed-badge", impUnit: "mi", metUnit: "km", impToMet: (v) => Math.round(v * 1.609344), metToImp: (v) => Math.round(v / 1.609344) },
+    { id: "cpl-current", badgeId: "cpl-current-badge", impUnit: "mi", metUnit: "km", impToMet: (v) => Math.round(v * 1.609344), metToImp: (v) => Math.round(v / 1.609344) },
+    { id: "cpl-monthly", badgeId: "cpl-monthly-badge", impUnit: "mi/mo", metUnit: "km/mo", impToMet: (v) => Math.round(v * 1.609344), metToImp: (v) => Math.round(v / 1.609344) },
+    { id: "cpl-overage", badgeId: "cpl-overage-badge", impUnit: "$/mi", metUnit: "$/km", impToMet: (v) => +(v / 1.609344).toFixed(3), metToImp: (v) => +(v * 1.609344).toFixed(2) },
+  ];
+
+  let prevSystem = "imperial";
+  const unitManager = util.initUnitSystem(form, {
+    onChange: (newSys) => {
+      util.convertFieldsOnUnitChange(fieldDefs, prevSystem, newSys);
+      prevSystem = newSys;
+      compute();
+    },
+  });
+  prevSystem = unitManager.getSystem();
+  fieldDefs.forEach((def) => {
+    const badge = document.getElementById(def.badgeId);
+    if (badge) badge.textContent = prevSystem === "metric" ? def.metUnit : def.impUnit;
+  });
+  if (prevSystem === "metric") {
+    util.convertFieldsOnUnitChange(fieldDefs, "imperial", "metric");
+  }
+
+  function computeUtility() {
+    const panel = document.getElementById("cpu-result");
+    const electricity = util.readNumber(document.getElementById("cpu-elec"), { label: "Electricity" });
+    const gas = util.readNumber(document.getElementById("cpu-gas"), { label: "Gas" });
+    const water = util.readNumber(document.getElementById("cpu-water"), { label: "Water" });
+    const internet = util.readNumber(document.getElementById("cpu-internet"), { label: "Internet" });
+    const other = util.readNumber(document.getElementById("cpu-other"), { label: "Other" });
+
+    if ([electricity, gas, water, internet, other].some((v) => v === null)) {
+      panel.hidden = true;
+      return null;
+    }
+
+    const monthly = calc.monthlyUtilityTotal({ electricity, gas, water, internet, other });
+    panel.hidden = false;
+    document.getElementById("cpu-result-main").textContent = "Estimated utility budget";
+    document.getElementById("cpu-out-monthly").textContent = "$" + util.formatNumber(monthly, 2);
+    document.getElementById("cpu-out-annual").textContent = "$" + util.formatNumber(monthly * 12, 2);
+    return monthly;
+  }
+
+  function computeLease(isMetric) {
+    const panel = document.getElementById("cpl-result");
+    const distUnit = isMetric ? "km" : "mi";
+    const term = util.readNumber(document.getElementById("cpl-term"), { label: "Lease term", allowZero: false, max: 120 });
+    const allowed = util.readNumber(document.getElementById("cpl-allowed"), { label: "Allowed distance", min: 0 });
+    const current = util.readNumber(document.getElementById("cpl-current"), { label: "Current odometer", min: 0 });
+    const monthlyDist = util.readNumber(document.getElementById("cpl-monthly"), { label: "Monthly driving", min: 0 });
+    const rate = util.readNumber(document.getElementById("cpl-overage"), { label: "Overage rate", min: 0 });
+
+    if ([term, allowed, current, monthlyDist, rate].some((v) => v === null)) {
+      panel.hidden = true;
+      return null;
+    }
+
+    const projected = current + monthlyDist * term;
+    const overDist = Math.max(0, projected - allowed);
+    const cost = calc.leaseOverageCost({ allowedMiles: allowed, expectedMiles: projected, overageRatePerMile: rate });
+
+    panel.hidden = false;
+    document.getElementById("cpl-result-main").textContent = overDist > 0
+      ? `Projected to exceed allowance by ${util.formatNumber(overDist, 0)} ${distUnit}`
+      : "Projected within allowance";
+    document.getElementById("cpl-out-projected").textContent = `${util.formatNumber(projected, 0)} ${distUnit}`;
+    document.getElementById("cpl-out-overdist").textContent = `${util.formatNumber(overDist, 0)} ${distUnit}`;
+    document.getElementById("cpl-out-cost").textContent = "$" + util.formatNumber(cost, 2);
+    return cost;
+  }
+
+  function computePet() {
+    const panel = document.getElementById("cpp-result");
+    const pets = util.readNumber(document.getElementById("cpp-pets"), { label: "Number of pets", allowZero: false, max: 50 });
+    const visits = util.readNumber(document.getElementById("cpp-visits"), { label: "Visits/nights", allowZero: false, max: 365 });
+    const rate = util.readNumber(document.getElementById("cpp-rate"), { label: "Rate" });
+    const surcharge = util.readNumber(document.getElementById("cpp-surcharge"), { label: "Surcharge" }) || 0;
+
+    if ([pets, visits, rate].some((v) => v === null)) {
+      panel.hidden = true;
+      return null;
+    }
+
+    const total = calc.petSittingTotal({ pets, visits, ratePerVisit: rate, surcharge });
+    panel.hidden = false;
+    document.getElementById("cpp-result-main").textContent = "Estimated pet-sitting cost";
+    document.getElementById("cpp-out-total").textContent = "$" + util.formatNumber(total, 2);
+    return total;
+  }
+
+  function compute() {
+    const isMetric = unitManager.getSystem() === "metric";
+    const utility = computeUtility();
+    const lease = computeLease(isMetric);
+    const pet = computePet();
+
+    const summaryPanel = document.getElementById("cps-result");
+    if (utility === null && lease === null && pet === null) {
+      summaryPanel.hidden = true;
+      return;
+    }
+
+    const parts = [utility, lease, pet].filter((v) => v !== null);
+    const combined = parts.length ? parts.reduce((a, b) => a + b, 0) : null;
+
+    summaryPanel.hidden = false;
+    document.getElementById("cps-result-main").textContent = combined !== null
+      ? `Combined total: $${util.formatNumber(combined, 2)}`
+      : "Combined total calculated";
+    document.getElementById("cps-out-utility").textContent = utility !== null ? "$" + util.formatNumber(utility, 2) : "—";
+    document.getElementById("cps-out-lease").textContent = lease !== null ? "$" + util.formatNumber(lease, 2) : "—";
+    document.getElementById("cps-out-pet").textContent = pet !== null ? "$" + util.formatNumber(pet, 2) : "—";
+    document.getElementById("cps-out-combined").textContent = combined !== null ? "$" + util.formatNumber(combined, 2) : "—";
+  }
+
+  form.addEventListener("input", util.debounce(compute, 80));
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  compute();
+})();
+</script>
+</body>
+</html>
+

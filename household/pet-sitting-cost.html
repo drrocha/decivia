@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pet-Sitting Rate Calculator — Total Cost Estimator | Decivia</title>
+<meta name="description" content="Estimate total pet-sitting or boarding cost from number of pets, visits or nights, rate per visit, and holiday or medication surcharges.">
+<link rel="canonical" href="https://decivia.online/household/pet-sitting-cost.html">
+<meta property="og:title" content="Pet-Sitting Rate Calculator">
+<meta property="og:description" content="Total pet-sitting cost from pets, visits, rate, and surcharges.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/household/pet-sitting-cost.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Decivia", "item": "https://decivia.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Household", "item": "https://decivia.online/household/index.html" },
+    { "@type": "ListItem", "position": 3, "name": "Pet-Sitting Rate Calculator", "item": "https://decivia.online/household/pet-sitting-cost.html" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Pet-Sitting Rate Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "url": "https://decivia.online/household/pet-sitting-cost.html",
+  "description": "Calculates total pet-sitting or boarding cost from number of pets, visits or nights, rate per visit, and surcharges.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is pet-sitting cost calculated?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Number of pets times visits or nights times the rate per visit or night, plus any holiday or medication surcharge you enter." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do sitters usually charge extra per additional pet?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Many do, though some offer a flat household rate instead of a strict per-pet multiplier. Check your sitter's specific pricing structure and adjust the rate field to match." }
+    },
+    {
+      "@type": "Question",
+      "name": "What counts as a medication surcharge?",
+      "acceptedAnswer": { "@type": "Answer", "text": "An additional flat fee some sitters charge for administering medication, special-needs care, or holiday-period premiums, separate from the base per-visit rate." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/household/index.html">Household</a></li>
+      <li>Pet-sitting cost</li>
+    </ol>
+  </nav>
+
+  <h1>Pet-Sitting Rate Calculator</h1>
+  <p class="lede">Enter the number of pets, visits or nights, rate per visit, and any surcharge to get your total pet-sitting cost.</p>
+
+  <form class="calc-form" id="p-form" novalidate>
+    <div class="input-grid">
+      <div class="field"><label for="p-pets">Number of pets</label><input type="number" id="p-pets" value="2" min="1" max="20" step="1"></div>
+      <div class="field"><label for="p-visits">Visits or nights</label><input type="number" id="p-visits" value="10" min="1" max="365" step="1"></div>
+      <div class="field"><label for="p-rate">Rate per visit/night</label><div class="unit-row"><input type="number" id="p-rate" value="25" min="0" step="0.5"><span class="unit">$</span></div></div>
+      <div class="field"><label for="p-surcharge">Holiday/medication surcharge</label><div class="unit-row"><input type="number" id="p-surcharge" value="0" min="0" step="1"><span class="unit">$</span></div></div>
+    </div>
+    <button type="submit" class="btn">Calculate</button>
+
+    <div class="result-panel" id="p-result" hidden aria-live="polite">
+      <p class="result-main" id="p-result-main">—</p>
+      <div class="result-grid">
+        <div class="result-item"><span class="label">Total cost</span><span class="value" id="p-out-total">—</span></div>
+        <div class="result-item"><span class="label">Per visit/night (all pets)</span><span class="value" id="p-out-pervisit">—</span></div>
+      </div>
+    </div>
+  </form>
+
+  <noscript>
+    <div class="notice">
+      JavaScript is off, so the interactive calculator can't run. See "How it works" below for the formula.
+    </div>
+  </noscript>
+
+  <h2>Scenario comparison</h2>
+  <div id="p-table"></div>
+
+  <h2>How it works</h2>
+  <p>Total cost is the number of pets times visits or nights times the rate per visit or night, plus any surcharge:</p>
+  <p><strong>Total = pets × visits × rate + surcharge</strong></p>
+
+  <h3>Worked example</h3>
+  <p>2 pets, 10 visits, $25 per visit, no surcharge: 2 × 10 × $25 = $500. Adding a $30 holiday surcharge brings the total to $530.</p>
+
+  <h2>Assumptions</h2>
+  <ul>
+    <li>The rate per visit/night is assumed flat across all pets unless your sitter charges a different per-pet rate (adjust the rate field to match).</li>
+    <li>Surcharge is treated as a single flat addition, not a per-visit or per-pet multiplier.</li>
+  </ul>
+
+  <h2>Reference</h2>
+  <p>Pricing varies widely by sitter and region — confirm the exact rate structure with your pet sitter directly.</p>
+
+  <h2>Related tools</h2>
+  <ul class="related-tools">
+    <li><a href="/household/utility-cost.html">Monthly utility cost estimator</a> — budget alongside your pet-care costs.</li>
+    <li><a href="/household/lease-mileage.html">Car lease mileage calculator</a> — another trip-related household estimate.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details>
+      <summary>How is pet-sitting cost calculated?</summary>
+      <p>Pets × visits/nights × rate per visit/night, plus any surcharge you enter.</p>
+    </details>
+    <details>
+      <summary>Do sitters usually charge extra per additional pet?</summary>
+      <p>Many do, though some use a flat household rate instead. Check your sitter's pricing and adjust the rate field.</p>
+    </details>
+    <details>
+      <summary>What counts as a medication surcharge?</summary>
+      <p>An extra flat fee for administering medication, special-needs care, or holiday-period premiums.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">decivia.online</a> — general estimation tools, not professional advice.</p>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/app.js"></script>
+<script>
+(function () {
+  const util = CalcAtlas.util, calc = CalcAtlas.calc;
+  const form = document.getElementById("p-form");
+  const resultPanel = document.getElementById("p-result");
+
+  function compute() {
+    const pets = util.readNumber(document.getElementById("p-pets"), { label: "Number of pets", allowZero: false, max: 50 });
+    const visits = util.readNumber(document.getElementById("p-visits"), { label: "Visits/nights", allowZero: false, max: 365 });
+    const rate = util.readNumber(document.getElementById("p-rate"), { label: "Rate" });
+    const surcharge = util.readNumber(document.getElementById("p-surcharge"), { label: "Surcharge" }) || 0;
+
+    if ([pets, visits, rate].some((v) => v === null)) {
+      resultPanel.hidden = true;
+      return;
+    }
+
+    const total = calc.petSittingTotal({ pets, visits, ratePerVisit: rate, surcharge });
+
+    resultPanel.hidden = false;
+    document.getElementById("p-result-main").textContent = "Estimated pet-sitting cost";
+    document.getElementById("p-out-total").textContent = "$" + util.formatNumber(total, 2);
+    document.getElementById("p-out-pervisit").textContent = "$" + util.formatNumber(pets * rate, 2);
+
+    util.renderTable(document.getElementById("p-table"), {
+      caption: "Scenario comparison",
+      headers: ["Scenario", "Total cost"],
+      rows: [
+        ["No surcharge", "$" + util.formatNumber(calc.petSittingTotal({ pets, visits, ratePerVisit: rate, surcharge: 0 }), 2)],
+        ["Base (as entered)", "$" + util.formatNumber(total, 2)],
+        ["+1 extra visit/night each", "$" + util.formatNumber(calc.petSittingTotal({ pets, visits: visits + 1, ratePerVisit: rate, surcharge }), 2)],
+      ],
+      highlightRowIndex: 1,
+    });
+  }
+
+  form.addEventListener("submit", (e) => { e.preventDefault(); compute(); });
+  compute();
+})();
+</script>
+</body>
+</html>
