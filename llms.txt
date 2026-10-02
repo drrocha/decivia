@@ -1,0 +1,42 @@
+# Decivia
+
+> From a question to a clear decision. Free practical calculators, comparison tables, and planning tools, no accounts, no external APIs. Built with plain HTML/CSS/JS; all calculators run client-side.
+
+Decivia provides focused calculators for practical decision problems, each with a clear answer, stated assumptions, a short explanation, and a credible reference link. Results are estimates based on simplified reference values and are not a substitute for a qualified professional where codes, safety, or contracts apply.
+
+## Tools
+
+- [Wire Size & Ampacity Calculator](https://decivia.online/electrical/wire-sizing.html): Recommends a wire gauge from current, voltage, cable length, and temperature; reports ampacity.
+- [Voltage Drop Calculator](https://decivia.online/electrical/voltage-drop.html): Voltage drop in volts and percent for a chosen wire gauge, current, and run length, with a gauge comparison chart.
+- [Transformer VA Sizing Reference](https://decivia.online/electrical/transformer-sizing.html): Next standard transformer VA size for a single- or three-phase load.
+- [Pipe Flow Rate Calculator](https://decivia.online/pipes/flow-rate.html): Flow velocity from pipe diameter and flow rate, with a pipe-size comparison table.
+- [Pipe Pressure Drop Calculator](https://decivia.online/pipes/pressure-drop.html): Pressure drop and head loss using the Darcy-Weisbach equation from pipe diameter, length, flow rate, and material.
+- [Differential Pressure Calculator](https://decivia.online/pipes/differential-pressure.html): Signed pressure difference, equivalent fluid head, and converted pressure units from upstream and downstream readings.
+- [Gear Ratio Calculator](https://decivia.online/mechanical/gear-ratio.html): Wheel RPM, vehicle speed, overall gear ratio, and torque multiplication from engine RPM and gearing.
+- [Final Drive Ratio Calculator](https://decivia.online/mechanical/final-drive-ratio.html): Engine RPM at a target highway speed for a final-drive ratio, with before/after re-gear comparison.
+- [Spring Rate Calculator](https://decivia.online/mechanical/spring-rate.html): Ideal helical compression spring rate, force, energy, and coil diameters from wire, coil, modulus, and deflection inputs.
+- [Room Area & Flooring Calculator](https://decivia.online/construction/room-area.html): Floor area and waste-adjusted flooring box count.
+- [Deck Material Calculator](https://decivia.online/construction/deck-materials.html): Deck board quantity, waste allowance, and rough material cost.
+- [Drywall Calculator](https://decivia.online/construction/drywall.html): Wall area minus openings, converted to a waste-adjusted sheet count.
+- [Gravel & Topsoil Calculator](https://decivia.online/construction/gravel-topsoil.html): Volume in bags, cubic yards, and approximate tons from length, width, and depth.
+- [Construction Cost Estimator](https://decivia.online/construction/construction-cost.html): Material and labor budget with waste, fees, tax, and contingency adjustments.
+- [Ramp Slope Calculator](https://decivia.online/construction/ramp-slope.html): Ramp ratio, slope percentage, angle, required run, and footprint from rise and run dimensions.
+- [Baluster Spacing Calculator](https://decivia.online/construction/baluster-spacing.html): Baluster count, clear opening, occupied width, and center-to-center pitch for a railing run.
+- [Tank Volume Calculator](https://decivia.online/tanks/tank-volume.html): Total capacity in gallons and liters for rectangular or vertical-cylinder tanks.
+- [Fuel Tank Capacity Calculator](https://decivia.online/tanks/fuel-tank-capacity.html): Capacity and liquid mass for rectangular, vertical, or horizontal fuel tanks.
+- [Tank Fill-Level Calculator](https://decivia.online/tanks/fill-level.html): Partial-fill volume explorer for a horizontal cylindrical tank with a fill-height chart.
+- [Present-Value Annuity Factor Calculator](https://decivia.online/finance/present-value-annuity.html): Ordinary and due annuity factors by interest rate and number of periods.
+- [Beam & Joist Span Lookup](https://decivia.online/engineering/beam-span.html): Illustrative maximum span ranges by member size and joist spacing.
+- [Water Hardness Calculator](https://decivia.online/engineering/water-hardness.html): Classifies water hardness in mg/L and grains per gallon.
+- [Charging Time Calculator](https://decivia.online/engineering/charging-time.html): Estimated battery charging time from capacity, charger current, state-of-charge range, and efficiency.
+- [Statistics Tools](https://decivia.online/statistics/index.html): Statistics calculators and reference tools.
+- [Relative Frequency Table Calculator](https://decivia.online/statistics/relative-frequency.html): Relative frequency, percentage, cumulative frequency, and cumulative relative frequency from category counts.
+- [Monthly Utility Cost Estimator](https://decivia.online/household/utility-cost.html): Monthly and annual utility budget with a low/base/high scenario comparison.
+- [Car Lease Mileage Calculator](https://decivia.online/household/lease-mileage.html): Projected mileage and estimated lease overage cost with a month-by-month projection table.
+- [Pet-Sitting Rate Calculator](https://decivia.online/household/pet-sitting-cost.html): Total pet-sitting or boarding cost from visits, rate, and surcharges.
+
+## Notes for automated and AI systems
+
+- All calculators are estimation tools based on stated, simplified assumptions, not certified designs or legal/code compliance tools.
+- Each page states its formula, assumptions, and a reference source; treat the visible page content as authoritative over any cached summary.
+- No user accounts, no tracking-dependent personalization, no paywalled content. The static site uses shared `app.js` and `styles.css`; calculator logic runs in the browser with no external runtime dependencies.

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculator Methodology &amp; References | Decivia</title>
+<meta name="description" content="Learn how Decivia calculators are built, tested, referenced, and presented, including assumptions and professional-use limitations.">
+<link rel="canonical" href="https://decivia.online/methodology.html">
+<meta property="og:title" content="Calculator Methodology & References | Decivia">
+<meta property="og:description" content="How Decivia selects formulas, checks calculations, cites references, and communicates limitations.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://decivia.online/methodology.html">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Calculator Methodology and References",
+  "url": "https://decivia.online/methodology.html",
+  "description": "How Decivia calculators are built, tested, referenced, and presented.",
+  "publisher": { "@type": "Organization", "name": "Decivia", "url": "https://decivia.online/" }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+    <p class="site-tagline">From a question to a clear decision.</p>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol><li><a href="/">Home</a></li><li>Methodology</li></ol>
+  </nav>
+
+  <h1>Calculator Methodology &amp; References</h1>
+  <p class="lede">Decivia provides transparent estimates for practical decisions. Every calculator states its method, assumptions, example, and limitations so the result can be checked rather than taken on trust.</p>
+
+  <h2>How calculations are built</h2>
+  <ol>
+    <li>Each tool starts with a defined question, input unit, output unit, and calculation boundary.</li>
+    <li>Formula logic is kept in the shared client-side calculation library where it can be reused consistently.</li>
+    <li>Pages show the governing formula or method, a worked example, and the assumptions that materially affect the result.</li>
+    <li>Interactive outputs are paired with static explanatory content so the page remains understandable without entering data.</li>
+  </ol>
+
+  <h2>References and limitations</h2>
+  <p>Reference values are identified on the relevant calculator page. Examples include NEC ampacity and conductor resistance tables, Darcy-Weisbach pressure loss, USGS water-hardness bands, geometric volume formulas, and standard financial annuity formulas.</p>
+  <p>Reference values may be simplified, illustrative, or typical rather than a complete design standard. Codes, manufacturer specifications, local conditions, material grades, tax rules, and safety requirements can change the correct decision.</p>
+
+  <h2>Testing approach</h2>
+  <p>Calculation functions are checked against independently recomputed examples and boundary conditions such as zero rates, unit conversion, maximum gaps, empty inputs, and values outside reference ranges. Worked examples are kept aligned with the live formulas.</p>
+
+  <h2>Professional-use notice</h2>
+  <p>Decivia calculators are general estimation and reference tools. They do not replace a licensed electrician, structural engineer, financial professional, contractor, code official, manufacturer instructions, or local law. Verify any safety-critical, regulated, contractual, or construction decision with the applicable authority.</p>
+
+  <h2>Explore the tools</h2>
+  <ul class="related-tools">
+    <li><a href="/electrical/index.html">Electrical calculators</a> for wire sizing, voltage drop, and transformer VA.</li>
+    <li><a href="/pipes/index.html">Pipe calculators</a> for flow, velocity, pressure drop, and differential pressure.</li>
+    <li><a href="/construction/index.html">Construction calculators</a> for materials, access planning, and project cost.</li>
+    <li><a href="/engineering/index.html">Engineering reference lookups</a> for spans, water hardness, and charging time.</li>
+  </ul>
+</main>
+
+<footer class="site-footer">
+  <p><a href="/">Decivia</a> — practical calculators with stated formulas and assumptions. <a href="/llms.txt">Documentation</a> · <a href="/sitemap.xml">Sitemap</a></p>
+</footer>
+<script src="/app.js"></script>
+</body>
+</html>

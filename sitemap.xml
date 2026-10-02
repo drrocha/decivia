@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://decivia.online/</loc><priority>1.0</priority></url>
+  <url><loc>https://decivia.online/methodology.html</loc><priority>0.5</priority></url>
+
+  <url><loc>https://decivia.online/electrical/index.html</loc><priority>0.6</priority></url>
+  <url><loc>https://decivia.online/electrical/wire-sizing.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/electrical/voltage-drop.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/electrical/transformer-sizing.html</loc><priority>0.8</priority></url>
+
+  <url><loc>https://decivia.online/pipes/index.html</loc><priority>0.6</priority></url>
+  <url><loc>https://decivia.online/pipes/flow-rate.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/pipes/pressure-drop.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/pipes/differential-pressure.html</loc><priority>0.8</priority></url>
+
+  <url><loc>https://decivia.online/mechanical/index.html</loc><priority>0.6</priority></url>
+  <url><loc>https://decivia.online/mechanical/gear-ratio.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/mechanical/final-drive-ratio.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/mechanical/spring-rate.html</loc><priority>0.8</priority></url>
+
+  <url><loc>https://decivia.online/construction/index.html</loc><priority>0.6</priority></url>
+  <url><loc>https://decivia.online/construction/room-area.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/construction/deck-materials.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/construction/drywall.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/construction/gravel-topsoil.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/construction/project-materials.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/construction/construction-cost.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/construction/ramp-slope.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/construction/baluster-spacing.html</loc><priority>0.8</priority></url>
+
+  <url><loc>https://decivia.online/tanks/index.html</loc><priority>0.6</priority></url>
+  <url><loc>https://decivia.online/tanks/tank-volume.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/tanks/fuel-tank-capacity.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/tanks/fill-level.html</loc><priority>0.8</priority></url>
+
+  <url><loc>https://decivia.online/engineering/index.html</loc><priority>0.6</priority></url>
+  <url><loc>https://decivia.online/engineering/beam-span.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/engineering/water-hardness.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/engineering/charging-time.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/engineering/reference-tables.html</loc><priority>0.8</priority></url>
+
+  <url><loc>https://decivia.online/finance/index.html</loc><priority>0.6</priority></url>
+  <url><loc>https://decivia.online/finance/present-value-annuity.html</loc><priority>0.8</priority></url>
+
+  <url><loc>https://decivia.online/household/index.html</loc><priority>0.6</priority></url>
+  <url><loc>https://decivia.online/household/utility-cost.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/household/lease-mileage.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/household/pet-sitting-cost.html</loc><priority>0.8</priority></url>
+  <url><loc>https://decivia.online/household/cost-planner.html</loc><priority>0.8</priority></url>
+
+  <url><loc>https://decivia.online/statistics/index.html</loc><priority>0.6</priority></url>
+  <url><loc>https://decivia.online/statistics/relative-frequency.html</loc><priority>0.8</priority></url>
+</urlset>

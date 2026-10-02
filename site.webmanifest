@@ -1,0 +1,10 @@
+{
+  "name": "Decivia",
+  "short_name": "Decivia",
+  "description": "From a question to a clear decision.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f8fafc",
+  "theme_color": "#1d4ed8",
+  "icons": []
+}

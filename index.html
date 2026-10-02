@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>decivia.online — Technical Calculators Built for Exact Decisions</title>
+<meta name="description" content="Free, lightweight, verified engineering and finance calculators for electrical wire sizing, voltage drop, pipe flow, drivetrain ratios, construction materials, tank volume, and engineering spans.">
+<link rel="canonical" href="https://decivia.online/">
+<meta property="og:title" content="decivia.online — Technical Calculators Built for Exact Decisions">
+<meta property="og:description" content="Instant engineering and finance estimation tools with stated formulas, transparent assumptions, and zero tracking.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://decivia.online/">
+<link rel="manifest" href="/site.webmanifest"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebSite", "name": "Decivia", "url": "https://decivia.online/" },
+    { "@type": "Organization", "name": "Decivia", "url": "https://decivia.online/", "description": "Free practical calculators and reference tools with stated formulas and assumptions." }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="site-brand-group">
+      <a class="brand-icon" href="/" aria-label="decivia.online Home">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"></circle>
+          <line x1="12" y1="3" x2="12" y2="21"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+      </a>
+      <a class="site-logo" href="/">decivia<span class="accent">.online</span></a>
+      <p class="site-tagline">From a question to a clear decision.</p>
+    </div>
+
+    <div class="header-actions">
+      <nav class="header-nav" aria-label="Quick links">
+        <a href="#feature-groups">All Calculators</a>
+        <a href="/electrical/index.html">Electrical Tools</a>
+        <a href="/pipes/index.html">Hydraulics</a>
+        <a href="/construction/index.html">Construction</a>
+      </nav>
+      <!-- Theme toggle will be mounted here by app.js -->
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero-section">
+    <div class="hero-tech-badge">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span>Engineering &middot; Finance &middot; Planning</span>
+    </div>
+    <h1>Practical Calculators Built for Exact Decisions</h1>
+    <p class="lede">Free, instant engineering and finance estimators with stated formulas, transparent assumptions, and zero tracking. Pure client-side computation &mdash; loads in milliseconds.</p>
+
+    <div class="site-search-wrap">
+      <div class="site-search-bar site-search">
+        <span class="site-search-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </span>
+        <label for="tool-filter" class="visually-hidden">Filter calculators</label>
+        <input type="search" id="tool-filter" placeholder="Search calculators by trade or metric (e.g. 'wire gauge', 'pressure drop', 'drywall', 'gear ratio')..." autocomplete="off">
+        <button type="button" class="search-clear-btn" id="search-clear-btn" aria-label="Clear search query" hidden title="Clear search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <kbd class="search-kbd" title="Press / anywhere to search">/</kbd>
+      </div>
+
+      <div class="filter-tabs" id="category-filter-tabs" role="tablist" aria-label="Tool Categories">
+        <button type="button" class="filter-tab active" data-filter="all">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>All Tools</span>
+          <span class="tab-badge">30</span>
+        </button>
+        <button type="button" class="filter-tab" data-filter="electrical">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>Electrical</span>
+          <span class="tab-badge">3</span>
+        </button>
+        <button type="button" class="filter-tab" data-filter="pipes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="1"/><line x1="6" y1="7" x2="6" y2="17"/><line x1="18" y1="7" x2="18" y2="17"/><path d="M10 12h4m-2-2 2 2-2 2"/></svg>
+          <span>Pipe Flow</span>
+          <span class="tab-badge">3</span>
+        </button>
+        <button type="button" class="filter-tab" data-filter="mechanical">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1.51-1V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Mechanical</span>
+          <span class="tab-badge">3</span>
+        </button>
+        <button type="button" class="filter-tab" data-filter="construction">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 8.7 8.7 21.3a1 1 0 0 1-1.4 0l-4.6-4.6a1 1 0 0 1 0-1.4L15.3 2.7a1 1 0 0 1 1.4 0l4.6 4.6a1 1 0 0 1 0 1.4z"/><path d="m7.5 10.5 2 2"/><path d="m10.5 7.5 2 2"/><path d="m13.5 4.5 2 2"/><path d="m4.5 13.5 2 2"/></svg>
+          <span>Construction</span>
+          <span class="tab-badge">8</span>
+        </button>
+        <button type="button" class="filter-tab" data-filter="tanks">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg>
+          <span>Tanks &amp; Vessels</span>
+          <span class="tab-badge">3</span>
+        </button>
+        <button type="button" class="filter-tab" data-filter="engineering">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+          <span>Reference Tables</span>
+          <span class="tab-badge">4</span>
+        </button>
+        <button type="button" class="filter-tab" data-filter="statistics">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="4" y2="10"/><line x1="10" y1="20" x2="10" y2="4"/><line x1="16" y1="20" x2="16" y2="8"/><line x1="22" y1="20" x2="22" y2="13"/></svg>
+          <span>Statistics</span>
+          <span class="tab-badge">1</span>
+        </button>
+        <button type="button" class="filter-tab" data-filter="finance">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="3" y1="4" x2="3" y2="20"/><polyline points="4 16 9 12 14 14 20 6"/><polyline points="16 6 20 6 20 10"/></svg>
+          <span>Finance</span>
+          <span class="tab-badge">1</span>
+        </button>
+        <button type="button" class="filter-tab" data-filter="household">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Household</span>
+          <span class="tab-badge">4</span>
+        </button>
+      </div>
+
+      <div class="filter-status-bar" id="filter-status-bar" aria-live="polite">
+        <div class="filter-status-text">
+          <span>Showing <strong id="visible-category-count">9</strong> categories (<strong id="visible-tool-count">30</strong> calculators)</span>
+        </div>
+        <button type="button" class="filter-reset-btn" id="filter-reset-btn" hidden>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          <span>Reset Filters</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-features-bar">
+      <div class="hero-feature-item">
+        <span class="hero-feature-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+        </span>
+        <div><strong>Zero Latency Client Engine</strong> &mdash; Instant computation, zero network roundtrips, works completely offline.</div>
+      </div>
+      <div class="hero-feature-item">
+        <span class="hero-feature-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="m4.93 19 4.24-10.6"/><path d="m14.83 8.4 4.24 10.6"/><path d="M14.83 8.4A4 4 0 0 0 9.17 8.4"/><path d="M7.8 15h8.4"/></svg>
+        </span>
+        <div><strong>Verifiable Technical Formulas</strong> &mdash; Stated assumptions grounded in NEC, Darcy-Weisbach, NEMA, and USGS standards.</div>
+      </div>
+      <div class="hero-feature-item">
+        <span class="hero-feature-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </span>
+        <div><strong>Private &amp; Autonomous</strong> &mdash; Zero trackers, no required accounts, no tracking cookies, and no paywalls.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="answer-section" aria-labelledby="answer-heading">
+    <h2 id="answer-heading">What these calculators help you decide</h2>
+    <p>Decivia turns practical inputs into transparent estimates: wire size from current and distance, pipe loss from flow and diameter, material quantities from area and depth, tank volume from dimensions, drivetrain speed from gearing, and household costs from user-entered rates.</p>
+    <p>Every calculator shows its formula, a worked example, assumptions, and limitations. Results are estimates for planning and comparison, not certified engineering designs, code determinations, or professional financial advice.</p>
+  </section>
+
+  <div class="no-results-panel" id="no-results-panel" hidden>
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--text-subtle)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 0.5rem;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="12"></line><line x1="11" y1="14" x2="11.01" y2="14"></line></svg>
+    <h3>No matching calculators found</h3>
+    <p id="no-results-desc">No calculators match your current search and category filters. Try clearing your search query or choosing another trade category.</p>
+    <button type="button" class="btn secondary" id="no-results-reset-btn">Reset All Filters</button>
+  </div>
+
+  <div class="feature-groups" id="feature-groups">
+    <!-- 1. Electrical Sizing -->
+    <section class="feature-group" data-category="electrical" data-keywords="electrical wire sizing voltage drop ampacity gauge transformer circuit breaker awg nec copper aluminum">
+      <div class="feature-header">
+        <div class="feature-icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h2>Electrical Sizing</h2>
+      </div>
+      <p>Wire gauge, ampacity rating, voltage drop percentage, and transformer VA sizing for commercial or residential circuits.</p>
+      <div class="links">
+        <a class="primary-link" href="/electrical/wire-sizing.html">Wire size &amp; ampacity calculator</a>
+        <a href="/electrical/voltage-drop.html">Voltage drop calculator</a>
+        <a href="/electrical/transformer-sizing.html">Transformer VA sizing calculator</a>
+        <a href="/electrical/index.html">All electrical tools &amp; charts</a>
+      </div>
+    </section>
+
+    <!-- 2. Pipe Flow & Hydraulics -->
+    <section class="feature-group" data-category="pipes" data-keywords="pipe flow pressure drop velocity water darcy weisbach head loss friction plumbing gpm lpm">
+      <div class="feature-header">
+        <div class="feature-icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="1"/><line x1="6" y1="7" x2="6" y2="17"/><line x1="18" y1="7" x2="18" y2="17"/><path d="M10 12h4m-2-2 2 2-2 2"/></svg>
+        </div>
+        <h2>Pipe Flow &amp; Hydraulics</h2>
+      </div>
+      <p>Flow velocity and Darcy-Weisbach pressure drop calculations across PVC, copper, steel, and HDPE pipe materials.</p>
+      <div class="links">
+        <a class="primary-link" href="/pipes/pressure-drop.html">Pipe pressure drop calculator</a>
+        <a href="/pipes/flow-rate.html">Pipe flow rate &amp; velocity</a>
+        <a href="/pipes/differential-pressure.html">Differential pressure calculator</a>
+        <a href="/pipes/index.html">All pipe tools &amp; flow reference</a>
+      </div>
+    </section>
+
+    <!-- 3. Gear Ratio & Drivetrain -->
+    <section class="feature-group" data-category="mechanical" data-keywords="gear ratio drivetrain rpm speed differential final drive transmission automotive engine axle torque">
+      <div class="feature-header">
+        <div class="feature-icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>
+        <h2>Gear Ratio &amp; Drivetrain</h2>
+      </div>
+      <p>Wheel RPM, road speed, and torque multiplication from engine RPM, transmission ratios, and tire circumference.</p>
+      <div class="links">
+        <a class="primary-link" href="/mechanical/gear-ratio.html">Gear ratio &amp; speed calculator</a>
+        <a href="/mechanical/final-drive-ratio.html">Final drive ratio &amp; axle torque</a>
+        <a href="/mechanical/spring-rate.html">Spring-rate calculator</a>
+        <a href="/mechanical/index.html">All mechanical &amp; drivetrain tools</a>
+      </div>
+    </section>
+
+    <!-- 4. Construction Materials -->
+    <section class="feature-group" data-category="construction" data-keywords="construction materials drywall gravel topsoil deck room area square footage building flooring lumber">
+      <div class="feature-header">
+        <div class="feature-icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 8.7 8.7 21.3a1 1 0 0 1-1.4 0l-4.6-4.6a1 1 0 0 1 0-1.4L15.3 2.7a1 1 0 0 1 1.4 0l4.6 4.6a1 1 0 0 1 0 1.4z"/><path d="m7.5 10.5 2 2"/><path d="m10.5 7.5 2 2"/><path d="m13.5 4.5 2 2"/><path d="m4.5 13.5 2 2"/></svg>
+        </div>
+        <h2>Construction Materials</h2>
+      </div>
+      <p>Area, volume, and waste-adjusted quantities for flooring, drywall sheets, gravel, and deck boards.</p>
+      <div class="links">
+        <a class="primary-link" href="/construction/room-area.html">Room area &amp; flooring calculator</a>
+        <a href="/construction/deck-materials.html">Deck material &amp; board count</a>
+        <a href="/construction/drywall.html">Drywall sheet count &amp; area</a>
+        <a href="/construction/gravel-topsoil.html">Gravel &amp; topsoil volume</a>
+        <a href="/construction/project-materials.html">Combined project materials</a>
+        <a href="/construction/construction-cost.html">Construction cost estimator</a>
+        <a href="/construction/ramp-slope.html">Ramp slope planner</a>
+        <a href="/construction/baluster-spacing.html">Baluster spacing planner</a>
+        <a href="/construction/index.html">All construction estimators</a>
+      </div>
+    </section>
+
+    <!-- 5. Tank Capacity & Fill -->
+    <section class="feature-group" data-category="tanks" data-keywords="tank capacity volume cylinder fuel fill level gallons liters liquid storage cistern reservoir dipstick">
+      <div class="feature-header">
+        <div class="feature-icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg>
+        </div>
+        <h2>Tank Capacity &amp; Fill</h2>
+      </div>
+      <p>Total capacity and partial-fill liquid volume exploration for rectangular and horizontal cylindrical tanks.</p>
+      <div class="links">
+        <a class="primary-link" href="/tanks/tank-volume.html">Tank volume &amp; fill calculator</a>
+        <a href="/tanks/fill-level.html">Liquid fill level &amp; dipstick</a>
+        <a href="/tanks/fuel-tank-capacity.html">Fuel tank capacity estimator</a>
+        <a href="/tanks/index.html">All tank calculators</a>
+      </div>
+    </section>
+
+    <!-- 6. Engineering Reference Tables -->
+    <section class="feature-group" data-category="engineering" data-keywords="engineering reference table span beam water hardness joist load lookup structural lumber usgs mg/l">
+      <div class="feature-header">
+        <div class="feature-icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+        </div>
+        <h2>Engineering Reference Tables</h2>
+      </div>
+      <p>Reference tables for lumber beam/joist spans and USGS water hardness classification with unit conversion.</p>
+      <div class="links">
+        <a class="primary-link" href="/engineering/beam-span.html">Beam &amp; joist span lookup</a>
+        <a href="/engineering/water-hardness.html">Water hardness classification</a>
+        <a href="/engineering/reference-tables.html">Reference tables directory</a>
+        <a href="/engineering/charging-time.html">Charging-time calculator</a>
+        <a href="/engineering/index.html">All engineering reference lookups</a>
+      </div>
+    </section>
+
+    <!-- 7. Statistics -->
+    <section class="feature-group" data-category="statistics" data-keywords="statistics relative frequency frequency table count percentage cumulative joint conditional data categories">
+      <div class="feature-header">
+        <div class="feature-icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="4" y2="10"/><line x1="10" y1="20" x2="10" y2="4"/><line x1="16" y1="20" x2="16" y2="8"/><line x1="22" y1="20" x2="22" y2="13"/></svg>
+        </div>
+        <h2>Statistics</h2>
+      </div>
+      <p>Build relative frequency tables from category counts, including percentages and cumulative totals.</p>
+      <div class="links">
+        <a class="primary-link" href="/statistics/relative-frequency.html">Relative frequency table calculator</a>
+        <a href="/statistics/index.html">All statistics tools</a>
+      </div>
+    </section>
+
+    <!-- 8. Finance & Annuity -->
+    <section class="feature-group" data-category="finance" data-keywords="finance present value annuity factor loan lease payment interest formula cash flow">
+      <div class="feature-header">
+        <div class="feature-icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="3" y1="4" x2="3" y2="20"/><polyline points="4 16 9 12 14 14 20 6"/><polyline points="16 6 20 6 20 10"/></svg>
+        </div>
+        <h2>Finance &amp; Annuity</h2>
+      </div>
+      <p>Present-value annuity factors for ordinary annuities and annuities-due across custom rates and periods.</p>
+      <div class="links">
+        <a class="primary-link" href="/finance/present-value-annuity.html">Present-value annuity calculator</a>
+        <a href="/finance/index.html">All financial planning tools</a>
+      </div>
+    </section>
+
+    <!-- 9. Household Cost Planning -->
+    <section class="feature-group" data-category="household" data-keywords="household cost utility lease mileage pet sitting budget electric gas water monthly allocation">
+      <div class="feature-header">
+        <div class="feature-icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h2>Household Cost Planning</h2>
+      </div>
+      <p>Estimate monthly utility allocations, projected car lease overage mileage costs, and service rates.</p>
+      <div class="links">
+        <a class="primary-link" href="/household/utility-cost.html">Monthly utility cost estimator</a>
+        <a href="/household/lease-mileage.html">Lease mileage overage estimator</a>
+        <a href="/household/pet-sitting-cost.html">Pet-sitting &amp; boarding cost</a>
+        <a href="/household/cost-planner.html">Combined cost planner</a>
+        <a href="/household/index.html">All household cost calculators</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <strong style="color:var(--text);">decivia<span class="accent">.online</span></strong> &mdash; From a question to a clear decision.
+    </div>
+    <div class="footer-nav">
+      <a href="/">Home</a>
+      <a href="/electrical/wire-sizing.html">Wire Sizing</a>
+      <a href="/electrical/voltage-drop.html">Voltage Drop</a>
+      <a href="/pipes/pressure-drop.html">Pipe Pressure Drop</a>
+      <a href="/mechanical/gear-ratio.html">Gear Ratios</a>
+      <a href="/construction/drywall.html">Drywall</a>
+      <a href="/statistics/relative-frequency.html">Relative Frequency</a>
+      <a href="/tanks/tank-volume.html">Tank Volume</a>
+      <a href="/llms.txt">Documentation</a>
+      <a href="/methodology.html">Methodology</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </div>
+    <p>Decivia provides practical estimation tools. Calculations are based on simplified reference models and are not a substitute for certified engineering designs or local safety codes.</p>
+  </div>
+</footer>
+
+<script src="/app.js"></script>
+
+<script>
+(function() {
+  const searchInput = document.getElementById("tool-filter");
+  const clearBtn = document.getElementById("search-clear-btn");
+  const filterTabs = document.querySelectorAll("#category-filter-tabs .filter-tab");
+  const groups = document.querySelectorAll("#feature-groups .feature-group");
+  const catCountEl = document.getElementById("visible-category-count");
+  const toolCountEl = document.getElementById("visible-tool-count");
+  const resetBtn = document.getElementById("filter-reset-btn");
+  const noResultsPanel = document.getElementById("no-results-panel");
+  const noResultsResetBtn = document.getElementById("no-results-reset-btn");
+  let activeCategory = "all";
+
+  function applyFilter() {
+    const rawQ = searchInput ? searchInput.value.trim() : "";
+    const q = rawQ.toLowerCase();
+    const terms = q.split(/\s+/).filter(Boolean);
+
+    if (clearBtn) {
+      clearBtn.hidden = rawQ.length === 0;
+    }
+
+    let visibleCategories = 0;
+    let visibleTools = 0;
+
+    groups.forEach(function (group) {
+      const category = group.dataset.category || "";
+      const categoryMatch = activeCategory === "all" || category === activeCategory;
+
+      const keywords = group.dataset.keywords || "";
+      const text = group.textContent || "";
+      const haystack = (keywords + " " + text).toLowerCase();
+
+      const textMatch = terms.length === 0 || terms.every(function (term) {
+        return haystack.includes(term);
+      });
+
+      const isVisible = categoryMatch && textMatch;
+      group.hidden = !isVisible;
+      group.style.display = isVisible ? "flex" : "none";
+
+      if (isVisible) {
+        visibleCategories++;
+        const links = Array.from(group.querySelectorAll(".links a")).filter(function (link) {
+          return !/\/index\.html$/.test(link.getAttribute("href") || "");
+        });
+        visibleTools += links.length;
+      }
+    });
+
+    if (catCountEl) catCountEl.textContent = String(visibleCategories);
+    if (toolCountEl) toolCountEl.textContent = String(visibleTools);
+
+    const isFiltered = activeCategory !== "all" || rawQ.length > 0;
+    if (resetBtn) resetBtn.hidden = !isFiltered;
+
+    if (noResultsPanel) {
+      noResultsPanel.hidden = visibleCategories > 0;
+    }
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener("input", applyFilter);
+    searchInput.addEventListener("search", applyFilter);
+    searchInput.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") {
+        searchInput.value = "";
+        applyFilter();
+        searchInput.blur();
+      }
+    });
+  }
+
+  if (clearBtn) {
+    clearBtn.addEventListener("click", function() {
+      if (searchInput) {
+        searchInput.value = "";
+        searchInput.focus();
+        applyFilter();
+      }
+    });
+  }
+
+  function resetAll() {
+    if (searchInput) searchInput.value = "";
+    activeCategory = "all";
+    filterTabs.forEach(function(t) {
+      t.classList.toggle("active", t.dataset.filter === "all");
+    });
+    applyFilter();
+  }
+
+  if (resetBtn) resetBtn.addEventListener("click", resetAll);
+  if (noResultsResetBtn) noResultsResetBtn.addEventListener("click", resetAll);
+
+  filterTabs.forEach(function(tab) {
+    tab.addEventListener("click", function() {
+      const filter = tab.dataset.filter;
+      // Toggle: if clicking the active tab (other than 'all'), toggle back to 'all'
+      if (activeCategory === filter && filter !== "all") {
+        activeCategory = "all";
+      } else {
+        activeCategory = filter;
+      }
+
+      filterTabs.forEach(function(t) {
+        t.classList.toggle("active", t.dataset.filter === activeCategory);
+      });
+
+      applyFilter();
+
+      // Smooth scroll down to feature groups if user clicked a specific category
+      const featureGroupsEl = document.getElementById("feature-groups");
+      if (featureGroupsEl && activeCategory !== "all") {
+        const rect = featureGroupsEl.getBoundingClientRect();
+        if (rect.top > window.innerHeight * 0.7 || rect.top < 0) {
+          featureGroupsEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    });
+  });
+
+  // Calculate actual initial category and tool counts on boot
+  applyFilter();
+})();
+</script>
+</body>
+</html>
